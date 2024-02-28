@@ -2,13 +2,12 @@ const express = require("express");
 const workoutRoutes = require("./src/routes/workouts");
 const mongoose = require("mongoose");
 
-require("dotenv").config();
+require("dotenv").config({ path: './src/configs/.env'});
 
 const app = express();
 
 app.use(express.json());
 app.use((req, res, next) => {
-  console.log(req.path, req.method);
   next();
 });
 
