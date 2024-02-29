@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import WorkoutContextProvider from "./providers/WorkoutContext.js/WorkoutContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <WorkoutContextProvider>
+        <App />
+      </WorkoutContextProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

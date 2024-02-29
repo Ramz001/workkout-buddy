@@ -1,19 +1,25 @@
-/* eslint-disable no-unused-vars */
 import { useState } from "react";
+import { useWorkoutsContext } from "../../hooks/useWorkoutsContext/useWorkoutsContext";
 
 const WorkoutForm = () => {
+  const { dispatch } = useWorkoutsContext();
   const [title, setTitle] = useState("");
   const [repetitions, setRepetitions] = useState(0);
   const [sets, setSets] = useState(0);
   const [load, setLoad] = useState(0);
   const [duration, setDuration] = useState(0);
   const [error, setError] = useState(null);
+  const [emptyFields, setEmptyFields] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const workout = { title, load, repetitions, sets };
-    console.log(workout);
+    if (!title || !sets || !repetitions) {
+      return setError("Fields are required!");
+    }
+    const createdAt = new Date().toISOString().slice(0, 10);
+
+    const workout = { title, load, repetitions, sets, duration, createdAt };
 
     const response = await fetch("/api/workouts", {
       method: "POST",
@@ -22,21 +28,28 @@ const WorkoutForm = () => {
         "Content-Type": "application/json",
       },
     });
-    const json = await response.json();
+    const data = await response.json();
 
     if (!response.ok) {
-      setError(json.error);
+      setError(data.error);
+      setEmptyFields(data.emptyFields);
     }
-    setError(null);
-    setTitle(null);
-    setLoad(null);
-    setRepetitions(null);
-    setSets(null);
-    console.log("new workout added:", json);
+    if (response.ok) {
+      dispatch({ type: "CREATE_WORKOUT", payload: workout });
+      setError(null);
+      setTitle(null);
+      setLoad(null);
+      setRepetitions(null);
+      setSets(null);
+      setEmptyFields([]);
+    }
   };
 
   return (
-    <form className="flex flex-col gap-1 justify-start items-start bg-gray-100 rounded-xl p-4 text-base md:w-80 md:h-[29rem]">
+    <form
+      className="flex flex-col gap-1 justify-start items-start sticky 
+    rounded-xl p-4 text-base md:w-80 md:h-[30rem]"
+    >
       <h3 className="text-xl mb-4">Add a New Workout</h3>
 
       <div className="flex flex-col gap-1 w-full">
@@ -49,8 +62,11 @@ const WorkoutForm = () => {
           id="workout-title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="px-2 h-8 rounded-lg"
-          required
+          className={`${
+            emptyFields && emptyFields.includes("title")
+              ? "border-2 border-red-500"
+              : " "
+          } px-2 h-8 rounded-lg`}
         />
       </div>
       <div className="flex flex-col gap-1 w-full">
@@ -61,8 +77,11 @@ const WorkoutForm = () => {
           id="workout-repetitions"
           value={repetitions}
           onChange={(e) => setRepetitions(e.target.value)}
-          className="px-2 h-8 rounded-lg"
-          required
+          className={`${
+            emptyFields && emptyFields.includes("repetitions")
+              ? "border-2 border-red-500"
+              : " "
+          } px-2 h-8 rounded-lg`}
         />
       </div>
       <div className="flex flex-col gap-1 w-full">
@@ -73,12 +92,15 @@ const WorkoutForm = () => {
           id="workout-sets"
           value={sets}
           onChange={(e) => setSets(e.target.value)}
-          className="px-2 h-8 rounded-lg"
-          required
+          className={`${
+            emptyFields && emptyFields.includes("sets")
+              ? "border-2 border-red-500"
+              : ""
+          } px-2 h-8 rounded-lg`}
         />
       </div>
       <div className="flex flex-col gap-1 w-full">
-        <label htmlFor="workout-load">Load: </label>
+        <label htmlFor="workout-load">Load: (in Kilos)</label>
         <input
           type="number"
           name="load"
@@ -89,7 +111,7 @@ const WorkoutForm = () => {
         />
       </div>
       <div className="flex flex-col gap-1 w-full">
-        <label htmlFor="workout-duration">Duration: </label>
+        <label htmlFor="workout-duration">Duration: (in seconds)</label>
         <input
           type="number"
           name="duration"
@@ -109,7 +131,11 @@ const WorkoutForm = () => {
       >
         Add Workout
       </button>
-      {error && <div className="text-red-500 text-base">{error}</div>}
+      {error && (
+        <div className="text-red-600 font-bold text-sm p-2 border bg-slate-100 rounded-md mt-2 border-red-600">
+          {error}
+        </div>
+      )}
     </form>
   );
 };
