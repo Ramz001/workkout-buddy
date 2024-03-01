@@ -4,7 +4,7 @@ import WorkoutEditPopup from "../WorkoutEditPopup/WorkoutEditPopup";
 const WorkoutDetails = ({ workout }) => {
   const { title, repetitions, load, sets, duration, createdAt, _id } = workout;
   const { dispatch } = useWorkoutsContext();
-  
+
   const handleDeleteBtn = async () => {
     const response = await fetch("/api/workouts/" + _id, {
       method: "DELETE",
@@ -20,8 +20,8 @@ const WorkoutDetails = ({ workout }) => {
   };
 
   const handleEditBtn = () => {
-    dispatch({ type: "TOGGLE_POPUP" })
-  }
+    dispatch({ type: "TOGGLE_POPUP" });
+  };
 
   return (
     <div
@@ -63,7 +63,7 @@ const WorkoutDetails = ({ workout }) => {
         <button
           className="text-green-600 text-sm border border-green-600 
         px-3 py-1 rounded-lg hover:text-slate-100 hover:bg-green-600"
-        onClick={handleEditBtn}
+          onClick={handleEditBtn}
         >
           Edit
         </button>

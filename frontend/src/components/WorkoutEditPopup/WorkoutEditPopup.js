@@ -11,54 +11,67 @@ const WorkoutEditPopup = ({ workout }) => {
   const [error, setError] = useState(null);
 
   const handleCloseBtn = () => {
-    dispatch({ type: "TOGGLE_POPUP" })
-  }
+    dispatch({ type: "TOGGLE_POPUP" });
+  };
 
   const handleSubmit = async (e, type) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!title || !sets || !repetitions) {
       return setError("Fields are required!");
     }
 
-    const editedWorkout = { title, load, repetitions, sets, duration, createdAt: workout.createdAt };
+    const editedWorkout = {
+      title,
+      load,
+      repetitions,
+      sets,
+      duration,
+      createdAt: workout.createdAt,
+    };
 
-    const response = await fetch('/api/workouts/' + workout._id, {
+    const response = await fetch("/api/workouts/" + workout._id, {
       method: "PATCH",
       body: JSON.stringify(editedWorkout),
       headers: {
-        'Content-Type': 'application/json',
-        },
-    })
+        "Content-Type": "application/json",
+      },
+    });
 
-    const data = await response
+    const data = await response;
 
     if (!response.ok) {
       setError(data.error);
     }
     if (response.ok) {
       dispatch({ type: "EDIT_WORKOUT", payload: editedWorkout });
-      dispatch({ type: "DELETE_WORKOUT", payload: workout })
-      dispatch({ type: "TOGGLE_POPUP" })
+      dispatch({ type: "DELETE_WORKOUT", payload: workout });
+      dispatch({ type: "TOGGLE_POPUP" });
       setError(null);
       setTitle(null);
       setLoad(null);
       setRepetitions(null);
       setSets(null);
     }
-  }
+  };
 
   return (
     state.popup && (
       <div
         className="absolute bottom-0 left-0 top-0 flex items-center justify-center 
-    w-full h-full bg-black bg-opacity-25"
+    w-full h-full bg-black bg-opacity-25 z-10"
       >
         <form
           className="flex flex-col gap-2 justify-start items-start min-w-96
     rounded-xl p-4 text-base  bg-slate-100"
         >
-          <button onClick={handleCloseBtn} type="button" className="material-symbols-outlined self-end">Close</button>
+          <button
+            onClick={handleCloseBtn}
+            type="button"
+            className="material-symbols-outlined self-end"
+          >
+            Close
+          </button>
           <h3 className="text-2xl font-semibold tracking-wider mb-4">
             Edit a Workout
           </h3>
@@ -125,15 +138,15 @@ const WorkoutEditPopup = ({ workout }) => {
             className="self-center rounded-xl px-5 py-2 hover:bg-green-600 text-base 
           md:text-lg font-semibold flex justify-center items-center bg-green-500 
           text-slate-100 mt-4"
-          onClick={handleSubmit}
+            onClick={handleSubmit}
           >
             Edit Workout
           </button>
           {error && (
-        <div className="text-red-600 font-bold text-sm w-full p-2 border bg-slate-100 rounded-md mt-2 border-red-600">
-          {error}
-        </div>
-      )}
+            <div className="text-red-600 font-bold text-sm w-full p-2 border bg-slate-100 rounded-md mt-2 border-red-600">
+              {error}
+            </div>
+          )}
         </form>
       </div>
     )

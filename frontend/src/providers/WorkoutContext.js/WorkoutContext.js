@@ -24,16 +24,15 @@ export const workoutsReducer = (state, action) => {
       return { ...state, popup: !state.popup };
     }
     case "EDIT_WORKOUT": {
-      let currentWorkout = state.workouts.find(workout => workout._id === action.payload._id)
+      let currentWorkout = state.workouts.find(
+        (workout) => workout._id === action.payload._id
+      );
 
-      currentWorkout = { ...action.payload}
+      currentWorkout = { ...action.payload };
 
       return {
         ...state,
-        workouts: [
-          ...state.workouts,
-          currentWorkout
-        ],
+        workouts: [...state.workouts, currentWorkout],
       };
     }
     default:
