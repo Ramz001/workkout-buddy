@@ -1,10 +1,11 @@
 import { useEffect } from "react";
+import { useWorkoutsContext } from "../../hooks/useWorkoutsContext/useWorkoutsContext";
 import WorkoutDetails from "../WorkoutDetails/WorkoutDetails";
 import WorkoutForm from "../../components/WorkoutForm/WorkoutForm";
-import { useWorkoutsContext } from "../../hooks/useWorkoutsContext/useWorkoutsContext";
 
 const WorkoutsContainer = () => {
-  const {workouts, dispatch} = useWorkoutsContext()
+  const {state, dispatch} = useWorkoutsContext()
+  const { workouts } = state
 
   useEffect(() => {
     const fetchWorkouts = async () => {
@@ -18,7 +19,7 @@ const WorkoutsContainer = () => {
   }, [dispatch]);
 
   return (
-    <section className="flex flex-col-reverse md:flex-row gap-4 h-full min-h-[85vh]">
+    <section className="flex flex-col-reverse md:flex-row gap-4">
       <div className="flex flex-col w-full gap-4">
         {workouts &&
           workouts.map((workout) => (

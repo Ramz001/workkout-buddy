@@ -48,13 +48,12 @@ const WorkoutForm = () => {
   return (
     <form
       className="flex flex-col gap-1 justify-start items-start sticky 
-    rounded-xl p-4 text-base md:w-80 md:h-[30rem]"
+    rounded-xl p-4 text-base md:w-80 md:h-[30rem] bg-slate-100"
     >
       <h3 className="text-xl mb-4">Add a New Workout</h3>
-
       <div className="flex flex-col gap-1 w-full">
         <label htmlFor="workout-title" className="">
-          Exercise Title:{" "}
+          Exercise Title:
         </label>
         <input
           type="text"

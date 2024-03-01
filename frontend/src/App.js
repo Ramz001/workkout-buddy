@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   return (
-    <div className="mx-[auto] max-w-[1920px]">
+    <div className="mx-[auto] max-w-[1920px] bg-slate-50 min-h-screen">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
