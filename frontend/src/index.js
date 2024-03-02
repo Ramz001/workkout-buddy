@@ -5,14 +5,17 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import WorkoutContextProvider from "./providers/WorkoutContext.js/WorkoutContext";
+import AuthContextProvider from "./providers/AuthContext.js/AuthContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <WorkoutContextProvider>
-        <App />
-      </WorkoutContextProvider>
+      <AuthContextProvider>
+        <WorkoutContextProvider>
+          <App />
+        </WorkoutContextProvider>
+      </AuthContextProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

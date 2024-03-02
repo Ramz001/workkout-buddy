@@ -1,8 +1,9 @@
 const express = require("express");
 const workoutRoutes = require("./src/routes/workouts");
+const userRoutes = require("./src/routes/user");
 const mongoose = require("mongoose");
 
-require("dotenv").config({ path: './src/configs/.env'});
+require("dotenv").config({ path: "./src/configs/.env" });
 
 const app = express();
 
@@ -12,12 +13,13 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/workouts", workoutRoutes);
+app.use("/api/user", userRoutes);
 
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
     app.listen(process.env.PORT, () => {
-      console.log("server is running on port 3000");
+      console.log("server is on");
     });
   })
   .catch((error) => console.log(error));

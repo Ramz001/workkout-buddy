@@ -9,3 +9,9 @@
     font-family: "Inter", sans-serif;
   }
 }
+
+@layer components {
+  .auth-input{
+    @apply px-2 py-1 h-8 md:h-10 rounded-md w-64 md:w-full text-slate-900
+  }
+}
