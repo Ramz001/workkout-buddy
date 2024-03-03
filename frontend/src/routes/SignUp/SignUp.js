@@ -11,7 +11,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen rounded-xl flex justify-center items-center text-slate-900">
+    <div className="min-h-screen flex justify-center items-center text-slate-900">
       <form className="bg-slate-200 md:min-w-96 rounded-xl px-4 md:px-6 py-8 shadow-md flex flex-col gap-2">
         <h2 className=" text-xl md:text-2xl font-semibold tracking-widest mb-2 md:mb-4">
           Sign up

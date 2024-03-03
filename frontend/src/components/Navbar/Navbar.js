@@ -12,7 +12,7 @@ const Navbar = () => {
     >
       <Link
         href="/"
-        className="text-2xl md:text-3xl 2xl:text-4xl font-bold tracking-wider"
+        className="text-xl sm:text-2xl md:text-3xl 2xl:text-4xl font-bold tracking-wider"
       >
         <h2>Workout Buddy</h2>
       </Link>

@@ -25,32 +25,32 @@ const WorkoutDetails = ({ workout }) => {
 
   return (
     <div
-      className="text-lg flex justify-between items-start p-4 shadow-xl bg-gray-100 
-    md:min-w-96 h-[13.5rem] rounded-xl text-gray-900"
+      className="text-lg flex justify-between items-start px-4 sm:px-8 py-6 shadow-xl bg-gray-100 
+    md:min-w-96 h-fit rounded-xl text-gray-900"
     >
       <div className="flex flex-col justify-start items-start">
-        <h4 className="text-xl mb-2 font-bold tracking-wide text-green-600">
+        <h4 className="text-lg md:text-xl mb-2 font-bold tracking-wide text-green-600">
           {title}
         </h4>
         {load !== 0 && load && (
-          <p>
+          <p className="text-sm sm:text-base">
             <span className="bold">Load: </span>
             {load} kgs
           </p>
         )}
-        <p>
+        <p className="text-sm sm:text-base">
           <span className="font-bold">Sets: </span> {sets}
         </p>
-        <p>
+        <p className="text-sm sm:text-base">
           <span className="font-bold">Reps: </span> {repetitions}
         </p>
 
         {duration !== 0 && duration && (
-          <p>
+          <p className="text-sm sm:text-base">
             <span className="font-bold">Duration: </span> {duration} seconds
           </p>
         )}
-        <p>Date: {createdAt && createdAt.slice(0, 10)}</p>
+        <p className="text-sm sm:text-base">Date: {createdAt && createdAt.slice(0, 10)}</p>
       </div>
       <div className="flex flex-col gap-4">
         <button
