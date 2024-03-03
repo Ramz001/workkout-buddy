@@ -52,7 +52,7 @@ const WorkoutDetails = ({ workout }) => {
         )}
         <p className="text-sm sm:text-base">Date: {createdAt && createdAt.slice(0, 10)}</p>
       </div>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 self-center sm:self-start">
         <button
           className="text-red-600 text-sm border border-red-600 px-3 py-1 
           rounded-lg hover:text-slate-100 hover:bg-red-600"
