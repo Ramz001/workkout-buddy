@@ -6,19 +6,29 @@ const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [inputError, setInputError] = useState(null);
+
   const { signUp, error, isLoading } = useSignUp();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log(confirmPassword === password)
+    if (confirmPassword !== password) {
+      return setInputError("Passwords do not match!");
+    }
+
     await signUp(name, email, password);
-    if(!error){
+    if (!error) {
       setPassword("");
+      setConfirmPassword("");
       setName("");
       setEmail("");
+      setInputError("");
     }
-    navigate('/')
+    navigate("/");
   };
 
   return (
@@ -35,6 +45,8 @@ const SignUp = () => {
           name="name"
           id="name"
           className="auth-input"
+          placeholder="Your name"
+          required
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -45,9 +57,11 @@ const SignUp = () => {
           type="email"
           name="email"
           id="email"
+          placeholder="Email address"
           className="auth-input"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
         <label htmlFor="password" className="text-xs md:text-base">
           Password:
@@ -56,9 +70,24 @@ const SignUp = () => {
           type="password"
           name="password"
           id="password"
+          placeholder="Password"
           className="auth-input"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <label htmlFor="confirm-password" className="text-xs md:text-base">
+          Confirm Password:
+        </label>
+        <input
+          type="password"
+          name="confirm-password"
+          id="confirm-password"
+          placeholder="Confirm password"
+          className="auth-input"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
         />
         <div className="flex justify-between items-center my-2">
           <Link
@@ -78,8 +107,15 @@ const SignUp = () => {
           Sign Up
         </button>
         {error && (
-          <div className="text-red-600 font-bold text-sm p-2 border bg-slate-100 rounded-md mt-2 border-red-600 capitalize">
+          <div className="text-red-600 font-bold text-sm p-2 border bg-slate-100 
+          rounded-md mt-2 border-red-600 capitalize">
             {error}!
+          </div>
+        )}
+        {inputError && (
+          <div className="text-red-600 font-bold text-sm p-2 border bg-slate-100 
+          rounded-md mt-2 border-red-600">
+            {inputError}!
           </div>
         )}
       </form>

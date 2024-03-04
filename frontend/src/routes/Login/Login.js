@@ -28,6 +28,7 @@ const Login = () => {
           name="email"
           id="email"
           className="auth-input"
+          placeholder="Email address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -38,6 +39,7 @@ const Login = () => {
           type="password"
           name="password"
           id="password"
+          placeholder="Password"
           className="auth-input"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -47,13 +49,13 @@ const Login = () => {
             to="/forgot-password"
             className="underline text-xs md:text-sm tracking-tighter md:tracking-tight"
           >
-            Forgot Your Password
+            Forgot password?
           </Link>
           <Link
             to="/signup"
             className="underline tracking-tighter md:tracking-tight text-xs md:text-sm"
           >
-            Create a new Account
+            Create a new account
           </Link>
         </div>
         <button

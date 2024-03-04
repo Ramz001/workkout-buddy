@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useWorkoutsContext } from "../../hooks/useWorkoutsContext/useWorkoutsContext";
+import { useAuthContext } from "../../hooks/useAuthContext/useAuthContext";
 
 const WorkoutForm = () => {
   const { dispatch } = useWorkoutsContext();
+  const { user, isSignedIn } = useAuthContext()
   const [title, setTitle] = useState("");
   const [repetitions, setRepetitions] = useState(0);
   const [sets, setSets] = useState(0);
@@ -13,6 +15,11 @@ const WorkoutForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!isSignedIn){
+      setError("The user must be authorized")
+
+      return
+    }
 
     if (!title || !sets || !repetitions) {
       return setError("Fields are required!");
@@ -26,6 +33,7 @@ const WorkoutForm = () => {
       body: JSON.stringify(workout),
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${user.token}`
       },
     });
     const data = await response.json();
@@ -48,9 +56,9 @@ const WorkoutForm = () => {
   return (
     <form
       className="flex flex-col gap-1 justify-start items-start sticky shadow-md
-    rounded-xl py-6 px-4 text-base md:w-80 bg-slate-100 h-fit "
+    rounded-xl py-6 px-4 text-base bg-slate-100 h-fit w-full md:w-1/3"
     >
-      <h3 className="text-xl md:text-xl mb-2 md:mb-4">Add a New Workout</h3>
+      <h3 className="text-xl md:text-xl mb-2 md:mb-4 font-semibold">Add a New Workout</h3>
       <div className="flex flex-col gap-1 w-full">
         <label htmlFor="workout-title" className="text-sm sm:text-base">
           Exercise Title:
@@ -133,9 +141,10 @@ const WorkoutForm = () => {
         type="submit"
         className="rounded-lg px-5 py-2 hover:bg-green-600 text-base md:text-lg 
         font-semibold flex justify-center items-center bg-green-500 text-gray-100
-        mt-4 shadow-inner"
+        mt-4 shadow-inner "
         onClick={(e) => handleSubmit(e)}
       >
+        <span className="material-symbols-outlined mr-2">Add</span>
         Add Workout
       </button>
       {error && (

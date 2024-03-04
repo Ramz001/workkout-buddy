@@ -1,8 +1,10 @@
 import { useWorkoutsContext } from "../../hooks/useWorkoutsContext/useWorkoutsContext";
 import { useState } from "react";
+import { useAuthContext } from "../../hooks/useAuthContext/useAuthContext";
 
 const WorkoutEditPopup = ({ workout }) => {
   const { state, dispatch } = useWorkoutsContext();
+  const { isSignedIn, user } = useAuthContext()  
   const [title, setTitle] = useState("");
   const [repetitions, setRepetitions] = useState(0);
   const [sets, setSets] = useState(0);
@@ -16,6 +18,10 @@ const WorkoutEditPopup = ({ workout }) => {
 
   const handleSubmit = async (e, type) => {
     e.preventDefault();
+    if(!isSignedIn){
+      setError("The user must be authorized")
+      return
+    }
 
     if (!title || !sets || !repetitions) {
       return setError("Fields are required!");
@@ -35,6 +41,7 @@ const WorkoutEditPopup = ({ workout }) => {
       body: JSON.stringify(editedWorkout),
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${user.token}`
       },
     });
 
@@ -62,8 +69,8 @@ const WorkoutEditPopup = ({ workout }) => {
     w-full h-full bg-black bg-opacity-25 z-10"
       >
         <form
-          className="flex flex-col gap-2 justify-start items-start min-w-96
-    rounded-xl p-4 text-base  bg-slate-100"
+          className="flex flex-col gap-2 justify-start items-start min-w-96 p-4
+    rounded-xl text-base bg-slate-100"
         >
           <button
             onClick={handleCloseBtn}

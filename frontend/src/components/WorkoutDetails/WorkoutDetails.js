@@ -1,13 +1,22 @@
+import { useAuthContext } from "../../hooks/useAuthContext/useAuthContext";
 import { useWorkoutsContext } from "../../hooks/useWorkoutsContext/useWorkoutsContext";
 import WorkoutEditPopup from "../WorkoutEditPopup/WorkoutEditPopup";
 
 const WorkoutDetails = ({ workout }) => {
   const { title, repetitions, load, sets, duration, createdAt, _id } = workout;
   const { dispatch } = useWorkoutsContext();
+  const { user, isSignedIn } = useAuthContext();
 
   const handleDeleteBtn = async () => {
+    if (!isSignedIn) {
+      return;
+    }
+
     const response = await fetch("/api/workouts/" + _id, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
     });
     const data = await response.json();
 
@@ -50,22 +59,25 @@ const WorkoutDetails = ({ workout }) => {
             <span className="font-bold">Duration: </span> {duration} seconds
           </p>
         )}
-        <p className="text-sm sm:text-base">Date: {createdAt && createdAt.slice(0, 10)}</p>
+        <p className="text-sm sm:text-base">
+          <span className="font-bold">Date: </span>
+          {createdAt && createdAt.slice(0, 10)}
+        </p>
       </div>
-      <div className="flex flex-col gap-4 self-center sm:self-start">
+      <div className="flex flex-col gap-4 self-center sm:self-start font-bold">
         <button
-          className="text-red-600 text-sm border border-red-600 px-3 py-1 
-          rounded-lg hover:text-slate-100 hover:bg-red-600"
+          className="text-red-600 text-base border border-red-600 py-1 px-3 
+          rounded-lg hover:text-slate-100 hover:bg-red-600 material-symbols-outlined"
           onClick={handleDeleteBtn}
         >
           Delete
         </button>
         <button
-          className="text-green-600 text-sm border border-green-600 
-        px-3 py-1 rounded-lg hover:text-slate-100 hover:bg-green-600"
+          className="text-green-600 text-base border border-green-600 py-1 px-3 
+          rounded-lg hover:text-slate-100 hover:bg-green-600 material-symbols-outlined"
           onClick={handleEditBtn}
         >
-          Edit
+          edit
         </button>
       </div>
       <WorkoutEditPopup workout={workout} />

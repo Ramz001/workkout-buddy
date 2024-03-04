@@ -30,7 +30,7 @@ const ForgotPassword = () => {
         </button>
          <Link
             to="/login"
-            className="mt-2 hover:underline text-slate-500 hover:text-slate-900 flex justify-center items-center"
+            className="mt-2 text-slate-500 hover:text-slate-900 flex justify-center hover:underline"
           >
             Back to Log In
           </Link>
