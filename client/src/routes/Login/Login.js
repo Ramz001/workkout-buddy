@@ -1,18 +1,23 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useLogIn } from "../../hooks/useLogIn/useLogIn";
+import { useAuthContext } from "../../hooks/useAuthContext/useAuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { logIn, error, isLoading } = useLogIn();
+  const { isSignedIn } = useAuthContext()
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     await logIn(email, password);
-    navigate("/");
+    if(isSignedIn){
+      navigate("/")
+    }
   };
 
   return (
@@ -49,7 +54,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <span
-            className="material-symbols-outlined text-slate-600 select-none absolute bottom-2 cursor-pointer right-2"
+            className="material-symbols-outlined text-slate-600 select-none absolute bottom-1 md:bottom-2 cursor-pointer right-2"
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? "visibility" : "visibility_off"}
@@ -58,13 +63,13 @@ const Login = () => {
         <div className="flex justify-between items-center my-2">
           <Link
             to="/forgot-password"
-            className="underline text-xs md:text-sm tracking-tighter md:tracking-tight"
+            className="auth-bottom-link"
           >
             Forgot password?
           </Link>
           <Link
             to="/signup"
-            className="underline tracking-tighter md:tracking-tight text-xs md:text-sm"
+            className="auth-bottom-link"
           >
             Create a new account
           </Link>

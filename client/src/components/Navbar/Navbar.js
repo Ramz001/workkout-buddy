@@ -15,23 +15,23 @@ const Navbar = () => {
       >
         <Link
           href="/"
-          className="text-xl sm:text-2xl md:text-3xl 2xl:text-4xl font-bold tracking-wider"
+          className="text-xl hover:text-green-900 sm:text-2xl md:text-3xl 2xl:text-4xl font-bold tracking-wider"
         >
           <h2>Workout Buddy</h2>
         </Link>
         {isSignedIn ? (
-          <div className="flex gap-4 items-center justify-center">
+          <div className="flex gap-4 md:gap-8 items-center justify-center">
             <p className="tracking-wide hidden sm:block">{user.name}</p>
             <Link to="/login" onClick={logOut}>
-              <button className="hover:underline hover:text-slate-500 tracking-wide">Log out</button>
+              <button className="hover:underline hover:text-green-600 tracking-wide">Log out</button>
             </Link>
           </div>
         ) : (
           <div className="flex items-center gap-4 sm:gap-6 md:gap-8 tracking-wide">
-            <Link to="/login" className="hover:underline">
+            <Link to="/login" className="hover:underline hover:text-green-600">
               Log In
             </Link>
-            <Link to="/signup" className="hidden sm:block hover:underline">
+            <Link to="/signup" className="hidden sm:block hover:underline hover:text-green-600">
               Sign Up
             </Link>
           </div>

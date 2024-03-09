@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useSignUp } from "../../hooks/useSignUp/useSignUp";
+import { useAuthContext } from "../../hooks/useAuthContext/useAuthContext";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -10,6 +11,7 @@ const SignUp = () => {
   const [inputError, setInputError] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { isSignedIn } = useAuthContext()
 
   const { signUp, error, isLoading } = useSignUp();
   const navigate = useNavigate();
@@ -30,7 +32,9 @@ const SignUp = () => {
       setEmail("");
       setInputError("");
     }
-    navigate("/");
+    if(isSignedIn){
+      navigate("/");
+    }
   };
 
   return (
@@ -85,7 +89,8 @@ const SignUp = () => {
             required
           />
           <span
-            className="material-symbols-outlined text-slate-600 select-none absolute bottom-2 cursor-pointer right-2"
+            className="material-symbols-outlined text-slate-600 select-none absolute 
+            bottom-1 md:bottom-2 cursor-pointer right-2"
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? "visibility" : "visibility_off"}
@@ -106,7 +111,8 @@ const SignUp = () => {
             required
           />
           <span
-            className="material-symbols-outlined text-slate-600 select-none absolute bottom-2 cursor-pointer right-2"
+            className="material-symbols-outlined text-slate-600 select-none 
+            absolute bottom-1 md:bottom-2 cursor-pointer right-2"
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
           >
             {showConfirmPassword ? "visibility" : "visibility_off"}
@@ -115,7 +121,7 @@ const SignUp = () => {
         <div className="flex justify-between items-center my-2">
           <Link
             to="/login"
-            className="underline tracking-tighter md:tracking-tight text-xs md:text-sm"
+            className="auth-bottom-link"
           >
             Already have an account
           </Link>

@@ -45,6 +45,19 @@ UserSchema.statics.signup = async function (name, email, password) {
   return user;
 };
 
+UserSchema.statics.updatePassword = async function(id, password){
+  if (!validator.isStrongPassword(password)) {
+    throw new Error("Password is not strong enough");
+  }
+
+  const salt = await bcrypt.genSalt(10);
+  const hash = await bcrypt.hash(password, salt);
+
+  const user = await this.findByIdAndUpdate({ _id: id }, { password: hash });
+
+  return user
+}
+
 UserSchema.statics.login = async function (email, password) {
   if (!email || !password) {
     throw new Error("All fields must be filled");

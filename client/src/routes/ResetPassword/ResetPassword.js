@@ -1,46 +1,58 @@
-import { Link } from "react-router-dom";
+import useResetPassword from "../../hooks/useResetPassword/useResetPassword";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import useForgotPassword from "../../hooks/useForgotPassword/useForgotPassword";
 import Backdrop from "../../components/Backdrop/Backdrop";
 
-const ForgotPassword = () => {
-  const [email, setEmail] = useState("");
-  const { forgotPassword, error, isLoading } = useForgotPassword();
-  const [popup, setPopup] = useState(false);
+const ResetPassword = () => {
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const { id, token } = useParams();
+  const { updatePassword, error, isLoading, isPasswordChanged } = useResetPassword(id, token);
+  const navigate = useNavigate()
+  const [popup, setPopup] = useState(false)
 
   const handleResetBtn = async (e) => {
     e.preventDefault();
-    await forgotPassword(email);
-    if (!error & !isLoading) {
+
+    await updatePassword(password);
+    if(isPasswordChanged){
       setPopup(true)
     }
   };
-
   return (
     <div className="min-h-screen bg-slate-100 flex justify-center items-center text-slate-900">
       <form className="bg-slate-200 md:min-w-96 rounded-xl px-6 py-8 shadow-md flex flex-col gap-2">
         <h2 className="text-xl md:text-2xl font-semibold mb-2 md:mb-4">
-          Forgot Your Password
+          Reset Password
         </h2>
-        <label htmlFor="email" className="text-xs md:text-base">
-          Email:
-        </label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          className="auth-input"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <div className="flex flex-col gap-2 relative">
+          <label htmlFor="password" className="text-xs md:text-base">
+            New password:
+          </label>
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            id="password"
+            className="auth-input"
+            placeholder="Your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <span
+            className="material-symbols-outlined text-slate-600 select-none absolute bottom-1 md:bottom-2 cursor-pointer right-2"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? "visibility" : "visibility_off"}
+          </span>
+        </div>
         <button
           type="submit"
           disabled={isLoading}
-          onClick={(e) => handleResetBtn(e)}
           className="bg-green-600 text-white h-10 rounded-lg mt-4 border 
           hover:border-green-600 hover:bg-slate-200 hover:text-slate-900"
+          onClick={e => handleResetBtn(e)}
         >
-          Reset Password
+          Update Password
         </button>
         <Link
           to="/login"
@@ -58,17 +70,11 @@ const ForgotPassword = () => {
         <Backdrop onClick={() => setPopup(false)}>
           <div className="max-w-96 md:max-w-[32rem] text-wrap text-sm sm:text-base md:text-lg 
           bg-slate-100 text-slate-900 flex flex-col gap-1 px-4 sm:px-6 py-8 sm:py-10 rounded-md 
-          mx-4 sm:mx-0" onClick={(e) => e.stopPropagation()}>
+          mx-4 sm:mx-0" onClick={() => navigate("/login")}>
             <span onClick={() => setPopup(false)} className="material-symbols-outlined self-end cursor-pointer mb-2">close</span>
             <h2 className="text-lg sm:text-xl md:text-2xl tracking-wide font-semibold mb-4">
-              An email was sent to your account.
+              Your password has been changed!
             </h2>
-            <p>
-              Please check your email and change your password via link sent.
-            </p>
-            <p>
-              In case you cannot find an email please check your Spam folder.
-            </p>
           </div>
         </Backdrop>
       )}
@@ -76,4 +82,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ResetPassword;

@@ -1,15 +1,16 @@
 import { useWorkoutsContext } from "../../hooks/useWorkoutsContext/useWorkoutsContext";
 import { useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext/useAuthContext";
+import Backdrop from "../Backdrop/Backdrop";
 
 const WorkoutEditPopup = ({ workout }) => {
   const { state, dispatch } = useWorkoutsContext();
-  const { isSignedIn, user } = useAuthContext()  
+  const { isSignedIn, user } = useAuthContext();
   const [title, setTitle] = useState("");
-  const [repetitions, setRepetitions] = useState(0);
-  const [sets, setSets] = useState(0);
-  const [load, setLoad] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const [repetitions, setRepetitions] = useState("");
+  const [sets, setSets] = useState("");
+  const [load, setLoad] = useState("");
+  const [duration, setDuration] = useState("");
   const [error, setError] = useState(null);
 
   const handleCloseBtn = () => {
@@ -18,9 +19,9 @@ const WorkoutEditPopup = ({ workout }) => {
 
   const handleSubmit = async (e, type) => {
     e.preventDefault();
-    if(!isSignedIn){
-      setError("The user must be authorized")
-      return
+    if (!isSignedIn) {
+      setError("The user must be authorized");
+      return;
     }
 
     if (!title || !sets || !repetitions) {
@@ -41,7 +42,7 @@ const WorkoutEditPopup = ({ workout }) => {
       body: JSON.stringify(editedWorkout),
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${user.token}`
+        Authorization: `Bearer ${user.token}`,
       },
     });
 
@@ -64,13 +65,11 @@ const WorkoutEditPopup = ({ workout }) => {
 
   return (
     state.popup && (
-      <div
-        className="absolute bottom-0 left-0 top-0 flex items-center justify-center 
-    w-full h-full bg-black bg-opacity-25 z-10"
-      >
+      <Backdrop onClick={handleCloseBtn}>
         <form
           className="flex flex-col gap-2 justify-start items-start min-w-96 p-4
     rounded-xl text-base bg-slate-100"
+          onClick={(e) => e.stopPropagation()}
         >
           <button
             onClick={handleCloseBtn}
@@ -161,7 +160,7 @@ const WorkoutEditPopup = ({ workout }) => {
             </div>
           )}
         </form>
-      </div>
+      </Backdrop>
     )
   );
 };

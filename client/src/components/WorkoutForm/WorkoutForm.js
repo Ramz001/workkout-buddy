@@ -6,21 +6,19 @@ const WorkoutForm = () => {
   const { dispatch } = useWorkoutsContext();
   const { user, isSignedIn } = useAuthContext()
   const [title, setTitle] = useState("");
-  const [repetitions, setRepetitions] = useState(0);
-  const [sets, setSets] = useState(0);
-  const [load, setLoad] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const [error, setError] = useState(null);
+  const [repetitions, setRepetitions] = useState("");
+  const [sets, setSets] = useState("");
+  const [load, setLoad] = useState("");
+  const [duration, setDuration] = useState("");
+  const [error, setError] = useState("");
   const [emptyFields, setEmptyFields] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(!isSignedIn){
       setError("The user must be authorized")
-
       return
     }
-
     if (!title || !sets || !repetitions) {
       return setError("Fields are required!");
     }
@@ -55,7 +53,7 @@ const WorkoutForm = () => {
 
   return (
     <form
-      className="flex flex-col gap-1 justify-start items-start sticky shadow-md
+      className="max-w-[22rem] md:max-w-96 self-center flex flex-col gap-1 justify-start items-start sticky shadow-md
     rounded-xl py-6 px-4 text-base bg-slate-100 h-fit w-full md:w-1/3"
     >
       <h3 className="text-xl md:text-xl mb-2 md:mb-4 font-semibold">Add a New Workout</h3>

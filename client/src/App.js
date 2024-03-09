@@ -11,6 +11,7 @@ const ForgotPassword = lazy(() =>
   import("./routes/ForgotPassword/ForgotPassword")
 );
 const Error = lazy(() => import("./routes/Error/Error"));
+const ResetPassword = lazy(() => import("./routes/ResetPassword/ResetPassword"))
 
 function App() {
   const { isSignedIn } = useAuthContext();
@@ -32,6 +33,7 @@ function App() {
           element={isSignedIn ? <Navigate to="/" /> : <SignUp />}
         />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
         <Route path="/*" element={<Error />} />
       </Routes>
     </Suspense>

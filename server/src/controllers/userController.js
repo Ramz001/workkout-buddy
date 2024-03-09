@@ -42,7 +42,7 @@ const forgotPassword = async (req, res) => {
       return res.status(404).json({ error: "The user was not found!" });
     }
     const token = jwt.sign({ _id }, process.env.JWT_SECRET_KEY, {
-      expiresIn: "1d",
+      expiresIn: "1h",
     });
 
     const transporter = nodemailer.createTransport({
@@ -55,16 +55,17 @@ const forgotPassword = async (req, res) => {
 
     const mailOptions = {
       from: "rkenjaev1@gmail.com",
-      to: "rkenjayev001@gmail.com",
+      to: email,
       subject: "Reset your password",
-      text: `http://localhost:${process.env.PORT}/forgot-password/${user._id}/${token}`,
+      text: `${process.env.CLIENT_URL}/reset-password/${user._id}/${token}`,
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         console.log(error);
+        res.status(400).json({ error: error.message });
       } else {
-        return res.status(200).json({ status: "Success" });
+        return res.status(200).json({ status: "The email with token is sent" });
       }
     });
   } catch (error) {
@@ -72,4 +73,23 @@ const forgotPassword = async (req, res) => {
   }
 };
 
-module.exports = { login, signUp, forgotPassword };
+const resetPassword = (req, res) => {
+  const { id, token } = req.params;
+  const { password } = req.body;
+  
+  jwt.verify(token, process.env.JWT_SECRET_KEY, async function(error, decoded){
+    if(error){
+      res.status(403).json({ error: error.message })
+    }
+    try {
+      const user = await User.updatePassword(id, password)
+      res.status(200).json({ ...user })
+      
+    } catch (error) {
+      res.status(403).json({ error: error.message })
+    }
+  });
+
+};
+
+module.exports = { login, signUp, forgotPassword, resetPassword };

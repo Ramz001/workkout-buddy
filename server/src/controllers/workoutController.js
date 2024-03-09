@@ -2,14 +2,14 @@ const Workout = require("../models/workoutModel");
 const mongoose = require("mongoose");
 
 const getWorkouts = async (req, res) => {
-  const user_id = req.user._id
+  const user_id = req.user._id;
   try {
     const workouts = await Workout.find({ user_id }).sort({ createdAt: -1 });
     res.status(200).json(workouts);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-}; 
+};
 
 const getOneWorkout = async (req, res) => {
   try {
@@ -32,31 +32,34 @@ const getOneWorkout = async (req, res) => {
 
 const createWorkout = async (req, res) => {
   const { title, repetitions, duration, sets, load } = req.body;
-  const user_id = req.user._id
+
+  let emptyFields = [];
+
+  if (!title) {
+    emptyFields.push("title");
+  }
+  if (!repetitions) {
+    emptyFields.push("repetitions");
+  }
+  if (!sets) {
+    emptyFields.push("sets");
+  }
+  if (emptyFields.length > 0) {
+    return res
+      .status(400)
+      .json({ error: "Please fill in the missing fields", emptyFields });
+  }
+
   try {
+    const user_id = req.user._id;
     const workout = await Workout.create({
       title,
       repetitions,
       duration,
       sets,
       load,
-      user_id
+      user_id,
     });
-
-    let emptyFields = []
-
-    if(!title){
-      emptyFields.push('title')
-    }
-    if(!repetitions){
-      emptyFields.push('repetitions')
-    }
-    if(!sets){
-      emptyFields.push('sets')
-    }
-    if(emptyFields.length > 0){
-      return res.status(400).json({ error: 'Please fill in the missing fields', emptyFields })
-    }
 
     res.status(200).json(workout);
   } catch (error) {

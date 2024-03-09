@@ -35,7 +35,7 @@ const WorkoutDetails = ({ workout }) => {
 
   return (
     <div
-      className="text-lg flex justify-between items-start px-4 sm:px-8 py-6 shadow-xl bg-gray-100 
+      className="text-lg flex justify-between items-start px-4 sm:px-8 py-6 shadow-xl bg-slate-100 
     md:min-w-96 h-fit rounded-xl text-gray-900"
     >
       <div className="flex flex-col justify-start items-start">

@@ -1,33 +1,37 @@
-import { useState } from "react";
 import { useAuthContext } from "../useAuthContext/useAuthContext";
+import { useState } from "react";
 
-export const useLogIn = () => {
+const useForgotPassword = () => {
+  const { isSignedIn } = useAuthContext();
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { dispatch } = useAuthContext();
 
-  const logIn = async ( email, password) => {
+  const forgotPassword = async (email) => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("/api/user/login", {
+    if (isSignedIn) {
+      return setError("The user is signed in");
+    }
+
+    const response = await fetch("api/user/forgot-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email }),
     });
     const data = await response.json();
 
-    if (!response.ok) { 
+    if (!response.ok) {
       setIsLoading(false);
       setError(data.error);
     }
     if (response.ok) {
-      localStorage.setItem("user", JSON.stringify(data));
-      dispatch({ type: "LOGIN", payload: data });
       setIsLoading(false);
     }
   };
-  return { logIn, isLoading, error }
+  return { forgotPassword, error, isLoading };
 };
+
+export default useForgotPassword;
