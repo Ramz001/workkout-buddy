@@ -35,8 +35,9 @@ const WorkoutDetails = ({ workout }) => {
 
   return (
     <div
-      className="text-lg flex justify-between items-start px-4 sm:px-8 py-6 shadow-xl bg-slate-100 
-    md:min-w-96 h-fit rounded-xl text-gray-900"
+      className="text-lg flex justify-between items-start px-4 sm:px-8 py-6 sm:py-8 
+      shadow-xl bg-slate-100 dark:text-slate-200 dark:bg-slate-900 md:min-w-96 
+      h-fit rounded-xl  text-gray-900"
     >
       <div className="flex flex-col justify-start items-start">
         <h4 className="text-lg md:text-xl mb-2 font-bold tracking-wide text-green-600">

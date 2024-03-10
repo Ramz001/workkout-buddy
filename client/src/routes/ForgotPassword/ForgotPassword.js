@@ -6,19 +6,25 @@ import Backdrop from "../../components/Backdrop/Backdrop";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const { forgotPassword, error, isLoading } = useForgotPassword();
-  const [popup, setPopup] = useState(false);
+  const [popup, setPopup] = useState(true);
 
   const handleResetBtn = async (e) => {
     e.preventDefault();
     await forgotPassword(email);
     if (!error & !isLoading) {
-      setPopup(true)
+      setPopup(true);
     }
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 flex justify-center items-center text-slate-900">
-      <form className="bg-slate-200 md:min-w-96 rounded-xl px-6 py-8 shadow-md flex flex-col gap-2">
+    <div
+      className="min-h-screen dark:bg-slate-900 bg-slate-100  flex justify-center 
+    items-center dark:text-slate-300 text-slate-900"
+    >
+      <form
+        className="dark:bg-slate-800 bg-slate-200 md:min-w-96 rounded-xl 
+      px-6 py-8 shadow-md flex flex-col gap-2"
+      >
         <h2 className="text-xl md:text-2xl font-semibold mb-2 md:mb-4">
           Forgot Your Password
         </h2>
@@ -37,30 +43,42 @@ const ForgotPassword = () => {
           type="submit"
           disabled={isLoading}
           onClick={(e) => handleResetBtn(e)}
-          className="bg-green-600 text-white h-10 rounded-lg mt-4 border 
-          hover:border-green-600 hover:bg-slate-200 hover:text-slate-900"
+          className="auth-submit-button"
         >
           Reset Password
         </button>
         <Link
           to="/login"
-          className="mt-2 text-green-500 hover:text-slate-900 flex justify-center hover:underline"
+          className="mt-2 dark:text-green-700 text-green-500 hover:text-slate-900 
+          flex justify-center hover:underline dark:hover:text-slate-300"
         >
           Back to Log In
         </Link>
         {error && (
-          <div className="text-red-600 font-bold text-sm p-2 border bg-slate-100 rounded-md mt-2 border-red-600 capitalize">
+          <div
+            className="text-red-600 font-bold text-sm p-2 border dark:bg-slate-800 
+          bg-slate-100 rounded-md mt-2 border-red-600 capitalize"
+          >
             {error}!
           </div>
         )}
       </form>
       {popup && (
         <Backdrop onClick={() => setPopup(false)}>
-          <div className="max-w-96 md:max-w-[32rem] text-wrap text-sm sm:text-base md:text-lg 
-          bg-slate-100 text-slate-900 flex flex-col gap-1 px-4 sm:px-6 py-8 sm:py-10 rounded-md 
-          mx-4 sm:mx-0" onClick={(e) => e.stopPropagation()}>
-            <span onClick={() => setPopup(false)} className="material-symbols-outlined self-end cursor-pointer mb-2">close</span>
-            <h2 className="text-lg sm:text-xl md:text-2xl tracking-wide font-semibold mb-4">
+          <div
+            className="max-w-96 md:max-w-[32rem] text-wrap text-sm sm:text-base md:text-lg 
+          dark:bg-slate-900 bg-slate-100 dark:text-slate-300 text-slate-900 
+          flex flex-col gap-1 px-4 sm:px-6 py-8 sm:py-10 rounded-md 
+          mx-4 sm:mx-0"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span
+              onClick={() => setPopup(false)}
+              className="material-symbols-outlined self-end cursor-pointer mb-2"
+            >
+              close
+            </span>
+            <h2 className="text-lg sm:text-xl md:text-2xl tracking-wide font-semibold mb-6 dark:text-slate-200">
               An email was sent to your account.
             </h2>
             <p>

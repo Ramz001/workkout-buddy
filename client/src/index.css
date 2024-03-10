@@ -7,15 +7,44 @@
 @layer base {
   html {
     font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: rgb(248 250 252);
+  }
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px rgb(248 250 252) inset !important;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 30px rgb(71 85 105) inset !important;
+      -webkit-text-fill-color: rgb(226 232 240)
+    }
+    html {
+      background-color: rgb(30 41 59);
+    }
   }
 }
 
 @layer components {
   .auth-input {
-    @apply px-2 py-1 h-8 md:h-10 rounded-md w-64 md:w-full text-slate-900;
+    @apply px-2 py-1 h-8 md:h-10 rounded-md w-64 md:w-full dark:text-slate-300
+    text-slate-900 bg-slate-50 dark:bg-slate-700 dark:active:bg-slate-600;
   }
-  .auth-bottom-link{
-    @apply underline tracking-tighter hover:text-green-600 md:tracking-tight text-xs md:text-sm
+  .auth-bottom-link {
+    @apply underline tracking-tighter hover:text-green-600 md:tracking-tight text-xs md:text-sm;
+  }
+  .auth-submit-button {
+    @apply dark:bg-green-800 bg-green-600 text-slate-100 h-10 rounded-lg 
+    mt-2 border dark:hover:border-green-800 hover:border-green-600 dark:hover:bg-slate-400 
+    hover:bg-slate-200 hover:text-slate-900;
   }
   .material-symbols-outlined {
     font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
@@ -28,19 +57,23 @@
     height: 120px;
     animation: spin 2s linear infinite;
     position: absolute;
-    bottom: 45% ;
-    left: 45% ;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    bottom: 45%;
+    left: 45%;
   }
 
-  @media only screen  and (max-width: 560px) {
-   .loader{
-    bottom: 40%;
-    left: 40%;
-   } 
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media only screen and (max-width: 560px) {
+    .loader {
+      bottom: 40%;
+      left: 40%;
+    }
   }
 }

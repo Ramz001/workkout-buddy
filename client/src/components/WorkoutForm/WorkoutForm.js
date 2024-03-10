@@ -4,7 +4,7 @@ import { useAuthContext } from "../../hooks/useAuthContext/useAuthContext";
 
 const WorkoutForm = () => {
   const { dispatch } = useWorkoutsContext();
-  const { user, isSignedIn } = useAuthContext()
+  const { user, isSignedIn } = useAuthContext();
   const [title, setTitle] = useState("");
   const [repetitions, setRepetitions] = useState("");
   const [sets, setSets] = useState("");
@@ -15,9 +15,9 @@ const WorkoutForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!isSignedIn){
-      setError("The user must be authorized")
-      return
+    if (!isSignedIn) {
+      setError("The user must be authorized");
+      return;
     }
     if (!title || !sets || !repetitions) {
       return setError("Fields are required!");
@@ -31,7 +31,7 @@ const WorkoutForm = () => {
       body: JSON.stringify(workout),
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${user.token}`
+        Authorization: `Bearer ${user.token}`,
       },
     });
     const data = await response.json();
@@ -54,9 +54,11 @@ const WorkoutForm = () => {
   return (
     <form
       className="max-w-[22rem] md:max-w-96 self-center flex flex-col gap-1 justify-start items-start sticky shadow-md
-    rounded-xl py-6 px-4 text-base bg-slate-100 h-fit w-full md:w-1/3"
+    rounded-xl py-6 px-4 text-base dark:bg-slate-900  dark:text-slate-300 bg-slate-100 h-fit w-full md:w-1/3"
     >
-      <h3 className="text-xl md:text-xl mb-2 md:mb-4 font-semibold">Add a New Workout</h3>
+      <h3 className="dark:text-slate-200 text-slate-900 text-xl md:text-xl mb-2 md:mb-4 font-semibold">
+        Add a New Workout
+      </h3>
       <div className="flex flex-col gap-1 w-full">
         <label htmlFor="workout-title" className="text-sm sm:text-base">
           Exercise Title:
@@ -71,7 +73,7 @@ const WorkoutForm = () => {
             emptyFields && emptyFields.includes("title")
               ? "border-2 border-red-500"
               : " "
-          } px-2 h-8 rounded-lg shadow`}
+          } px-2 h-8 rounded-lg shadow bg-slate-50 dark:bg-slate-500`}
         />
       </div>
       <div className="flex flex-col gap-1 w-full">
@@ -88,7 +90,7 @@ const WorkoutForm = () => {
             emptyFields && emptyFields.includes("repetitions")
               ? "border-2 border-red-500"
               : " "
-          } px-2 h-8 rounded-lg shadow`}
+          } px-2 h-8 rounded-lg shadow bg-slate-50 dark:bg-slate-500`}
         />
       </div>
       <div className="flex flex-col gap-1 w-full">
@@ -105,7 +107,7 @@ const WorkoutForm = () => {
             emptyFields && emptyFields.includes("sets")
               ? "border-2 border-red-500"
               : ""
-          } px-2 h-8 rounded-lg shadow`}
+          } px-2 h-8 rounded-lg shadow bg-slate-50 dark:bg-slate-500`}
         />
       </div>
       <div className="flex flex-col gap-1 w-full">
@@ -118,7 +120,7 @@ const WorkoutForm = () => {
           id="workout-load"
           value={load}
           onChange={(e) => setLoad(e.target.value)}
-          className="px-2 h-8 rounded-lg shadow"
+          className="px-2 h-8 rounded-lg shadow bg-slate-50 dark:bg-slate-500"
         />
       </div>
       <div className="flex flex-col gap-1 w-full">
@@ -131,14 +133,14 @@ const WorkoutForm = () => {
           id="workout-duration"
           value={duration}
           onChange={(e) => setDuration(e.target.value)}
-          className="px-2 h-8 rounded-lg shadow"
+          className="px-2 h-8 rounded-lg shadow bg-slate-50 dark:bg-slate-500"
         />
       </div>
 
       <button
         type="submit"
         className="rounded-lg px-5 py-2 hover:bg-green-600 text-base md:text-lg 
-        font-semibold flex justify-center items-center bg-green-500 text-gray-100
+        font-semibold flex justify-center items-center dark:bg-green-700 bg-green-500 text-slate-100
         mt-4 shadow-inner "
         onClick={(e) => handleSubmit(e)}
       >
@@ -146,7 +148,7 @@ const WorkoutForm = () => {
         Add Workout
       </button>
       {error && (
-        <div className="text-red-600 font-bold text-sm p-2 border bg-slate-100 rounded-md mt-2 border-red-600">
+        <div className="text-red-600 font-bold text-sm p-2 border dark:bg-slate-800 bg-slate-100 rounded-md mt-2 border-red-600">
           {error}
         </div>
       )}

@@ -19,7 +19,7 @@ function App() {
   return (
     <Suspense
       fallback={<Spinner/>}
-      className="mx-[auto] max-w-[1920px] bg-slate-50 min-h-screen"
+      className="mx-[auto] max-w-[1920px] dark:bg-slate-700 bg-slate-50 min-h-screen"
     >
       <Navbar />
       <Routes>

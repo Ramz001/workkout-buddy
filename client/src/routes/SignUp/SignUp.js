@@ -38,8 +38,8 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center text-slate-900">
-      <form className="bg-slate-200 md:min-w-96 rounded-xl px-4 md:px-6 py-8 shadow-md flex flex-col gap-2">
+    <div className="min-h-screen flex justify-center items-center dark:bg-slate-900 bg-slate-100 dark:text-slate-300 text-slate-900">
+      <form className="dark:bg-slate-800 bg-slate-200 md:min-w-96 rounded-xl px-4 md:px-6 py-8 shadow-md flex flex-col gap-2">
         <h2 className=" text-xl md:text-2xl font-semibold tracking-widest mb-2 md:mb-4">
           Sign up
         </h2>
@@ -89,7 +89,8 @@ const SignUp = () => {
             required
           />
           <span
-            className="material-symbols-outlined text-slate-600 select-none absolute 
+            className="material-symbols-outlined dark:text-slate-500 text-slate-600 
+            select-none absolute 
             bottom-1 md:bottom-2 cursor-pointer right-2"
             onClick={() => setShowPassword(!showPassword)}
           >
@@ -111,8 +112,8 @@ const SignUp = () => {
             required
           />
           <span
-            className="material-symbols-outlined text-slate-600 select-none 
-            absolute bottom-1 md:bottom-2 cursor-pointer right-2"
+            className="material-symbols-outlined dark:text-slate-500 text-slate-600 
+            select-none absolute bottom-1 md:bottom-2 cursor-pointer right-2"
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
           >
             {showConfirmPassword ? "visibility" : "visibility_off"}
@@ -129,8 +130,7 @@ const SignUp = () => {
         <button
           disabled={isLoading}
           type="submit"
-          className="bg-green-600 text-white h-10 rounded-lg mt-2 border 
-          hover:border-green-600 hover:bg-slate-200 hover:text-slate-900"
+          className="auth-submit-button"
           onClick={handleSubmit}
         >
           Sign Up

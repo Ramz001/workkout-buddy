@@ -10,8 +10,8 @@ const Navbar = () => {
   return (
     location.pathname === "/" && (
       <nav
-        className="px-10 md:px-16 py-6 justify-between items-center bg-slate-100
-       text-slate-900 2xl:rounded-2xl shadow-md flex"
+        className="px-10 md:px-16 py-6 justify-between items-center bg-slate-100 dark:bg-slate-900
+       text-slate-900 dark:text-slate-300  shadow-md flex max-w-[1920px] mx-auto"
       >
         <Link
           href="/"
