@@ -7,23 +7,28 @@ const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const { id, token } = useParams();
-  const { updatePassword, error, isLoading, isPasswordChanged } = useResetPassword(id, token);
-  const navigate = useNavigate()
-  const [popup, setPopup] = useState(false)
+  const { updatePassword, error, isLoading, isPasswordChanged } =
+    useResetPassword(id, token);
+  const navigate = useNavigate();
+  const [popup, setPopup] = useState(false);
 
   const handleResetBtn = async (e) => {
     e.preventDefault();
 
     await updatePassword(password);
-    if(isPasswordChanged){
-      setPopup(true)
+    if (isPasswordChanged) {
+      setPopup(true);
     }
   };
   return (
-    <div className="min-h-screen dark:bg-slate-900 bg-slate-100 flex justify-center 
-    items-center dark:text-slate-300 text-slate-900">
-      <form className="dark:bg-slate-800 bg-slate-200 md:min-w-96 rounded-xl 
-      px-6 py-8 shadow-md flex flex-col gap-2">
+    <div
+      className="min-h-screen dark:bg-slate-900 bg-slate-100 flex justify-center 
+    items-center dark:text-slate-300 text-slate-900"
+    >
+      <form
+        className="dark:bg-slate-800 bg-slate-200 md:min-w-96 rounded-xl 
+      px-6 py-8 shadow-md flex flex-col gap-2"
+      >
         <h2 className="text-xl md:text-2xl font-semibold mb-2 md:mb-4">
           Reset Password
         </h2>
@@ -52,7 +57,7 @@ const ResetPassword = () => {
           type="submit"
           disabled={isLoading}
           className="auth-submit-button"
-          onClick={e => handleResetBtn(e)}
+          onClick={(e) => handleResetBtn(e)}
         >
           Update Password
         </button>
@@ -71,10 +76,18 @@ const ResetPassword = () => {
       </form>
       {popup && (
         <Backdrop onClick={() => setPopup(false)}>
-          <div className="max-w-96 md:max-w-[32rem] text-wrap text-sm sm:text-base md:text-lg 
+          <div
+            className="max-w-96 md:max-w-[32rem] text-wrap text-sm sm:text-base md:text-lg 
           dark:bg-slate-900 bg-slate-100 dark:text-slate-300 text-slate-900 flex flex-col gap-1 px-4 sm:px-6 py-8 sm:py-10 rounded-md 
-          mx-4 sm:mx-0" onClick={() => navigate("/login")}>
-            <span onClick={() => setPopup(false)} className="material-symbols-outlined self-end cursor-pointer mb-2">close</span>
+          mx-4 sm:mx-0"
+            onClick={() => navigate("/login")}
+          >
+            <span
+              onClick={() => setPopup(false)}
+              className="material-symbols-outlined self-end cursor-pointer mb-2"
+            >
+              close
+            </span>
             <h2 className="text-lg sm:text-xl md:text-2xl tracking-wide font-semibold mb-4">
               Your password has been changed!
             </h2>

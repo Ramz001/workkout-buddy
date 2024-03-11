@@ -32,27 +32,30 @@ const WorkoutsContainer = () => {
       <div className="flex flex-col w-full gap-4">
         {workouts &&
           workouts.map((workout) => (
-            <WorkoutDetails key={workout._id + Math.random()} workout={workout} />
+            <WorkoutDetails
+              key={workout._id + Math.random()}
+              workout={workout}
+            />
           ))}
         {!isSignedIn && !workouts && (
-          <div className="text-center flex flex-col gap-2 mt-4">
+          <div className="text-center flex flex-col gap-2 mt-4 dark:text-slate-200 text-slate-900">
             <h3 className="text-2xl font-semibold md:text-3xl">
               The User is Not Logged in!
             </h3>
-            <p className="text-sm">
-              Please log in to see the content of workouts.
+            <p className="text-sm md:text-base">
+              Please login to see the content of workouts.
             </p>
-            <p className="text-sm">
+            <p className="text-sm md:text-base">
               Here is a link to the{" "}
-              <Link to="/login" className="underline hover:text-blue-600">
+              <Link to="/login" className="underline hover:text-green-600">
                 Login
               </Link>{" "}
-              page
+              page.
             </p>
           </div>
         )}
         {workouts && workouts.length === 0 && isSignedIn && (
-          <p className="text-center text-lg md:text-xl tracking-wide font-semibold">
+          <p className="text-center text-lg md:text-xl tracking-wide font-semibold dark:text-slate-200 text-slate-900">
             No workouts are available!
           </p>
         )}

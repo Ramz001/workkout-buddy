@@ -6,7 +6,7 @@ import Backdrop from "../../components/Backdrop/Backdrop";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const { forgotPassword, error, isLoading } = useForgotPassword();
-  const [popup, setPopup] = useState(true);
+  const [popup, setPopup] = useState(false);
 
   const handleResetBtn = async (e) => {
     e.preventDefault();

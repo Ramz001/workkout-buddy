@@ -11,14 +11,16 @@ const ForgotPassword = lazy(() =>
   import("./routes/ForgotPassword/ForgotPassword")
 );
 const Error = lazy(() => import("./routes/Error/Error"));
-const ResetPassword = lazy(() => import("./routes/ResetPassword/ResetPassword"))
+const ResetPassword = lazy(() =>
+  import("./routes/ResetPassword/ResetPassword")
+);
 
 function App() {
   const { isSignedIn } = useAuthContext();
 
   return (
     <Suspense
-      fallback={<Spinner/>}
+      fallback={<Spinner />}
       className="mx-[auto] max-w-[1920px] dark:bg-slate-700 bg-slate-50 min-h-screen"
     >
       <Navbar />
@@ -32,8 +34,14 @@ function App() {
           path="/signup"
           element={isSignedIn ? <Navigate to="/" /> : <SignUp />}
         />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
+        <Route
+          path="/forgot-password"
+          element={isSignedIn ? <Navigate to="/" /> : <ForgotPassword />}
+        />
+        <Route
+          path="/reset-password/:id/:token"
+          element={isSignedIn ? <Navigate to="/" /> : <ResetPassword />}
+        />
         <Route path="/*" element={<Error />} />
       </Routes>
     </Suspense>

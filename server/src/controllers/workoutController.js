@@ -49,7 +49,7 @@ const createWorkout = async (req, res) => {
       .status(400)
       .json({ error: "Please fill in the missing fields", emptyFields });
   }
-
+  
   try {
     const user_id = req.user._id;
     const workout = await Workout.create({

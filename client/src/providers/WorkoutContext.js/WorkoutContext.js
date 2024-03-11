@@ -16,7 +16,7 @@ export const workoutsReducer = (state, action) => {
       return {
         ...state,
         workouts: state.workouts.filter(
-          (workout) => workout._id !== action.payload._id
+          (workout) => workout._id !== action.payload._id,
         ),
       };
     }
@@ -25,7 +25,7 @@ export const workoutsReducer = (state, action) => {
     }
     case "EDIT_WORKOUT": {
       let currentWorkout = state.workouts.find(
-        (workout) => workout._id === action.payload._id
+        (workout) => workout._id === action.payload._id,
       );
 
       currentWorkout = { ...action.payload };

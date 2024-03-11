@@ -11,7 +11,7 @@ const SignUp = () => {
   const [inputError, setInputError] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { isSignedIn } = useAuthContext()
+  const { isSignedIn } = useAuthContext();
 
   const { signUp, error, isLoading } = useSignUp();
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const SignUp = () => {
       setEmail("");
       setInputError("");
     }
-    if(isSignedIn){
+    if (isSignedIn) {
       navigate("/");
     }
   };
@@ -43,7 +43,7 @@ const SignUp = () => {
         <h2 className=" text-xl md:text-2xl font-semibold tracking-widest mb-2 md:mb-4">
           Sign up
         </h2>
-        <div className="flex flex-col gap-1"> 
+        <div className="flex flex-col gap-1">
           <label htmlFor="name" className="text-xs md:text-base">
             User Name:
           </label>
@@ -57,7 +57,6 @@ const SignUp = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-
         </div>
         <div className="flex flex-col gap-1">
           <label htmlFor="email" className="text-xs md:text-base">
@@ -120,10 +119,7 @@ const SignUp = () => {
           </span>
         </div>
         <div className="flex justify-between items-center my-2">
-          <Link
-            to="/login"
-            className="auth-bottom-link"
-          >
+          <Link to="/login" className="auth-bottom-link">
             Already have an account
           </Link>
         </div>

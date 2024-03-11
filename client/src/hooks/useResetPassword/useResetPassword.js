@@ -5,12 +5,12 @@ const useResetPassword = (id, token) => {
   const { isSignedIn } = useAuthContext();
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isPasswordChanged, setIsPasswordChanged] = useState(false)
+  const [isPasswordChanged, setIsPasswordChanged] = useState(false);
 
   if (isSignedIn) {
     return setError("The user is signed in");
   }
-  
+
   const updatePassword = async (password) => {
     setIsLoading(true);
     setError(null);
@@ -25,13 +25,13 @@ const useResetPassword = (id, token) => {
     const data = await response.json();
 
     if (!response.ok) {
-      setIsPasswordChanged(false)
+      setIsPasswordChanged(false);
       setIsLoading(false);
       setError(data.error);
     }
     if (response.ok) {
       setIsLoading(false);
-      setIsPasswordChanged(true)      
+      setIsPasswordChanged(true);
     }
   };
   return { updatePassword, error, isLoading, isPasswordChanged };

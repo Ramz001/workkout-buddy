@@ -5,10 +5,10 @@ export const AuthContext = createContext();
 export const authReducer = (state, action) => {
   switch (action.type) {
     case "LOGIN": {
-      return { user: action.payload, isSignedIn: true }
+      return { user: action.payload, isSignedIn: true };
     }
     case "LOGOUT": {
-      return { user: null, isSignedIn: false }
+      return { user: null, isSignedIn: false };
     }
     default:
       return state;
@@ -22,13 +22,13 @@ const AuthContextProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"))
-    if(user){
-      dispatch({ type: "LOGIN", payload: user })
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      dispatch({ type: "LOGIN", payload: user });
     }
-  },[])
+  }, []);
 
-  console.log("Auth", state)
+  console.log("Auth", state);
 
   return (
     <AuthContext.Provider value={{ ...state, dispatch }}>

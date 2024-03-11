@@ -73,7 +73,7 @@ const WorkoutForm = () => {
             emptyFields && emptyFields.includes("title")
               ? "border-2 border-red-500"
               : " "
-          } px-2 h-8 rounded-lg shadow bg-slate-50 dark:bg-slate-500`}
+          } px-2 h-8 rounded-lg shadow bg-slate-50 dark:bg-slate-700`}
         />
       </div>
       <div className="flex flex-col gap-1 w-full">
@@ -90,7 +90,7 @@ const WorkoutForm = () => {
             emptyFields && emptyFields.includes("repetitions")
               ? "border-2 border-red-500"
               : " "
-          } px-2 h-8 rounded-lg shadow bg-slate-50 dark:bg-slate-500`}
+          } px-2 h-8 rounded-lg shadow bg-slate-50 dark:bg-slate-700`}
         />
       </div>
       <div className="flex flex-col gap-1 w-full">
@@ -107,7 +107,7 @@ const WorkoutForm = () => {
             emptyFields && emptyFields.includes("sets")
               ? "border-2 border-red-500"
               : ""
-          } px-2 h-8 rounded-lg shadow bg-slate-50 dark:bg-slate-500`}
+          } px-2 h-8 rounded-lg shadow bg-slate-50 dark:bg-slate-700`}
         />
       </div>
       <div className="flex flex-col gap-1 w-full">
@@ -120,7 +120,7 @@ const WorkoutForm = () => {
           id="workout-load"
           value={load}
           onChange={(e) => setLoad(e.target.value)}
-          className="px-2 h-8 rounded-lg shadow bg-slate-50 dark:bg-slate-500"
+          className="px-2 h-8 rounded-lg shadow bg-slate-50 dark:bg-slate-700"
         />
       </div>
       <div className="flex flex-col gap-1 w-full">
@@ -133,18 +133,16 @@ const WorkoutForm = () => {
           id="workout-duration"
           value={duration}
           onChange={(e) => setDuration(e.target.value)}
-          className="px-2 h-8 rounded-lg shadow bg-slate-50 dark:bg-slate-500"
+          className="px-2 h-8 rounded-lg shadow bg-slate-50 dark:bg-slate-700"
         />
       </div>
 
       <button
         type="submit"
-        className="rounded-lg px-5 py-2 hover:bg-green-600 text-base md:text-lg 
-        font-semibold flex justify-center items-center dark:bg-green-700 bg-green-500 text-slate-100
-        mt-4 shadow-inner "
+        className="rounded-lg px-4 py-2 hover:bg-green-600 text-base md:text-lg 
+        font-semibold dark:bg-green-700 bg-green-500 text-slate-100 mt-4 shadow-inner"
         onClick={(e) => handleSubmit(e)}
       >
-        <span className="material-symbols-outlined mr-2">Add</span>
         Add Workout
       </button>
       {error && (

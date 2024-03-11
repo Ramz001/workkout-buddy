@@ -6,7 +6,7 @@ export const useLogIn = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { dispatch } = useAuthContext();
 
-  const logIn = async ( email, password) => {
+  const logIn = async (email, password) => {
     setIsLoading(true);
     setError(null);
 
@@ -19,7 +19,7 @@ export const useLogIn = () => {
     });
     const data = await response.json();
 
-    if (!response.ok) { 
+    if (!response.ok) {
       setIsLoading(false);
       setError(data.error);
     }
@@ -29,5 +29,5 @@ export const useLogIn = () => {
       setIsLoading(false);
     }
   };
-  return { logIn, isLoading, error }
+  return { logIn, isLoading, error };
 };
