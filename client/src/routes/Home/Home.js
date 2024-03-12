@@ -1,14 +1,14 @@
-import WorkoutsContainer from "../../components/WorkoutsContainer/WorkoutsContainer";
+import WorkoutsContainer from '../../components/WorkoutsContainer/WorkoutsContainer'
 
 const Home = () => {
   return (
     <main
-      className="dark:bg-slate-800 bg-slate-50 px-4 sm:px-6 md:px-16 py-6 
-    sm:py-8 max-w-[1920px]  md:min-h-max 2xl:min-h-[92vh] mx-auto"
+      className="mx-auto max-w-[1920px] bg-slate-50 px-4 py-6 sm:px-6 
+    sm:py-8 md:min-h-max  md:px-16 2xl:min-h-[92vh] dark:bg-slate-800"
     >
       <WorkoutsContainer />
     </main>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

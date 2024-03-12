@@ -1,5 +1,5 @@
 const Spinner = () => {
-  return <div className="loader " />;
-};
+  return <div className="loader " />
+}
 
-export default Spinner;
+export default Spinner

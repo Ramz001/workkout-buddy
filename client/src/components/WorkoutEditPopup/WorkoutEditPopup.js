@@ -1,31 +1,31 @@
-import { useWorkoutsContext } from "../../hooks/useWorkoutsContext/useWorkoutsContext";
-import { useState } from "react";
-import { useAuthContext } from "../../hooks/useAuthContext/useAuthContext";
-import Backdrop from "../Backdrop/Backdrop";
+import { useWorkoutsContext } from '../../hooks/useWorkoutsContext/useWorkoutsContext'
+import { useState } from 'react'
+import { useAuthContext } from '../../hooks/useAuthContext/useAuthContext'
+import Backdrop from '../Backdrop/Backdrop'
 
 const WorkoutEditPopup = ({ workout }) => {
-  const { state, dispatch } = useWorkoutsContext();
-  const { isSignedIn, user } = useAuthContext();
-  const [title, setTitle] = useState("");
-  const [repetitions, setRepetitions] = useState("");
-  const [sets, setSets] = useState("");
-  const [load, setLoad] = useState("");
-  const [duration, setDuration] = useState("");
-  const [error, setError] = useState(null);
+  const { state, dispatch } = useWorkoutsContext()
+  const { isSignedIn, user } = useAuthContext()
+  const [title, setTitle] = useState('')
+  const [repetitions, setRepetitions] = useState('')
+  const [sets, setSets] = useState('')
+  const [load, setLoad] = useState('')
+  const [duration, setDuration] = useState('')
+  const [error, setError] = useState(null)
 
   const handleCloseBtn = () => {
-    dispatch({ type: "TOGGLE_POPUP" });
-  };
+    dispatch({ type: 'TOGGLE_POPUP' })
+  }
 
   const handleSubmit = async (e, type) => {
-    e.preventDefault();
+    e.preventDefault()
     if (!isSignedIn) {
-      setError("The user must be authorized");
-      return;
+      setError('The user must be authorized')
+      return
     }
 
     if (!title || !sets || !repetitions) {
-      return setError("Fields are required!");
+      return setError('Fields are required!')
     }
 
     const editedWorkout = {
@@ -35,40 +35,40 @@ const WorkoutEditPopup = ({ workout }) => {
       sets,
       duration,
       createdAt: workout.createdAt,
-    };
+    }
 
-    const response = await fetch("/api/workouts/" + workout._id, {
-      method: "PATCH",
+    const response = await fetch('/api/workouts/' + workout._id, {
+      method: 'PATCH',
       body: JSON.stringify(editedWorkout),
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${user.token}`,
       },
-    });
+    })
 
-    const data = await response;
+    const data = await response
 
     if (!response.ok) {
-      setError(data.error);
+      setError(data.error)
     }
     if (response.ok) {
-      dispatch({ type: "EDIT_WORKOUT", payload: editedWorkout });
-      dispatch({ type: "DELETE_WORKOUT", payload: workout });
-      dispatch({ type: "TOGGLE_POPUP" });
-      setError(null);
-      setTitle(null);
-      setLoad(null);
-      setRepetitions(null);
-      setSets(null);
+      dispatch({ type: 'EDIT_WORKOUT', payload: editedWorkout })
+      dispatch({ type: 'DELETE_WORKOUT', payload: workout })
+      dispatch({ type: 'TOGGLE_POPUP' })
+      setError(null)
+      setTitle(null)
+      setLoad(null)
+      setRepetitions(null)
+      setSets(null)
     }
-  };
+  }
 
   return (
     state.popup && (
       <Backdrop onClick={handleCloseBtn}>
         <form
-          className="flex flex-col gap-2 mx-4 justify-start items-start min-w-[18rem] sm:min-w-96 px-6 py-8
-    rounded-2xl text-base dark:text-slate-300 text-slate-900 dark:bg-slate-900 bg-slate-100"
+          className="mx-4 flex min-w-[18rem] flex-col items-start justify-start gap-2 rounded-2xl bg-slate-100 px-6
+    py-8 text-base text-slate-900 sm:min-w-96 dark:bg-slate-900 dark:text-slate-300"
           onClick={(e) => e.stopPropagation()}
         >
           <button
@@ -78,10 +78,10 @@ const WorkoutEditPopup = ({ workout }) => {
           >
             Close
           </button>
-          <h3 className="text-2xl font-semibold tracking-wider mb-4 text-slate-900 dark:text-slate-200">
+          <h3 className="mb-4 text-2xl font-semibold tracking-wider text-slate-900 dark:text-slate-200">
             Edit a Workout
           </h3>
-          <div className="flex flex-col gap-1 w-full">
+          <div className="flex w-full flex-col gap-1">
             <label htmlFor="workout-title" className="">
               Exercise Title:
             </label>
@@ -89,56 +89,56 @@ const WorkoutEditPopup = ({ workout }) => {
               type="text"
               name="title"
               id="workout-title"
-              className="px-2 h-10 rounded-lg bg-slate-50 dark:bg-slate-800"
+              className="h-10 rounded-lg bg-slate-50 px-2 dark:bg-slate-800"
               placeholder="Exercise title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
           </div>
-          <div className="flex flex-col gap-1 w-full">
+          <div className="flex w-full flex-col gap-1">
             <label htmlFor="workout-repetitions">Reps: </label>
             <input
               type="number"
               name="repetitions"
               id="workout-repetitions"
               placeholder="Reps"
-              className="px-2 h-10 rounded-lg bg-slate-50 dark:bg-slate-800"
+              className="h-10 rounded-lg bg-slate-50 px-2 dark:bg-slate-800"
               value={repetitions}
               onChange={(e) => setRepetitions(e.target.value)}
             />
           </div>
-          <div className="flex flex-col gap-1 w-full">
+          <div className="flex w-full flex-col gap-1">
             <label htmlFor="workout-sets">Sets: </label>
             <input
               type="number"
               name="sets"
               id="workout-sets"
               placeholder="Sets"
-              className="px-2 h-10 rounded-lg bg-slate-50 dark:bg-slate-800"
+              className="h-10 rounded-lg bg-slate-50 px-2 dark:bg-slate-800"
               value={sets}
               onChange={(e) => setSets(e.target.value)}
             />
           </div>
-          <div className="flex flex-col gap-1 w-full">
+          <div className="flex w-full flex-col gap-1">
             <label htmlFor="workout-load">Load: (in Kilos)</label>
             <input
               type="number"
               name="load"
               id="workout-load"
               placeholder="Load"
-              className="px-2 h-10 rounded-lg bg-slate-50 dark:bg-slate-800"
+              className="h-10 rounded-lg bg-slate-50 px-2 dark:bg-slate-800"
               value={load}
               onChange={(e) => setLoad(e.target.value)}
             />
           </div>
-          <div className="flex flex-col gap-1 w-full">
+          <div className="flex w-full flex-col gap-1">
             <label htmlFor="workout-duration">Duration: (in seconds)</label>
             <input
               type="number"
               name="duration"
               id="workout-duration"
               placeholder="Duration"
-              className="px-2 h-10 rounded-lg bg-slate-50 dark:bg-slate-800"
+              className="h-10 rounded-lg bg-slate-50 px-2 dark:bg-slate-800"
               value={duration}
               onChange={(e) => setDuration(e.target.value)}
             />
@@ -146,23 +146,23 @@ const WorkoutEditPopup = ({ workout }) => {
 
           <button
             type="submit"
-            className="self-center rounded-xl px-5 py-2 hover:bg-green-600 text-base 
-          md:text-lg font-semibold flex justify-center items-center dark:bg-green-700 bg-green-500 
-          text-slate-100 mt-4"
+            className="mt-4 flex items-center justify-center self-center rounded-xl 
+          bg-green-500 px-5 py-2 text-base font-semibold text-slate-100 hover:bg-green-600 
+          md:text-lg dark:bg-green-700"
             onClick={handleSubmit}
           >
-            <span className="material-symbols-outlined text-xl mr-2">edit</span>
+            <span className="material-symbols-outlined mr-2 text-xl">edit</span>
             Edit Workout
           </button>
           {error && (
-            <div className="text-red-600 font-bold text-sm w-full p-2 border bg-slate-100 rounded-md mt-2 border-red-600">
+            <div className="mt-2 w-full rounded-md border border-red-600 bg-slate-100 p-2 text-sm font-bold text-red-600">
               {error}
             </div>
           )}
         </form>
       </Backdrop>
     )
-  );
-};
+  )
+}
 
-export default WorkoutEditPopup;
+export default WorkoutEditPopup

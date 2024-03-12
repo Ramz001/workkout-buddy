@@ -1,46 +1,46 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { useSignUp } from "../../hooks/useSignUp/useSignUp";
-import { useAuthContext } from "../../hooks/useAuthContext/useAuthContext";
+import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { useSignUp } from '../../hooks/useSignUp/useSignUp'
+import { useAuthContext } from '../../hooks/useAuthContext/useAuthContext'
 
 const SignUp = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [inputError, setInputError] = useState(null);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { isSignedIn } = useAuthContext();
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [inputError, setInputError] = useState(null)
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const { isSignedIn } = useAuthContext()
 
-  const { signUp, error, isLoading } = useSignUp();
-  const navigate = useNavigate();
+  const { signUp, error, isLoading } = useSignUp()
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    console.log(confirmPassword === password);
+    console.log(confirmPassword === password)
     if (confirmPassword !== password) {
-      return setInputError("Passwords do not match!");
+      return setInputError('Passwords do not match!')
     }
 
-    await signUp(name, email, password);
+    await signUp(name, email, password)
     if (!error) {
-      setPassword("");
-      setConfirmPassword("");
-      setName("");
-      setEmail("");
-      setInputError("");
+      setPassword('')
+      setConfirmPassword('')
+      setName('')
+      setEmail('')
+      setInputError('')
     }
     if (isSignedIn) {
-      navigate("/");
+      navigate('/')
     }
-  };
+  }
 
   return (
-    <div className="min-h-screen flex justify-center items-center dark:bg-slate-900 bg-slate-100 dark:text-slate-300 text-slate-900">
-      <form className="dark:bg-slate-800 bg-slate-200 md:min-w-96 rounded-xl px-4 md:px-6 py-8 shadow-md flex flex-col gap-2">
-        <h2 className=" text-xl md:text-2xl font-semibold tracking-widest mb-2 md:mb-4">
+    <div className="flex min-h-screen items-center justify-center bg-slate-100 text-slate-900 dark:bg-slate-900 dark:text-slate-300">
+      <form className="flex flex-col gap-2 rounded-xl bg-slate-200 px-4 py-8 shadow-md md:min-w-96 md:px-6 dark:bg-slate-800">
+        <h2 className=" mb-2 text-xl font-semibold tracking-widest md:mb-4 md:text-2xl">
           Sign up
         </h2>
         <div className="flex flex-col gap-1">
@@ -73,12 +73,12 @@ const SignUp = () => {
             required
           />
         </div>
-        <div className="flex flex-col gap-1 relative">
+        <div className="relative flex flex-col gap-1">
           <label htmlFor="password" className="text-xs md:text-base">
             Password:
           </label>
           <input
-            type={showPassword ? "text" : "password"}
+            type={showPassword ? 'text' : 'password'}
             name="password"
             id="password"
             placeholder="Password"
@@ -88,20 +88,20 @@ const SignUp = () => {
             required
           />
           <span
-            className="material-symbols-outlined dark:text-slate-500 text-slate-600 
-            select-none absolute 
-            bottom-1 md:bottom-2 cursor-pointer right-2"
+            className="material-symbols-outlined absolute bottom-1 
+            right-2 cursor-pointer 
+            select-none text-slate-600 md:bottom-2 dark:text-slate-500"
             onClick={() => setShowPassword(!showPassword)}
           >
-            {showPassword ? "visibility" : "visibility_off"}
+            {showPassword ? 'visibility' : 'visibility_off'}
           </span>
         </div>
-        <div className="flex flex-col gap-1 relative">
+        <div className="relative flex flex-col gap-1">
           <label htmlFor="confirm-password" className="text-xs md:text-base">
             Confirm Password:
           </label>
           <input
-            type={showConfirmPassword ? "text" : "password"}
+            type={showConfirmPassword ? 'text' : 'password'}
             name="confirm-password"
             id="confirm-password"
             placeholder="Confirm password"
@@ -111,14 +111,14 @@ const SignUp = () => {
             required
           />
           <span
-            className="material-symbols-outlined dark:text-slate-500 text-slate-600 
-            select-none absolute bottom-1 md:bottom-2 cursor-pointer right-2"
+            className="material-symbols-outlined absolute bottom-1 
+            right-2 cursor-pointer select-none text-slate-600 md:bottom-2 dark:text-slate-500"
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
           >
-            {showConfirmPassword ? "visibility" : "visibility_off"}
+            {showConfirmPassword ? 'visibility' : 'visibility_off'}
           </span>
         </div>
-        <div className="flex justify-between items-center my-2">
+        <div className="my-2 flex items-center justify-between">
           <Link to="/login" className="auth-bottom-link">
             Already have an account
           </Link>
@@ -133,23 +133,23 @@ const SignUp = () => {
         </button>
         {error && (
           <div
-            className="text-red-600 font-bold text-sm p-2 border bg-slate-100 
-          rounded-md mt-2 border-red-600 capitalize"
+            className="mt-2 rounded-md border border-red-600 bg-slate-100 p-2 
+          text-sm font-bold capitalize text-red-600"
           >
             {error}!
           </div>
         )}
         {inputError && (
           <div
-            className="text-red-600 font-bold text-sm p-2 border bg-slate-100 
-          rounded-md mt-2 border-red-600"
+            className="mt-2 rounded-md border border-red-600 bg-slate-100 p-2 
+          text-sm font-bold text-red-600"
           >
             {inputError}!
           </div>
         )}
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default SignUp;
+export default SignUp

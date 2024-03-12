@@ -1,65 +1,65 @@
-import { useState } from "react";
-import { useWorkoutsContext } from "../../hooks/useWorkoutsContext/useWorkoutsContext";
-import { useAuthContext } from "../../hooks/useAuthContext/useAuthContext";
+import { useState } from 'react'
+import { useWorkoutsContext } from '../../hooks/useWorkoutsContext/useWorkoutsContext'
+import { useAuthContext } from '../../hooks/useAuthContext/useAuthContext'
 
 const WorkoutForm = () => {
-  const { dispatch } = useWorkoutsContext();
-  const { user, isSignedIn } = useAuthContext();
-  const [title, setTitle] = useState("");
-  const [repetitions, setRepetitions] = useState("");
-  const [sets, setSets] = useState("");
-  const [load, setLoad] = useState("");
-  const [duration, setDuration] = useState("");
-  const [error, setError] = useState("");
-  const [emptyFields, setEmptyFields] = useState([]);
+  const { dispatch } = useWorkoutsContext()
+  const { user, isSignedIn } = useAuthContext()
+  const [title, setTitle] = useState('')
+  const [repetitions, setRepetitions] = useState('')
+  const [sets, setSets] = useState('')
+  const [load, setLoad] = useState('')
+  const [duration, setDuration] = useState('')
+  const [error, setError] = useState('')
+  const [emptyFields, setEmptyFields] = useState([])
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (!isSignedIn) {
-      setError("The user must be authorized");
-      return;
+      setError('The user must be authorized')
+      return
     }
     if (!title || !sets || !repetitions) {
-      return setError("Fields are required!");
+      return setError('Fields are required!')
     }
-    const createdAt = new Date().toISOString().slice(0, 10);
+    const createdAt = new Date().toISOString().slice(0, 10)
 
-    const workout = { title, load, repetitions, sets, duration, createdAt };
+    const workout = { title, load, repetitions, sets, duration, createdAt }
 
-    const response = await fetch("/api/workouts", {
-      method: "POST",
+    const response = await fetch('/api/workouts', {
+      method: 'POST',
       body: JSON.stringify(workout),
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${user.token}`,
       },
-    });
-    const data = await response.json();
+    })
+    const data = await response.json()
 
     if (!response.ok) {
-      setError(data.error);
-      setEmptyFields(data.emptyFields);
+      setError(data.error)
+      setEmptyFields(data.emptyFields)
     }
     if (response.ok) {
-      dispatch({ type: "CREATE_WORKOUT", payload: workout });
-      setError(null);
-      setTitle(null);
-      setLoad(null);
-      setRepetitions(null);
-      setSets(null);
-      setEmptyFields([]);
+      dispatch({ type: 'CREATE_WORKOUT', payload: workout })
+      setError(null)
+      setTitle(null)
+      setLoad(null)
+      setRepetitions(null)
+      setSets(null)
+      setEmptyFields([])
     }
-  };
+  }
 
   return (
     <form
-      className="max-w-[22rem] md:max-w-96 self-center flex flex-col gap-1 justify-start items-start sticky shadow-md
-    rounded-xl py-6 px-4 text-base dark:bg-slate-900  dark:text-slate-300 bg-slate-100 h-fit w-full md:w-1/3"
+      className="sticky flex h-fit w-full max-w-[22rem] flex-col items-start justify-start gap-1 self-center
+    rounded-xl bg-slate-100 px-4 py-6 text-base  shadow-md md:w-1/3 md:max-w-96 dark:bg-slate-900 dark:text-slate-300"
     >
-      <h3 className="dark:text-slate-200 text-slate-900 text-xl md:text-xl mb-2 md:mb-4 font-semibold">
+      <h3 className="mb-2 text-xl font-semibold text-slate-900 md:mb-4 md:text-xl dark:text-slate-200">
         Add a New Workout
       </h3>
-      <div className="flex flex-col gap-1 w-full">
+      <div className="flex w-full flex-col gap-1">
         <label htmlFor="workout-title" className="text-sm sm:text-base">
           Exercise Title:
         </label>
@@ -70,15 +70,15 @@ const WorkoutForm = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           className={`${
-            emptyFields && emptyFields.includes("title")
-              ? "border-2 border-red-500"
-              : " "
-          } px-2 h-8 rounded-lg shadow bg-slate-50 dark:bg-slate-700`}
+            emptyFields && emptyFields.includes('title')
+              ? 'border-2 border-red-500'
+              : ' '
+          } h-8 rounded-lg bg-slate-50 px-2 shadow dark:bg-slate-700`}
         />
       </div>
-      <div className="flex flex-col gap-1 w-full">
+      <div className="flex w-full flex-col gap-1">
         <label htmlFor="workout-repetitions" className="text-sm sm:text-base">
-          Reps:{" "}
+          Reps:{' '}
         </label>
         <input
           type="number"
@@ -87,15 +87,15 @@ const WorkoutForm = () => {
           value={repetitions}
           onChange={(e) => setRepetitions(e.target.value)}
           className={`${
-            emptyFields && emptyFields.includes("repetitions")
-              ? "border-2 border-red-500"
-              : " "
-          } px-2 h-8 rounded-lg shadow bg-slate-50 dark:bg-slate-700`}
+            emptyFields && emptyFields.includes('repetitions')
+              ? 'border-2 border-red-500'
+              : ' '
+          } h-8 rounded-lg bg-slate-50 px-2 shadow dark:bg-slate-700`}
         />
       </div>
-      <div className="flex flex-col gap-1 w-full">
+      <div className="flex w-full flex-col gap-1">
         <label htmlFor="workout-sets" className="text-sm sm:text-base">
-          Sets:{" "}
+          Sets:{' '}
         </label>
         <input
           type="number"
@@ -104,13 +104,13 @@ const WorkoutForm = () => {
           value={sets}
           onChange={(e) => setSets(e.target.value)}
           className={`${
-            emptyFields && emptyFields.includes("sets")
-              ? "border-2 border-red-500"
-              : ""
-          } px-2 h-8 rounded-lg shadow bg-slate-50 dark:bg-slate-700`}
+            emptyFields && emptyFields.includes('sets')
+              ? 'border-2 border-red-500'
+              : ''
+          } h-8 rounded-lg bg-slate-50 px-2 shadow dark:bg-slate-700`}
         />
       </div>
-      <div className="flex flex-col gap-1 w-full">
+      <div className="flex w-full flex-col gap-1">
         <label htmlFor="workout-load" className="text-sm sm:text-base">
           Load: (in Kilos)
         </label>
@@ -120,10 +120,10 @@ const WorkoutForm = () => {
           id="workout-load"
           value={load}
           onChange={(e) => setLoad(e.target.value)}
-          className="px-2 h-8 rounded-lg shadow bg-slate-50 dark:bg-slate-700"
+          className="h-8 rounded-lg bg-slate-50 px-2 shadow dark:bg-slate-700"
         />
       </div>
-      <div className="flex flex-col gap-1 w-full">
+      <div className="flex w-full flex-col gap-1">
         <label htmlFor="workout-duration" className="text-sm sm:text-base">
           Duration: (in seconds)
         </label>
@@ -133,25 +133,27 @@ const WorkoutForm = () => {
           id="workout-duration"
           value={duration}
           onChange={(e) => setDuration(e.target.value)}
-          className="px-2 h-8 rounded-lg shadow bg-slate-50 dark:bg-slate-700"
+          className="h-8 rounded-lg bg-slate-50 px-2 shadow dark:bg-slate-700"
         />
       </div>
 
       <button
         type="submit"
-        className="rounded-lg px-4 py-2 hover:bg-green-600 text-base md:text-lg 
-        font-semibold dark:bg-green-700 bg-green-500 text-slate-100 mt-4 shadow-inner"
+        className="mt-4 flex items-center justify-center gap-1 rounded-lg 
+        bg-green-500 px-4 py-2 text-base font-semibold 
+        text-slate-100 shadow-inner hover:bg-green-600 md:text-lg dark:bg-green-700"
         onClick={(e) => handleSubmit(e)}
       >
-        Add Workout
+        <span className="material-symbols-outlined">add</span>
+        Workout
       </button>
       {error && (
-        <div className="text-red-600 font-bold text-sm p-2 border dark:bg-slate-800 bg-slate-100 rounded-md mt-2 border-red-600">
+        <div className="mt-2 rounded-md border border-red-600 bg-slate-100 p-2 text-sm font-bold text-red-600 dark:bg-slate-800">
           {error}
         </div>
       )}
     </form>
-  );
-};
+  )
+}
 
-export default WorkoutForm;
+export default WorkoutForm
