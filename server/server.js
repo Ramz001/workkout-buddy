@@ -3,7 +3,7 @@ const workoutRoutes = require("./src/routes/workouts");
 const userRoutes = require("./src/routes/user");
 const mongoose = require("mongoose");
 const cors = require("cors");
-
+const localVariables = require('./src/middleware/localVariables')
 require("dotenv").config({ path: "./src/configs/.env" });
 
 const corsOptions = {
@@ -15,9 +15,10 @@ const app = express();
 app.use(express.json());
 app.use(cors(corsOptions));
 
-
 app.use("/api/workouts", workoutRoutes);
 app.use("/api/user", userRoutes);
+app.use(localVariables)
+
 
 mongoose
   .connect(process.env.MONGODB_URI)

@@ -7,11 +7,12 @@ const Home = lazy(() => import('./routes/Home/Home'))
 const Navbar = lazy(() => import('./components/Navbar/Navbar'))
 const SignUp = lazy(() => import('./routes/SignUp/SignUp'))
 const Login = lazy(() => import('./routes/Login/Login'))
-const ForgotPassword = lazy(
-  () => import('./routes/ForgotPassword/ForgotPassword')
+const RecoverPassword = lazy(
+  () => import('./routes/RecoverPassword/RecoverPassword')
 )
 const Error = lazy(() => import('./routes/Error/Error'))
 const ResetPassword = lazy(() => import('./routes/ResetPassword/ResetPassword'))
+const VerifyEmail = lazy(() => import('./routes/VerifyEmail/VerifyEmail'))
 
 function App() {
   const { isSignedIn } = useAuthContext()
@@ -19,7 +20,7 @@ function App() {
   return (
     <Suspense
       fallback={<Spinner />}
-      className="mx-[auto] min-h-screen max-w-[1920px] bg-slate-50 dark:bg-slate-700"
+      className="mx-auto min-h-screen max-w-[1920px] bg-slate-50 dark:bg-slate-700"
     >
       <Navbar />
       <Routes>
@@ -33,12 +34,16 @@ function App() {
           element={isSignedIn ? <Navigate to="/" /> : <SignUp />}
         />
         <Route
-          path="/forgot-password"
-          element={isSignedIn ? <Navigate to="/" /> : <ForgotPassword />}
+          path="/recover-password"
+          element={isSignedIn ? <Navigate to="/" /> : <RecoverPassword />}
         />
         <Route
-          path="/reset-password/:id/:token"
+          path="/reset-password/"
           element={isSignedIn ? <Navigate to="/" /> : <ResetPassword />}
+        />
+        <Route
+          path="/verify-email"
+          element={isSignedIn ? <Navigate to="/" /> : <VerifyEmail />}
         />
         <Route path="/*" element={<Error />} />
       </Routes>

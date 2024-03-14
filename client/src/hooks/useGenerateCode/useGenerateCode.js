@@ -1,37 +1,35 @@
-import { useAuthContext } from '../useAuthContext/useAuthContext'
 import { useState } from 'react'
 
-const useForgotPassword = () => {
-  const { isSignedIn } = useAuthContext()
+const useGenerateCode = () => {
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [data, setData]  = useState(null)
 
-  const forgotPassword = async (email) => {
+  const generateCode = async (email, _id, token) => {
     setIsLoading(true)
     setError(null)
 
-    if (isSignedIn) {
-      return setError('The user is signed in')
-    }
-
-    const response = await fetch('api/user/forgot-password', {
+    const response = await fetch('api/user/generateOTP', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({ email, _id, token }),
     })
+
     const data = await response.json()
 
     if (!response.ok) {
       setIsLoading(false)
       setError(data.error)
+      setData(null)
     }
     if (response.ok) {
       setIsLoading(false)
+      setData(data)
     }
   }
-  return { forgotPassword, error, isLoading }
+  return { generateCode, error, isLoading, data }
 }
 
-export default useForgotPassword
+export default useGenerateCode

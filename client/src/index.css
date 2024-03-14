@@ -16,6 +16,11 @@
   input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px rgb(248 250 252) inset !important;
   }
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 
   @media (prefers-color-scheme: dark) {
     input:-webkit-autofill,
@@ -26,7 +31,7 @@
       -webkit-text-fill-color: rgb(226 232 240);
     }
     html {
-      background-color: rgb(30 41 59);
+      background-color: rgb(15 23 42);
     }
   }
 }

@@ -64,7 +64,7 @@ const Login = () => {
           </span>
         </div>
         <div className="my-2 flex items-center justify-between">
-          <Link to="/forgot-password" className="auth-bottom-link">
+          <Link to="/recover-password" className="auth-bottom-link">
             Forgot password?
           </Link>
           <Link to="/signup" className="auth-bottom-link">

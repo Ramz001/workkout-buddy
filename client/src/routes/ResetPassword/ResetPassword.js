@@ -32,8 +32,8 @@ const ResetPassword = () => {
     text-slate-900 dark:bg-slate-900 dark:text-slate-300"
     >
       <form
-        className="flex flex-col gap-2 rounded-xl 
-      bg-slate-200 px-6 py-8 shadow-md md:min-w-96 dark:bg-slate-800"
+        className="flex flex-col gap-2 rounded-xl bg-slate-200 px-6 py-8 
+        shadow-md md:min-w-96 dark:bg-slate-800"
       >
         <h2 className="mb-2 text-xl font-semibold md:mb-4 md:text-2xl">
           Reset Password
@@ -62,7 +62,7 @@ const ResetPassword = () => {
         <button
           type="submit"
           disabled={isLoading}
-          className="auth-submit-button"
+          className="auth-submit-button mt-4"
           onClick={(e) => handleResetBtn(e)}
         >
           Update Password
@@ -76,8 +76,8 @@ const ResetPassword = () => {
         </Link>
         {error && (
           <div
-            className="mt-2 rounded-md border border-red-600 bg-slate-100 
-                    p-2 text-sm font-bold capitalize text-red-600"
+            className="mt-2 max-w-96 rounded-md border border-red-600 
+            bg-slate-100 p-2 text-sm font-bold capitalize text-red-600"
           >
             {error}!
           </div>
@@ -87,14 +87,14 @@ const ResetPassword = () => {
         <Backdrop onClick={handlePopup}>
           <div
             className="mx-4 flex max-w-96 flex-col gap-1 text-wrap rounded-md 
-                        bg-slate-100 px-4 py-8 text-sm text-slate-900 sm:mx-0 sm:px-6 
-                        sm:py-10 sm:text-base md:max-w-[32rem] md:text-lg dark:bg-slate-900 
-                        dark:text-slate-300"
+           bg-slate-100 px-4 py-8 text-sm text-slate-900 sm:mx-0 sm:px-6 
+            sm:py-10 sm:text-base md:max-w-[32rem] md:text-lg dark:bg-slate-900 
+            dark:text-slate-300"
             onClick={(e) => e.stopPropagation()}
           >
             <span
               onClick={handlePopup}
-              className="material-symbols-outlined mb-2 cursor-pointer self-end"
+              className="material-symbols-outlined mb-4 cursor-pointer self-end"
             >
               close
             </span>
