@@ -1,19 +1,16 @@
-import { useAuthContext } from '../useAuthContext/useAuthContext'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { setTemp } from '../../features/temp/tempSlice'
 
 const useRecoverPassword = () => {
-  const { isSignedIn } = useAuthContext()
+  const dispatch = useDispatch()
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData]  = useState(null)
 
-  const recoverPassword = async (email) => {
+  const generateOTP = async (email) => {
     setIsLoading(true)
     setError(null)
-
-    if (isSignedIn) {
-      return setError('The user is signed in')
-    }
 
     const response = await fetch('api/user/recover-password', {
       method: 'POST',
@@ -30,11 +27,12 @@ const useRecoverPassword = () => {
       setData(null)
     }
     if (response.ok) {
+      dispatch(setTemp(data))
       setIsLoading(false)
       setData(data)
     }
   }
-  return { recoverPassword, error, isLoading, data }
+    return { generateOTP, error, isLoading, data }
 }
 
 export default useRecoverPassword

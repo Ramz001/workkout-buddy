@@ -7,7 +7,6 @@ const {
   verifyOTP,
 } = require("../controllers/userController");
 
-
 const router = express.Router();
 
 router.post("/login", login);
@@ -18,6 +17,6 @@ router.post("/recover-password", recoverPassword);
 
 router.post("/verifyOTP", verifyOTP);
 
-router.post("/reset-password", resetPassword);
+router.patch("/reset-password/", resetPassword);
 
 module.exports = router;

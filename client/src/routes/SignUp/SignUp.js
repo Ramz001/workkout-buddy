@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useSignUp } from '../../hooks/useSignUp/useSignUp'
-import { useAuthContext } from '../../hooks/useAuthContext/useAuthContext'
+import { useSelector } from 'react-redux'
 
 const SignUp = () => {
   const [name, setName] = useState('')
@@ -11,7 +11,7 @@ const SignUp = () => {
   const [inputError, setInputError] = useState(null)
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-  const { isSignedIn } = useAuthContext()
+  const { isSignedIn } = useSelector(store => store.user)
 
   const { signUp, error, isLoading } = useSignUp()
   const navigate = useNavigate()

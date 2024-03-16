@@ -14,11 +14,11 @@ const app = express();
 
 app.use(express.json());
 app.use(cors(corsOptions));
+app.locals.OTP = null
 
 app.use("/api/workouts", workoutRoutes);
 app.use("/api/user", userRoutes);
 app.use(localVariables)
-
 
 mongoose
   .connect(process.env.MONGODB_URI)

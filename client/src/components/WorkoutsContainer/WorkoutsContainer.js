@@ -1,14 +1,14 @@
 import { useEffect } from 'react'
-import { useWorkoutsContext } from '../../hooks/useWorkoutsContext/useWorkoutsContext'
 import WorkoutDetails from '../WorkoutDetails/WorkoutDetails'
 import WorkoutForm from '../../components/WorkoutForm/WorkoutForm'
 import { Link } from 'react-router-dom'
-import { useAuthContext } from '../../hooks/useAuthContext/useAuthContext'
+import { useSelector, useDispatch } from 'react-redux'
+import { setWorkouts } from '../../features/workouts/workoutsSlice'
 
 const WorkoutsContainer = () => {
-  const { state, dispatch } = useWorkoutsContext()
-  const { workouts } = state
-  const { isSignedIn, user } = useAuthContext()
+  const dispatch = useDispatch()
+  const { isSignedIn, user } = useSelector(store => store.user)
+  const { workouts } = useSelector(store => store.workouts)
 
   useEffect(() => {
     const fetchWorkouts = async () => {
@@ -19,7 +19,7 @@ const WorkoutsContainer = () => {
       })
       const data = await response.json()
       if (response.ok) {
-        dispatch({ type: 'SET_WORKOUTS', payload: data })
+        dispatch(setWorkouts(data))
       }
     }
     if (isSignedIn) {

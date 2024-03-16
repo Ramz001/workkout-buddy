@@ -1,11 +1,13 @@
-import { useWorkoutsContext } from '../../hooks/useWorkoutsContext/useWorkoutsContext'
 import { useState } from 'react'
-import { useAuthContext } from '../../hooks/useAuthContext/useAuthContext'
 import Backdrop from '../Backdrop/Backdrop'
+import { useDispatch, useSelector } from 'react-redux'
+import { togglePopup } from '../../features/workouts/workoutsSlice'
 
 const WorkoutEditPopup = ({ workout }) => {
-  const { state, dispatch } = useWorkoutsContext()
-  const { isSignedIn, user } = useAuthContext()
+ const dispatch = useDispatch()
+  const { popup } = useSelector(store => store.workouts)
+  const { isSignedIn, user } = useSelector((store) => store.user)
+
   const [title, setTitle] = useState('')
   const [repetitions, setRepetitions] = useState('')
   const [sets, setSets] = useState('')
@@ -14,7 +16,7 @@ const WorkoutEditPopup = ({ workout }) => {
   const [error, setError] = useState(null)
 
   const handleCloseBtn = () => {
-    dispatch({ type: 'TOGGLE_POPUP' })
+    dispatch(togglePopup())
   }
 
   const handleSubmit = async (e, type) => {
@@ -64,7 +66,7 @@ const WorkoutEditPopup = ({ workout }) => {
   }
 
   return (
-    state.popup && (
+    popup && (
       <Backdrop onClick={handleCloseBtn}>
         <form
           className="mx-4 flex min-w-[18rem] flex-col items-start justify-start gap-2 rounded-2xl bg-slate-100 px-6

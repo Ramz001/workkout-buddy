@@ -2,25 +2,25 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import useRecoverPassword from '../../hooks/useRecoverPassword/useRecoverPassword'
 
-const RecoverPassword = () => {
+const RecoverPassword = ({ temp, setTemp }) => {
   const [email, setEmail] = useState('')
-  const { recoverPassword, error, isLoading, data } = useRecoverPassword()
+  const { generateOTP, error, isLoading, data } = useRecoverPassword()
   const navigate = useNavigate()
+  console.log(temp)
 
-  const handleResetBtn = async (e) => {
-    
+  const handleRecoverBtn = async (e) => {
     e.preventDefault()
-    await recoverPassword(email)
-    console.log(data)
-    if(data){
+    await generateOTP(email)
+    if (data) {
+      setTemp((prevState) => ({ ...prevState, email, _id: data._id }))
       navigate('/verify-email')
     }
   }
 
   return (
     <div
-      className="flex min-h-screen items-center justify-center text-slate-900 
-      dark:text-slate-300 bg-slate-100 dark:bg-slate-900"
+      className="flex min-h-screen items-center justify-center bg-slate-100 
+      text-slate-900 dark:bg-slate-900 dark:text-slate-300"
     >
       <form
         className="flex flex-col gap-2 rounded-xl 
@@ -29,6 +29,11 @@ const RecoverPassword = () => {
         <h2 className="mb-2 text-xl font-semibold md:mb-4 md:text-2xl">
           Forgot Your Password
         </h2>
+        {data && (
+          <div className="rounded-md bg-green-600 bg-opacity-25 p-2 text-sm md:text-base">
+            <p>{data.status}</p>
+          </div>
+        )}
         <label htmlFor="email" className="text-xs md:text-base">
           Email:
         </label>
@@ -43,8 +48,8 @@ const RecoverPassword = () => {
         <button
           type="submit"
           disabled={isLoading}
-          onClick={(e) => handleResetBtn(e)}
-          className="auth-submit-button mt-4"
+          className="auth-submit-button mt-4 "
+          onClick={(e) => handleRecoverBtn(e)}
         >
           Reset Password
         </button>
@@ -57,8 +62,8 @@ const RecoverPassword = () => {
         </Link>
         {error && (
           <div
-            className="mt-2 rounded-md border border-red-600 bg-slate-100 p-2 
-          text-sm font-bold capitalize text-red-600 dark:bg-slate-800 max-w-96"
+            className="mt-2 max-w-96 rounded-md border border-red-600 bg-slate-100 
+          p-2 text-sm font-bold capitalize text-red-600 dark:bg-slate-800"
           >
             {error}!
           </div>

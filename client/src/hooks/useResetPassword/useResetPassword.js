@@ -1,26 +1,20 @@
-import { useAuthContext } from '../useAuthContext/useAuthContext'
 import { useState } from 'react'
 
-const useResetPassword = (id, token) => {
-  const { isSignedIn } = useAuthContext()
+const useResetPassword = () => {
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [isPasswordChanged, setIsPasswordChanged] = useState(false)
 
-  if (isSignedIn) {
-    return setError('The user is signed in')
-  }
-
-  const updatePassword = async (password) => {
+  const updatePassword = async (password, _id, token) => {
     setIsLoading(true)
     setError(null)
 
-    const response = await fetch(`/api/user/reset-password/${id}/${token}`, {
-      method: 'POST',
+    const response = await fetch(`/api/user/reset-password`, {
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ password }),
+      body: JSON.stringify({ password, _id, token }),
     })
     const data = await response.json()
 

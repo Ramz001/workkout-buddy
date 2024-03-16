@@ -4,18 +4,20 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom'
-import WorkoutContextProvider from './providers/WorkoutContext.js/WorkoutContext'
-import AuthContextProvider from './providers/AuthContext.js/AuthContext'
+import { Provider } from 'react-redux'
+import store from './store/store'
+import { persistor } from './store/store'
+import { PersistGate } from 'redux-persist/integration/react'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthContextProvider>
-        <WorkoutContextProvider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
           <App />
-        </WorkoutContextProvider>
-      </AuthContextProvider>
+        </PersistGate>
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>
 )

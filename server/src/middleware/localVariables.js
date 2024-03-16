@@ -1,10 +1,8 @@
-function localVariables (req, res, next){
- req.app.locals = {
-  OTP: null,
-  resetSession: false,
-  user: null
- }   
- next()
+function localVariables(req, res, next) {
+    req.app.locals = {
+      OTP: null,
+    };
+    next();
 }
 
-module.exports = localVariables
+module.exports = localVariables;

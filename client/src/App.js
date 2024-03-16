@@ -1,21 +1,24 @@
+import { Suspense, lazy, useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { useAuthContext } from './hooks/useAuthContext/useAuthContext'
-import { Suspense, lazy } from 'react'
 import Spinner from './components/Spinner/Spinner'
+import { useSelector } from 'react-redux'
 
 const Home = lazy(() => import('./routes/Home/Home'))
-const Navbar = lazy(() => import('./components/Navbar/Navbar'))
-const SignUp = lazy(() => import('./routes/SignUp/SignUp'))
 const Login = lazy(() => import('./routes/Login/Login'))
+const SignUp = lazy(() => import('./routes/SignUp/SignUp'))
+const Navbar = lazy(() => import('./components/Navbar/Navbar'))
+const Error = lazy(() => import('./routes/Error/Error'))
+const VerifyEmail = lazy(() => import('./routes/VerifyEmail/VerifyEmail'))
 const RecoverPassword = lazy(
   () => import('./routes/RecoverPassword/RecoverPassword')
 )
-const Error = lazy(() => import('./routes/Error/Error'))
 const ResetPassword = lazy(() => import('./routes/ResetPassword/ResetPassword'))
-const VerifyEmail = lazy(() => import('./routes/VerifyEmail/VerifyEmail'))
 
 function App() {
-  const { isSignedIn } = useAuthContext()
+  const { isSignedIn } = useSelector((store) => store.user)
+
+  const [temp, setTemp] = useState({ email: '', _id: '', token: '' })
+  console.log(temp)
 
   return (
     <Suspense
@@ -35,15 +38,33 @@ function App() {
         />
         <Route
           path="/recover-password"
-          element={isSignedIn ? <Navigate to="/" /> : <RecoverPassword />}
+          element={
+            isSignedIn ? (
+              <Navigate to="/" />
+            ) : (
+              <RecoverPassword temp={temp} setTemp={setTemp} />
+            )
+          }
+        />
+        <Route
+          path="/verify-email/"
+          element={
+            !temp._id ? (
+              <Navigate to="/" />
+            ) : (
+              <VerifyEmail temp={temp} setTemp={setTemp} />
+            )
+          }
         />
         <Route
           path="/reset-password/"
-          element={isSignedIn ? <Navigate to="/" /> : <ResetPassword />}
-        />
-        <Route
-          path="/verify-email"
-          element={isSignedIn ? <Navigate to="/" /> : <VerifyEmail />}
+          element={
+            !temp.token ? (
+              <Navigate to="/" />
+            ) : (
+              <ResetPassword temp={temp} setTemp={setTemp} />
+            )
+          }
         />
         <Route path="/*" element={<Error />} />
       </Routes>

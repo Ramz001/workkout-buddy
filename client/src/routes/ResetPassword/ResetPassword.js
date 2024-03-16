@@ -1,21 +1,21 @@
 import useResetPassword from '../../hooks/useResetPassword/useResetPassword'
-import { Link, useParams, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import Backdrop from '../../components/Backdrop/Backdrop'
 
-const ResetPassword = () => {
+const ResetPassword = ({ temp, setTemp }) => {
   const [password, setPassword] = useState('')
+  const { _id, token } = temp
   const [showPassword, setShowPassword] = useState(false)
-  const { id, token } = useParams()
   const { updatePassword, error, isLoading, isPasswordChanged } =
-    useResetPassword(id, token)
+    useResetPassword()
   const navigate = useNavigate()
   const [popup, setPopup] = useState(false)
 
   const handleResetBtn = async (e) => {
     e.preventDefault()
 
-    await updatePassword(password)
+    await updatePassword(password, _id, token)
     if (isPasswordChanged) {
       setPopup(true)
     }
@@ -33,7 +33,7 @@ const ResetPassword = () => {
     >
       <form
         className="flex flex-col gap-2 rounded-xl bg-slate-200 px-6 py-8 
-        shadow-md md:min-w-96 dark:bg-slate-800"
+        shadow-md min-w-96 md:min-w-[26rem] dark:bg-slate-800"
       >
         <h2 className="mb-2 text-xl font-semibold md:mb-4 md:text-2xl">
           Reset Password
@@ -46,14 +46,14 @@ const ResetPassword = () => {
             type={showPassword ? 'text' : 'password'}
             name="password"
             id="password"
-            className="auth-input"
+            className="auth-input h-10"
             placeholder="Your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <span
-            className="material-symbols-outlined absolute bottom-1 right-2 cursor-pointer 
-            select-none text-slate-600 md:bottom-2 dark:text-slate-500"
+            className="material-symbols-outlined absolute bottom-2 right-2 
+            cursor-pointer select-none text-slate-600 dark:text-slate-500"
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? 'visibility' : 'visibility_off'}

@@ -31,7 +31,7 @@
       -webkit-text-fill-color: rgb(226 232 240);
     }
     html {
-      background-color: rgb(15 23 42);
+      background-color: rgb(30 41 59);
     }
   }
 }
@@ -46,8 +46,8 @@
   }
   .auth-submit-button {
     @apply mt-2 h-10 rounded-lg border bg-green-600 
-    text-slate-100 hover:border-green-600 hover:bg-slate-200 hover:text-slate-900 dark:bg-green-800 
-    dark:hover:border-green-800 dark:hover:bg-slate-400;
+    text-slate-100 hover:border-green-600 hover:bg-slate-200 hover:text-slate-900 disabled:cursor-not-allowed 
+    disabled:bg-slate-600 dark:bg-green-800 dark:hover:border-green-800 dark:hover:bg-slate-400;
   }
   .material-symbols-outlined {
     font-variation-settings:

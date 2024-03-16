@@ -1,16 +1,16 @@
-import { useAuthContext } from '../../hooks/useAuthContext/useAuthContext'
-import { useWorkoutsContext } from '../../hooks/useWorkoutsContext/useWorkoutsContext'
 import WorkoutEditPopup from '../WorkoutEditPopup/WorkoutEditPopup'
 import { formatDistanceToNow } from 'date-fns'
+import { useDispatch, useSelector } from 'react-redux'
+import { deleteWorkout,  togglePopup } from '../../features/workouts/workoutsSlice'
 
 const WorkoutDetails = ({ workout }) => {
   const { title, repetitions, load, sets, duration, createdAt, _id } = workout
-  const { dispatch } = useWorkoutsContext()
-  const { user, isSignedIn } = useAuthContext()
+  const dispatch = useDispatch()
+  const { user, isSignedIn } = useSelector((store) => store.user)
 
   const handleDeleteBtn = async () => {
     if (!isSignedIn) {
-      return
+      return alert('Please sign in to delete a workout')
     }
 
     const response = await fetch('/api/workouts/' + _id, {
@@ -25,12 +25,12 @@ const WorkoutDetails = ({ workout }) => {
       throw Error('Cannot delete a workout')
     }
     if (response.ok) {
-      dispatch({ type: 'DELETE_WORKOUT', payload: data })
+      dispatch(deleteWorkout(data))
     }
   }
 
   const handleEditBtn = () => {
-    dispatch({ type: 'TOGGLE_POPUP' })
+    dispatch(togglePopup())
   }
 
   return (
