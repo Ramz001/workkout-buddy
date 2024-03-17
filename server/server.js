@@ -7,7 +7,7 @@ const localVariables = require('./src/middleware/localVariables')
 require("dotenv").config({ path: "./src/configs/.env" });
 
 const corsOptions = {
-  origin: [process.env.CLIENT_URL, "https://workout-buddy-self.vercel.app"], // frontend URI (ReactJS)
+  origin: "https://mr-workout-buddy.vercel.app", // frontend URI (ReactJS)
   methods: ["POST", "GET", "PATCH", "DELETE"],
 }
 
