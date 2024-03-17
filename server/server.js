@@ -7,7 +7,8 @@ const localVariables = require('./src/middleware/localVariables')
 require("dotenv").config({ path: "./src/configs/.env" });
 
 const corsOptions = {
-  origin: process.env.CLIENT_URL // frontend URI (ReactJS)
+  origin: [process.env.CLIENT_URL,], // frontend URI (ReactJS)
+  methods: ["POST", "GET", "PATCH", "DELETE"],
 }
 
 const app = express();
