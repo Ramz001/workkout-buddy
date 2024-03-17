@@ -9,6 +9,7 @@ require("dotenv").config({ path: "./src/configs/.env" });
 const corsOptions = {
   origin: "https://mr-workout-buddy.vercel.app", // frontend URI (ReactJS)
   methods: ["POST", "GET", "PATCH", "DELETE"],
+  credentials: true
 }
 
 const app = express();
