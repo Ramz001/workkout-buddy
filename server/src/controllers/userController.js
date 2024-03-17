@@ -100,19 +100,25 @@ const verifyOTP = (req, res) => {
   const { code, _id } = req.body;
 
   if (code.length !== 6) {
-    res.status(400).json({ error: "OTP must be 6 digits!" });
+    return res.status(400).json({ error: "OTP must contain 6 digits!" });
   }
-  if (!code) res.status(400).json({ error: "OTP is required!" });
-  if (!_id) res.status(400).json({ error: "User ID is required!" });
+  if (!code) return res.status(400).json({ error: "OTP is required!" });
+  if (!_id) return res.status(400).json({ error: "User ID is required!" });
+  if (parseInt(req.app.locals.OTP) !== parseInt(code)) {
+    return res.status(400).json({ error: "Your OTP is incorrect" });
+  }
 
-  if (!req.app.locals.OTP) res.status(400).json({ error: "You have no OTP" });
+  try {
+    if (!req.app.locals.OTP)
+      return res.status(400).json({ error: "The server does not contain OTP" });
 
-  if (parseInt(req.app.locals.OTP) === parseInt(code)) {
     req.app.locals.OTP = null;
     const token = jwt.sign({ _id }, process.env.JWT_SECRET_KEY, {
       expiresIn: "1h",
     });
     return res.status(201).json({ status: "User is verified", _id, token });
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
   }
 };
 

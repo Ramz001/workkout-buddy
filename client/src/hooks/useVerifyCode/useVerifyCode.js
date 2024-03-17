@@ -19,10 +19,10 @@ const useVerifyCode = () => {
     })
 
     const data = await response.json()
-
+    console.log(response)
     if (!response.ok) {
-      setData(null)
       setIsLoading(false)
+      setData(null)
       setError(data.error)
     }
     if (response.ok) {

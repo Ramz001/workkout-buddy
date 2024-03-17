@@ -1,10 +1,7 @@
-/* eslint-disable no-unused-vars */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useVerifyCode from '../../hooks/useVerifyCode/useVerifyCode'
 import { useNavigate } from 'react-router-dom'
 import useRecoverPassword from '../../hooks/useRecoverPassword/useRecoverPassword'
-import { useSelector } from 'react-redux'
-import { setTemp } from '../../features/temp/tempSlice'
 
 const VerifyEmail = ({ temp, setTemp }) => {
   const [code, setCode] = useState('')
@@ -12,19 +9,20 @@ const VerifyEmail = ({ temp, setTemp }) => {
   const { generateOTP, data: otpData } = useRecoverPassword()
 
   const navigate = useNavigate()
-  console.log(temp.token)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     await verifyCode(code, temp._id)
     setCode('')
+  }
 
+  useEffect(() => {
     if (data) {
       setTemp((prevState) => ({ ...prevState, token: data.token }))
-      return navigate("/reset-password")
+      return navigate('/reset-password')
     }
-  }
+  }, [data, navigate, setTemp])
 
   const handleResend = async () => {
     await generateOTP(temp.email)

@@ -4,7 +4,7 @@ import { createWorkout } from '../../features/workouts/workoutsSlice'
 
 const WorkoutForm = () => {
   const dispatch = useDispatch()
-  const { user, isSignedIn } = useSelector(store => store.user)
+  const { user, isSignedIn } = useSelector((store) => store.user)
 
   const [title, setTitle] = useState('')
   const [repetitions, setRepetitions] = useState('')
@@ -43,11 +43,11 @@ const WorkoutForm = () => {
     }
     if (response.ok) {
       dispatch(createWorkout(data))
-      setError(null)
-      setTitle(null)
-      setLoad(null)
-      setRepetitions(null)
-      setSets(null)
+      setError('')
+      setTitle('')
+      setLoad('')
+      setRepetitions('')
+      setSets('')
       setEmptyFields([])
     }
   }
@@ -55,8 +55,8 @@ const WorkoutForm = () => {
   return (
     <form
       className="sticky flex h-fit w-full max-w-[22rem] flex-col items-start justify-start 
-      gap-1 self-start rounded-xl bg-slate-100 px-4 py-6 text-base  shadow-md 
-      md:w-1/3 md:max-w-96 dark:bg-slate-900 dark:text-slate-300"
+      gap-1 self-center rounded-xl bg-slate-100 px-4 py-6 text-base shadow-md md:w-1/3 
+      md:max-w-96 md:self-start dark:bg-slate-900 dark:text-slate-300"
     >
       <h3 className="mb-2 text-xl font-semibold text-slate-900 md:mb-4 md:text-xl dark:text-slate-200">
         Add a New Workout

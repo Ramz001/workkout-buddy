@@ -18,7 +18,6 @@ function App() {
   const { isSignedIn } = useSelector((store) => store.user)
 
   const [temp, setTemp] = useState({ email: '', _id: '', token: '' })
-  console.log(temp)
 
   return (
     <Suspense
@@ -50,7 +49,7 @@ function App() {
           path="/verify-email/"
           element={
             !temp._id ? (
-              <Navigate to="/" />
+              <Navigate to="/recover-password" />
             ) : (
               <VerifyEmail temp={temp} setTemp={setTemp} />
             )
@@ -60,7 +59,7 @@ function App() {
           path="/reset-password/"
           element={
             !temp.token ? (
-              <Navigate to="/" />
+              <Navigate to="/recover-password" />
             ) : (
               <ResetPassword temp={temp} setTemp={setTemp} />
             )

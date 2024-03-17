@@ -11,7 +11,7 @@ const SignUp = () => {
   const [inputError, setInputError] = useState(null)
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-  const { isSignedIn } = useSelector(store => store.user)
+  const { isSignedIn } = useSelector((store) => store.user)
 
   const { signUp, error, isLoading } = useSignUp()
   const navigate = useNavigate()
@@ -38,8 +38,14 @@ const SignUp = () => {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-100 text-slate-900 dark:bg-slate-900 dark:text-slate-300">
-      <form className="flex flex-col gap-2 rounded-xl bg-slate-200 px-4 py-8 shadow-md md:min-w-96 md:px-6 dark:bg-slate-800">
+    <div
+      className="flex min-h-screen items-center justify-center bg-slate-100 
+    text-slate-900 dark:bg-slate-900 dark:text-slate-300"
+    >
+      <form
+        className="flex flex-col gap-2 rounded-xl bg-slate-200 px-4 py-8 
+      shadow-md md:min-w-96 md:px-6 xl:min-w-[28rem] dark:bg-slate-800"
+      >
         <h2 className=" mb-2 text-xl font-semibold tracking-widest md:mb-4 md:text-2xl">
           Sign up
         </h2>

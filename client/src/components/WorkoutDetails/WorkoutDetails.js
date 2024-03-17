@@ -1,7 +1,9 @@
 import WorkoutEditPopup from '../WorkoutEditPopup/WorkoutEditPopup'
-import { formatDistanceToNow } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteWorkout,  togglePopup } from '../../features/workouts/workoutsSlice'
+import {
+  deleteWorkout,
+  togglePopup,
+} from '../../features/workouts/workoutsSlice'
 
 const WorkoutDetails = ({ workout }) => {
   const { title, repetitions, load, sets, duration, createdAt, _id } = workout
@@ -32,6 +34,10 @@ const WorkoutDetails = ({ workout }) => {
   const handleEditBtn = () => {
     dispatch(togglePopup())
   }
+  let hours = new Date(createdAt).toISOString().split('T')[1].slice(0, 5)
+  let date = new Date(createdAt).toISOString().split('T')[0]
+
+  console.log(date, hours)
 
   return (
     <div
@@ -63,9 +69,7 @@ const WorkoutDetails = ({ workout }) => {
         )}
         <p className="text-sm sm:text-base">
           <span className="font-bold">Date: </span>
-          {formatDistanceToNow(new Date(createdAt), {
-            addSuffix: true,
-          })}
+          {hours}, {date}
         </p>
       </div>
       <div className="flex flex-col gap-4 self-center font-bold sm:self-start">

@@ -20,14 +20,19 @@ const workoutsSlice = createSlice({
     },
     deleteWorkout: (state, action) => {
       state.workouts = state.workouts.filter(
-        (workout) => workout._id !== action.payload
+        (workout) => workout._id !== action.payload._id
       )
     },
     updateWorkout: (state, action) => {
-      const index = state.workouts.findIndex(
-        (workout) => workout._id === action.payload._id
+      const { prev, current } = action.payload
+
+      const currentWorkoutIndex = state.workouts.findIndex(
+        (workout) => workout._id === prev._id
       )
-      state.workouts[index] = action.payload
+
+      if (currentWorkoutIndex !== -1) {
+        state.workouts[currentWorkoutIndex] = current
+      }
     },
   },
 })

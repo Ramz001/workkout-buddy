@@ -1,13 +1,11 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useLogOut } from '../../hooks/useLogOut/useLogOut'
-import {  useSelector } from 'react-redux'
-
-
+import { useSelector } from 'react-redux'
 
 const Navbar = () => {
   const location = useLocation()
   const { logOut } = useLogOut()
-  const { isSignedIn, user } = useSelector(store => store.user)
+  const { isSignedIn, user } = useSelector((store) => store.user)
 
   return (
     location.pathname === '/' && (

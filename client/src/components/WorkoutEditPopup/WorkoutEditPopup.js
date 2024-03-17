@@ -1,11 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Backdrop from '../Backdrop/Backdrop'
 import { useDispatch, useSelector } from 'react-redux'
-import { togglePopup } from '../../features/workouts/workoutsSlice'
+import {
+  togglePopup,
+  updateWorkout,
+} from '../../features/workouts/workoutsSlice'
 
 const WorkoutEditPopup = ({ workout }) => {
- const dispatch = useDispatch()
-  const { popup } = useSelector(store => store.workouts)
+  const dispatch = useDispatch()
+  const { popup } = useSelector((store) => store.workouts)
   const { isSignedIn, user } = useSelector((store) => store.user)
 
   const [title, setTitle] = useState('')
@@ -48,15 +51,15 @@ const WorkoutEditPopup = ({ workout }) => {
       },
     })
 
-    const data = await response
+    const data = await response.json()
 
     if (!response.ok) {
       setError(data.error)
     }
     if (response.ok) {
-      dispatch({ type: 'EDIT_WORKOUT', payload: editedWorkout })
-      dispatch({ type: 'DELETE_WORKOUT', payload: workout })
-      dispatch({ type: 'TOGGLE_POPUP' })
+      console.log(data)
+      dispatch(updateWorkout({ prev: data, current: editedWorkout }))
+      dispatch(togglePopup())
       setError(null)
       setTitle(null)
       setLoad(null)
@@ -65,12 +68,17 @@ const WorkoutEditPopup = ({ workout }) => {
     }
   }
 
+  useEffect(() => {
+    console.log()
+  }, [])
+
   return (
     popup && (
       <Backdrop onClick={handleCloseBtn}>
         <form
-          className="mx-4 flex min-w-[18rem] flex-col items-start justify-start gap-2 rounded-2xl bg-slate-100 px-6
-    py-8 text-base text-slate-900 sm:min-w-96 dark:bg-slate-900 dark:text-slate-300"
+          className="mx-4 flex min-w-[18rem] flex-col items-start justify-start 
+          gap-2 rounded-2xl bg-slate-100 p-4 text-base text-slate-900 
+          sm:min-w-96 sm:p-8 dark:bg-slate-900 dark:text-slate-300"
           onClick={(e) => e.stopPropagation()}
         >
           <button

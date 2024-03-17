@@ -1,12 +1,9 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { setTemp } from '../../features/temp/tempSlice'
 
 const useRecoverPassword = () => {
-  const dispatch = useDispatch()
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
-  const [data, setData]  = useState(null)
+  const [data, setData] = useState(null)
 
   const generateOTP = async (email) => {
     setIsLoading(true)
@@ -27,12 +24,11 @@ const useRecoverPassword = () => {
       setData(null)
     }
     if (response.ok) {
-      dispatch(setTemp(data))
       setIsLoading(false)
       setData(data)
     }
   }
-    return { generateOTP, error, isLoading, data }
+  return { generateOTP, error, isLoading, data }
 }
 
 export default useRecoverPassword

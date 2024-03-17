@@ -7,7 +7,7 @@ const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const { logIn, error, isLoading } = useLogIn()
-  const { isSignedIn } = useSelector(store => store.user)
+  const { isSignedIn } = useSelector((store) => store.user)
   const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
 
@@ -25,9 +25,12 @@ const Login = () => {
       className="z-20 flex min-h-screen items-center justify-center 
     bg-slate-100 text-slate-900 dark:bg-slate-900"
     >
-      <form className="flex flex-col gap-2 rounded-xl bg-slate-200 px-6 py-8 text-slate-900 shadow-md md:min-w-96 dark:bg-slate-800 dark:text-slate-300">
+      <form
+        className="flex flex-col gap-2 rounded-xl bg-slate-200 px-6 py-8 
+      text-slate-900 shadow-md md:min-w-[28rem] dark:bg-slate-800 dark:text-slate-300"
+      >
         <h2 className=" mb-2 text-xl font-semibold tracking-widest md:mb-4 md:text-2xl">
-          Log In
+          Login
         </h2>
         <div className="flex flex-col gap-1">
           <label htmlFor="email" className="text-xs md:text-base">

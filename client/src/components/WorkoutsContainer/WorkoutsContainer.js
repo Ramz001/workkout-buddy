@@ -7,8 +7,8 @@ import { setWorkouts } from '../../features/workouts/workoutsSlice'
 
 const WorkoutsContainer = () => {
   const dispatch = useDispatch()
-  const { isSignedIn, user } = useSelector(store => store.user)
-  const { workouts } = useSelector(store => store.workouts)
+  const { isSignedIn, user } = useSelector((store) => store.user)
+  const { workouts } = useSelector((store) => store.workouts)
 
   useEffect(() => {
     const fetchWorkouts = async () => {
