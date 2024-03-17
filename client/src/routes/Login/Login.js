@@ -22,7 +22,7 @@ const Login = () => {
 
   return (
     <div
-      className="z-20 flex min-h-screen items-center justify-center 
+      className="z-20 flex min-h-svh md:min-h-screen items-center justify-center 
     bg-slate-100 text-slate-900 dark:bg-slate-900"
     >
       <form

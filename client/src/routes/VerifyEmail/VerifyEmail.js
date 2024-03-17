@@ -31,7 +31,7 @@ const VerifyEmail = ({ temp, setTemp }) => {
 
   return (
     <section
-      className="flex min-h-screen items-center justify-center bg-slate-100 px-4 
+      className="flex min-h-svh md:min-h-screen items-center justify-center bg-slate-100 px-4 
     text-slate-900 dark:bg-slate-900 dark:text-slate-200"
     >
       <form
