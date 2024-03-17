@@ -24,8 +24,9 @@ app.use(localVariables)
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
-    app.listen(process.env.PORT, () => {
+    app.listen(process.env.PORT, (req, res) => {
       console.log(`App is listening on port ${process.env.PORT}`);
+      res.json("Hello")
     });
   })
   .catch((error) => console.log(error));
