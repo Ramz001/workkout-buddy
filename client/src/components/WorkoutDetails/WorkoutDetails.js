@@ -15,7 +15,7 @@ const WorkoutDetails = ({ workout }) => {
       return alert('Please sign in to delete a workout')
     }
 
-    const response = await fetch('/api/workouts/' + _id, {
+    const response = await fetch('https://workout-buddy-self.vercel.app/api/workouts/' + _id, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${user.token}`,

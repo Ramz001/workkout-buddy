@@ -9,7 +9,7 @@ const useRecoverPassword = () => {
     setIsLoading(true)
     setError(null)
 
-    const response = await fetch('api/user/recover-password', {
+    const response = await fetch('https://workout-buddy-self.vercel.app/api/user/recover-password', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
