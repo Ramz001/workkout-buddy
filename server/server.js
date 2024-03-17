@@ -8,20 +8,12 @@ require("dotenv").config({ path: "./src/configs/.env" });
 
 const corsOptions = {
   origin: "https://mr-workout-buddy.vercel.app", // frontend URI (ReactJS)
-  methods: ["POST", "GET", "PATCH", "DELETE"],
-  credentials: true
 }
 
 const app = express();
 
 app.use(express.json());
 app.use(cors(corsOptions));
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  next();
-})
 app.locals.OTP = null
 
 app.use("/api/workouts", workoutRoutes);
