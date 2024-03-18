@@ -13,7 +13,7 @@ const corsOptions = {
 const app = express();
 
 app.use(express.json());
-app.use(cors(corsOptions));
+app.use(cors());
 app.locals.OTP = null
 
 app.use("/api/workouts", workoutRoutes);
