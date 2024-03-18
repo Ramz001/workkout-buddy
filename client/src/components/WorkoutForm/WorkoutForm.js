@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createWorkout } from '../../features/workouts/workoutsSlice'
+import Plus from '../../assets/icons/plus.svg'
 
 const WorkoutForm = () => {
   const dispatch = useDispatch()
@@ -146,7 +147,7 @@ const WorkoutForm = () => {
         text-slate-100 shadow-inner hover:bg-green-600 md:text-lg dark:bg-green-700"
         onClick={(e) => handleSubmit(e)}
       >
-        <span className="material-symbols-outlined">add</span>
+        <img src={Plus} alt="add" />
         Workout
       </button>
       {error && (

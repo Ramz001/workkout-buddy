@@ -18,10 +18,18 @@ const VerifyEmail = ({ temp, setTemp }) => {
   }
 
   useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      event.preventDefault();
+      event.returnValue = '';
+    }
     if (data) {
       setTemp((prevState) => ({ ...prevState, token: data.token }))
       return navigate('/reset-password')
     }
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
   }, [data, navigate, setTemp])
 
   const handleResend = async () => {

@@ -2,6 +2,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useLogIn } from '../../hooks/useLogIn/useLogIn'
 import { useSelector } from 'react-redux'
+import Visibility from '../../assets/icons/visibility.svg'
+import VisibilityOff from '../../assets/icons/visibility_off.svg'
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -22,8 +24,8 @@ const Login = () => {
 
   return (
     <div
-      className="z-20 flex min-h-svh md:min-h-screen items-center justify-center 
-    bg-slate-100 text-slate-900 dark:bg-slate-900"
+      className="z-20 flex min-h-svh items-center justify-center bg-slate-100 
+    text-slate-900 md:min-h-screen dark:bg-slate-900"
     >
       <form
         className="flex flex-col gap-2 rounded-xl bg-slate-200 px-6 py-8 
@@ -60,10 +62,14 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <span
-            className="material-symbols-outlined absolute bottom-1 right-2 cursor-pointer select-none text-slate-600 md:bottom-2 dark:text-slate-500"
+            className="absolute bottom-1 right-2 cursor-pointer select-none md:bottom-2"
             onClick={() => setShowPassword(!showPassword)}
           >
-            {showPassword ? 'visibility' : 'visibility_off'}
+            {showPassword ? (
+              <img src={Visibility} alt="show password" />
+            ) : (
+              <img src={VisibilityOff} alt="hide password" />
+            )}
           </span>
         </div>
         <div className="my-2 flex items-center justify-between">

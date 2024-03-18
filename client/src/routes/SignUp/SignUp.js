@@ -2,6 +2,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useSignUp } from '../../hooks/useSignUp/useSignUp'
 import { useSelector } from 'react-redux'
+import Visibility from '../../assets/icons/visibility.svg'
+import VisibilityOff from '../../assets/icons/visibility_off.svg'
 
 const SignUp = () => {
   const [name, setName] = useState('')
@@ -93,12 +95,14 @@ const SignUp = () => {
             required
           />
           <span
-            className="material-symbols-outlined absolute bottom-1 
-            right-2 cursor-pointer 
-            select-none text-slate-600 md:bottom-2 dark:text-slate-500"
+            className="absolute bottom-1 right-2 cursor-pointer select-none md:bottom-2"
             onClick={() => setShowPassword(!showPassword)}
           >
-            {showPassword ? 'visibility' : 'visibility_off'}
+             {showPassword ? (
+              <img src={Visibility} alt="show password" />
+            ) : (
+              <img src={VisibilityOff} alt="hide password" />
+            )}
           </span>
         </div>
         <div className="relative flex flex-col gap-1">
@@ -116,11 +120,14 @@ const SignUp = () => {
             required
           />
           <span
-            className="material-symbols-outlined absolute bottom-1 
-            right-2 cursor-pointer select-none text-slate-600 md:bottom-2 dark:text-slate-500"
+            className="absolute bottom-1 right-2 cursor-pointer select-none md:bottom-2"
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
           >
-            {showConfirmPassword ? 'visibility' : 'visibility_off'}
+            {showConfirmPassword ? (
+              <img src={Visibility} alt="show password" />
+            ) : (
+              <img src={VisibilityOff} alt="hide password" />
+            )}
           </span>
         </div>
         <div className="my-2 flex items-center justify-between">

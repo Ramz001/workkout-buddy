@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react'
+import {  useState } from 'react'
 import Backdrop from '../Backdrop/Backdrop'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   togglePopup,
   updateWorkout,
 } from '../../features/workouts/workoutsSlice'
+import Edit from '../../assets/icons/edit.svg'
+import XMark from '../../assets/icons/xmark.svg'
 
 const WorkoutEditPopup = ({ workout }) => {
   const dispatch = useDispatch()
@@ -42,14 +44,17 @@ const WorkoutEditPopup = ({ workout }) => {
       createdAt: workout.createdAt,
     }
 
-    const response = await fetch('https://workout-buddy-self.vercel.app/api/workouts/' + workout._id, {
-      method: 'PATCH',
-      body: JSON.stringify(editedWorkout),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${user.token}`,
-      },
-    })
+    const response = await fetch(
+      'https://workout-buddy-self.vercel.app/api/workouts/' + workout._id,
+      {
+        method: 'PATCH',
+        body: JSON.stringify(editedWorkout),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    )
 
     const data = await response.json()
 
@@ -68,10 +73,6 @@ const WorkoutEditPopup = ({ workout }) => {
     }
   }
 
-  useEffect(() => {
-    console.log()
-  }, [])
-
   return (
     popup && (
       <Backdrop onClick={handleCloseBtn}>
@@ -84,9 +85,13 @@ const WorkoutEditPopup = ({ workout }) => {
           <button
             onClick={handleCloseBtn}
             type="button"
-            className="material-symbols-outlined self-end"
+            className="self-end"
           >
-            Close
+            <img
+              src={XMark}
+              alt="close btn"
+              className="fill-current text-slate-900 dark:text-slate-200"
+            />
           </button>
           <h3 className="mb-4 text-2xl font-semibold tracking-wider text-slate-900 dark:text-slate-200">
             Edit a Workout
@@ -161,7 +166,11 @@ const WorkoutEditPopup = ({ workout }) => {
           md:text-lg dark:bg-green-700"
             onClick={handleSubmit}
           >
-            <span className="material-symbols-outlined mr-2 text-xl">edit</span>
+            <img
+              src={Edit}
+              alt="edit btn"
+              className="fill-current text-slate-100"
+            />
             Edit Workout
           </button>
           {error && (

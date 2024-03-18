@@ -4,6 +4,8 @@ import {
   deleteWorkout,
   togglePopup,
 } from '../../features/workouts/workoutsSlice'
+import Delete from '../../assets/icons/delete.svg'
+import Edit from '../../assets/icons/edit.svg'
 
 const WorkoutDetails = ({ workout }) => {
   const { title, repetitions, load, sets, duration, createdAt, _id } = workout
@@ -36,8 +38,6 @@ const WorkoutDetails = ({ workout }) => {
   }
   let hours = new Date(createdAt).toISOString().split('T')[1].slice(0, 5)
   let date = new Date(createdAt).toISOString().split('T')[0]
-
-  console.log(date, hours)
 
   return (
     <div
@@ -74,18 +74,18 @@ const WorkoutDetails = ({ workout }) => {
       </div>
       <div className="flex flex-col gap-4 self-center font-bold sm:self-start">
         <button
-          className="material-symbols-outlined rounded-lg border border-red-600 px-3 py-1 
-          text-base text-red-600 hover:bg-red-600 hover:text-slate-100"
+          className="rounded-lg border border-red-600 px-3 py-1 hover:bg-slate-100 
+          hover:bg-opacity-75" 
           onClick={handleDeleteBtn}
         >
-          Delete
+          <img src={Delete} alt="delete" />
         </button>
         <button
-          className="material-symbols-outlined rounded-lg border border-green-600 px-3 py-1 
-          text-base text-green-600 hover:bg-green-600 hover:text-slate-100"
+          className="rounded-lg border border-green-600 px-3 py-1 hover:bg-slate-100 
+          hover:bg-opacity-75"
           onClick={handleEditBtn}
         >
-          edit
+          <img src={Edit} alt="edit" />
         </button>
       </div>
       <WorkoutEditPopup workout={workout} />

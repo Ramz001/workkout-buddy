@@ -14,10 +14,18 @@ const RecoverPassword = ({ temp, setTemp }) => {
   }
 
   useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      event.preventDefault();
+      event.returnValue = '';
+    }
     if (data) {
       setTemp((prevState) => ({ ...prevState, email, _id: data._id }))
       navigate('/verify-email')
     }
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
   }, [data, navigate, setTemp, email])
 
   return (

@@ -1,6 +1,8 @@
 import useResetPassword from '../../hooks/useResetPassword/useResetPassword'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import Visibility from '../../assets/icons/visibility.svg'
+import VisibilityOff from '../../assets/icons/visibility_off.svg'
 
 const ResetPassword = ({ temp, setTemp }) => {
   const [password, setPassword] = useState('')
@@ -18,6 +20,10 @@ const ResetPassword = ({ temp, setTemp }) => {
   }
 
   useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      event.preventDefault()
+      event.returnValue = ''
+    }
     if (isPasswordChanged) {
       setPopup(true)
     }
@@ -26,12 +32,15 @@ const ResetPassword = ({ temp, setTemp }) => {
         navigate('/login')
       }, 2500)
     }
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload)
+    }
   }, [popup, navigate, isPasswordChanged])
 
   return (
     <div
-      className="flex min-h-svh md:min-h-screen items-center justify-center bg-slate-100 
-    text-slate-900 dark:bg-slate-900 dark:text-slate-300"
+      className="flex min-h-svh items-center justify-center bg-slate-100 text-slate-900 
+    md:min-h-screen dark:bg-slate-900 dark:text-slate-300"
     >
       <form
         className="flex min-w-96 flex-col gap-2 rounded-xl bg-slate-200 px-6 
@@ -59,11 +68,14 @@ const ResetPassword = ({ temp, setTemp }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <span
-            className="material-symbols-outlined absolute bottom-2 right-2 
-            cursor-pointer select-none text-slate-600 dark:text-slate-500"
+            className="absolute bottom-2 right-2 cursor-pointer select-none"
             onClick={() => setShowPassword(!showPassword)}
           >
-            {showPassword ? 'visibility' : 'visibility_off'}
+            {showPassword ? (
+              <img src={Visibility} alt="show password" />
+            ) : (
+              <img src={VisibilityOff} alt="hide password" />
+            )}
           </span>
         </div>
         <button

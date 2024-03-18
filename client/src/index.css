@@ -49,13 +49,6 @@
     text-slate-100 hover:border-green-600 hover:bg-slate-200 hover:text-slate-900 disabled:cursor-not-allowed 
     disabled:bg-slate-600 dark:bg-green-800 dark:hover:border-green-800 dark:hover:bg-slate-400;
   }
-  .material-symbols-outlined {
-    font-variation-settings:
-      'FILL' 0,
-      'wght' 400,
-      'GRAD' 0,
-      'opsz' 24;
-  }
   .loader {
     border: 16px solid #f3f3f3; /* Light grey */
     border-top: 16px solid #3498db; /* Blue */
