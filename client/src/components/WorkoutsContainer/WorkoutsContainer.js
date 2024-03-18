@@ -40,16 +40,16 @@ const WorkoutsContainer = () => {
         {!isSignedIn && !workouts && (
           <div className="mt-4 flex flex-col gap-2 text-center text-slate-900 dark:text-slate-200">
             <h3 className="text-2xl font-semibold md:text-3xl">
-              The User is Not Logged in!
+              The user is not logged in!
             </h3>
             <p className="text-sm md:text-base">
               Please login to see the content of workouts.
             </p>
             <p className="text-sm md:text-base">
-              Here is a link to the{' '}
-              <Link to="/login" className="underline hover:text-green-600">
+              Here is a link to the
+              <Link to="/login" className="mx-1 underline hover:text-green-600">
                 Login
-              </Link>{' '}
+              </Link>
               page.
             </p>
           </div>

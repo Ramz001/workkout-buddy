@@ -78,6 +78,7 @@ const WorkoutDetails = ({ workout }) => {
           className="rounded-lg border border-red-600 px-3 py-1 hover:bg-red-600 
           fill-red-600 hover:fill-slate-100"
           onClick={handleDeleteBtn}
+          aria-label='delete'
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -92,8 +93,8 @@ const WorkoutDetails = ({ workout }) => {
         </button>
         <button
           className="group rounded-lg border border-green-600 fill-green-600 
-          px-3 py-1 hover:bg-green-600 hover:fill-slate-100
-          "
+          px-3 py-1 hover:bg-green-600 hover:fill-slate-100"
+          aria-label='edit'
           onClick={handleEditBtn}
         >
           <svg
