@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createWorkout } from '../../features/workouts/workoutsSlice'
-import Plus from '../../assets/icons/plus.svg'
 
 const WorkoutForm = () => {
   const dispatch = useDispatch()
@@ -28,14 +27,17 @@ const WorkoutForm = () => {
 
     const workout = { title, load, repetitions, sets, duration, createdAt }
 
-    const response = await fetch('https://workout-buddy-self.vercel.app/api/workouts', {
-      method: 'POST',
-      body: JSON.stringify(workout),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${user.token}`,
-      },
-    })
+    const response = await fetch(
+      'https://workout-buddy-self.vercel.app/api/workouts',
+      {
+        method: 'POST',
+        body: JSON.stringify(workout),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    )
     const data = await response.json()
 
     if (!response.ok) {
@@ -143,11 +145,18 @@ const WorkoutForm = () => {
       <button
         type="submit"
         className="mt-4 flex items-center justify-center gap-1 rounded-lg 
-        bg-green-500 px-4 py-2 text-base font-semibold 
+        bg-green-500 fill-slate-100 px-4 py-2 text-base font-semibold
         text-slate-100 shadow-inner hover:bg-green-600 md:text-lg dark:bg-green-700"
         onClick={(e) => handleSubmit(e)}
       >
-        <img src={Plus} alt="add" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24"
+          viewBox="0 -960 960 960"
+          width="24"
+        >
+          <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
+        </svg>
         Workout
       </button>
       {error && (

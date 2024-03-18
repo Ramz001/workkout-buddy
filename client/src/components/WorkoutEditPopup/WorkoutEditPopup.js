@@ -1,12 +1,10 @@
-import {  useState } from 'react'
+import { useState } from 'react'
 import Backdrop from '../Backdrop/Backdrop'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   togglePopup,
   updateWorkout,
 } from '../../features/workouts/workoutsSlice'
-import Edit from '../../assets/icons/edit.svg'
-import XMark from '../../assets/icons/xmark.svg'
 
 const WorkoutEditPopup = ({ workout }) => {
   const dispatch = useDispatch()
@@ -82,16 +80,17 @@ const WorkoutEditPopup = ({ workout }) => {
           sm:min-w-96 sm:p-8 dark:bg-slate-900 dark:text-slate-300"
           onClick={(e) => e.stopPropagation()}
         >
-          <button
-            onClick={handleCloseBtn}
-            type="button"
-            className="self-end"
-          >
-            <img
-              src={XMark}
-              alt="close btn"
-              className="fill-current text-slate-900 dark:text-slate-200"
-            />
+          <button onClick={handleCloseBtn} type="button" className="self-end fill-slate-900 dark:fill-slate-100">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              viewBox="0 -960 960 960"
+              width="24"
+            >
+              <path
+                d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
+              />
+            </svg>
           </button>
           <h3 className="mb-4 text-2xl font-semibold tracking-wider text-slate-900 dark:text-slate-200">
             Edit a Workout
@@ -161,16 +160,19 @@ const WorkoutEditPopup = ({ workout }) => {
 
           <button
             type="submit"
-            className="mt-4 flex items-center justify-center self-center rounded-xl 
-          bg-green-500 px-5 py-2 text-base font-semibold text-slate-100 hover:bg-green-600 
-          md:text-lg dark:bg-green-700"
+            className="mt-4 flex items-center justify-center gap-2 self-center 
+          rounded-xl bg-green-500 fill-slate-100 px-5 py-2 text-base font-semibold 
+          text-slate-100 hover:bg-green-600 md:text-lg dark:bg-green-700"
             onClick={handleSubmit}
           >
-            <img
-              src={Edit}
-              alt="edit btn"
-              className="fill-current text-slate-100"
-            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              viewBox="0 -960 960 960"
+              width="24"
+            >
+              <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
+            </svg>
             Edit Workout
           </button>
           {error && (
