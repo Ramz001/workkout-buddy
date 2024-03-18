@@ -41,7 +41,7 @@ const ResetPassword = ({ temp, setTemp }) => {
     md:min-h-screen dark:bg-slate-900 dark:text-slate-300"
     >
       <form
-        className="flex min-w-96 flex-col gap-2 rounded-xl bg-slate-200 px-6 
+        className="flex min-w-80 flex-col gap-2 rounded-xl bg-slate-200 px-6 
         py-8 shadow-md md:min-w-[26rem] dark:bg-slate-800"
       >
         <h2 className="mb-2 text-xl font-semibold md:mb-4 md:text-2xl">

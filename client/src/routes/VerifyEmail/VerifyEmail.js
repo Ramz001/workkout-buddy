@@ -43,7 +43,7 @@ const VerifyEmail = ({ temp, setTemp }) => {
     text-slate-900 dark:bg-slate-900 dark:text-slate-200"
     >
       <form
-        className="flex max-w-96 flex-col gap-2 rounded-xl bg-slate-200 px-4 
+        className="flex max-w-80 flex-col gap-2 rounded-xl bg-slate-200 px-4 
       py-6 md:max-w-[28rem] md:px-6 md:py-8 dark:bg-slate-800"
       >
         <h2 className="mb-4 text-lg font-semibold tracking-wide md:text-xl">
