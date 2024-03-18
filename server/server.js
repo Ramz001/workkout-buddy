@@ -7,7 +7,7 @@ const localVariables = require('./src/middleware/localVariables')
 require("dotenv").config({ path: "./src/configs/.env" });
 
 const corsOptions = {
-  origin: "https://mr-workout-buddy.vercel.app", // frontend URI (ReactJS)
+  origin: [process.env.CLIENT_URL ,"https://mr-workout-buddy.vercel.app"], // frontend URI (ReactJS)
 }
 
 const app = express();
@@ -25,7 +25,6 @@ mongoose
   .then(() => {
     app.listen(process.env.PORT, (req, res) => {
       console.log(`App is listening on port ${process.env.PORT}`);
-      res.json("Hello")
     });
   })
   .catch((error) => console.log(error));
