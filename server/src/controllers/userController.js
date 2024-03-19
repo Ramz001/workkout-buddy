@@ -76,23 +76,40 @@ const recoverPassword = async (req, res) => {
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
+    port: 465,
+    secure: true,
+    host: "smtp.gmail.com",
     auth: {
       user: "rkenjaev1@gmail.com",
       pass: "spqg medu zhlz vylf",
     },
   });
 
-  transporter.sendMail(
-    mailOptions(email, req.app.locals.OTP),
-    function (error, info) {
+  await new Promise((resolve, reject) => {
+    transporter.verify(function (error, success) {
       if (error) {
-        res.status(400).json({ error: error.message });
+        console.log(error);
+        reject(error);
       } else {
-        return res.status(200).json({ status: "The email with OTP was sent" });
+        console.log("Server is ready to take our messages");
+        resolve(success);
       }
-    }
-  );
-  console.log(req.app.locals);
+    });
+  });
+
+  await new Promise((resolve, reject) => {
+    transporter.sendMail(
+      mailOptions(email, req.app.locals.OTP),
+      function (error, info) {
+        if (error) {
+          reject(error);
+          res.status(400).json({ error: error.message });
+        } else {
+          resolve(info);
+        }
+      }
+    );
+  });
   return res.status(201).json({ status: "Email is sent", _id });
 };
 

@@ -1,6 +1,9 @@
 const mailOptions = (email, otpCode) => {
   return {
-    from: "rkenjaev1@gmail.com",
+    from: {
+      name: "Mr Workout Buddy",
+      address: 'rkenjaev1@gmail.com'
+    },
     to: email,
     subject: "One-time verification code",
     html: `
