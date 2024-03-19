@@ -19,7 +19,6 @@ const useVerifyCode = () => {
     })
 
     const data = await response.json()
-    console.log(response)
     if (!response.ok) {
       setIsLoading(false)
       setData(null)

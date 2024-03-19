@@ -60,7 +60,6 @@ const WorkoutEditPopup = ({ workout }) => {
       setError(data.error)
     }
     if (response.ok) {
-      console.log(data)
       dispatch(updateWorkout({ prev: data, current: editedWorkout }))
       dispatch(togglePopup())
       setError(null)

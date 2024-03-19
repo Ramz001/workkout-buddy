@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useSignUp } from '../../hooks/useSignUp/useSignUp'
 import { useSelector } from 'react-redux'
 
@@ -18,9 +18,10 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (confirmPassword !== password) {
+      return setInputError('Passwords do not match!')
+    }
     await signUp(name, email, password)
-  }
-  useEffect(() => {
     if (!error) {
       setPassword('')
       setConfirmPassword('')
@@ -28,13 +29,10 @@ const SignUp = () => {
       setEmail('')
       setInputError('')
     }
-    if (confirmPassword !== password) {
-      return setInputError('Passwords do not match!')
-    }
     if (isSignedIn) {
       navigate('/')
     }
-  }, [error, password, confirmPassword, isSignedIn, navigate])
+  }
 
   return (
     <div
