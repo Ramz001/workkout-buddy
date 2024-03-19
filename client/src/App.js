@@ -41,7 +41,7 @@ function App() {
             isSignedIn ? (
               <Navigate to="/" />
             ) : (
-              <RecoverPassword temp={temp} setTemp={setTemp} />
+              <RecoverPassword setTemp={setTemp} />
             )
           }
         />

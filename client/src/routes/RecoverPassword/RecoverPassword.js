@@ -2,11 +2,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import useRecoverPassword from '../../hooks/useRecoverPassword/useRecoverPassword'
 
-const RecoverPassword = ({ temp, setTemp }) => {
+const RecoverPassword = ({ setTemp }) => {
   const [email, setEmail] = useState('')
   const { generateOTP, error, isLoading, data } = useRecoverPassword()
   const navigate = useNavigate()
-  console.log(temp)
 
   const handleRecoverBtn = async (e) => {
     e.preventDefault()

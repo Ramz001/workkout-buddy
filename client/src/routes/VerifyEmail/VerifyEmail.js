@@ -6,7 +6,7 @@ import useRecoverPassword from '../../hooks/useRecoverPassword/useRecoverPasswor
 const VerifyEmail = ({ temp, setTemp }) => {
   const [code, setCode] = useState('')
   const { verifyCode, isLoading, error, data } = useVerifyCode()
-  const { generateOTP, data: otpData } = useRecoverPassword()
+  const { generateOTP } = useRecoverPassword()
 
   const navigate = useNavigate()
 
@@ -34,7 +34,6 @@ const VerifyEmail = ({ temp, setTemp }) => {
 
   const handleResend = async () => {
     await generateOTP(temp.email)
-    otpData && console.log(otpData.status)
   }
 
   return (

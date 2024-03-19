@@ -28,12 +28,13 @@ const ResetPassword = ({ temp, setTemp }) => {
     if (popup) {
       setTimeout(() => {
         navigate('/login')
+        setTemp({ email: '', _id: '', token: '' })
       }, 2500)
     }
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload)
     }
-  }, [popup, navigate, isPasswordChanged])
+  }, [popup, navigate, isPasswordChanged, setTemp])
 
   return (
     <div

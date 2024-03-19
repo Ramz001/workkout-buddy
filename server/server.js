@@ -7,12 +7,12 @@ const localVariables = require('./src/middleware/localVariables')
 require("dotenv").config({ path: "./src/configs/.env" });
 
 const corsOptions = {
-  origin: ["http://localhost:3000" ,"https://mr-workout-buddy.vercel.app"], // frontend URI (ReactJS)
+  origin: ["http://localhost:3000" ,"https://mr-workout-buddy.vercel.app", "https://mr-workout-buddy.vercel.app/login"], // frontend URI (ReactJS)
 }
 
 const app = express();
 
-app.use(express.json());
+app.use(express.json(corsOptions));
 app.use(cors());
 app.locals.OTP = null
 
