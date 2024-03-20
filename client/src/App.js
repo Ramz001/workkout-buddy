@@ -1,12 +1,12 @@
 import { Suspense, lazy, useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Spinner from './components/Spinner/Spinner'
+import Navbar from './components/Navbar/Navbar'
 import { useSelector } from 'react-redux'
 
 const Home = lazy(() => import('./routes/Home/Home'))
 const Login = lazy(() => import('./routes/Login/Login'))
 const SignUp = lazy(() => import('./routes/SignUp/SignUp'))
-const Navbar = lazy(() => import('./components/Navbar/Navbar'))
 const Error = lazy(() => import('./routes/Error/Error'))
 const VerifyEmail = lazy(() => import('./routes/VerifyEmail/VerifyEmail'))
 const RecoverPassword = lazy(
@@ -22,7 +22,7 @@ function App() {
   return (
     <Suspense
       fallback={<Spinner />}
-      className="mx-auto min-h-svh md:min-h-screen max-w-[1920px] bg-slate-50 dark:bg-slate-700"
+      className="mx-auto min-h-svh max-w-[1920px] bg-slate-50 md:min-h-screen dark:bg-slate-700"
     >
       <Navbar />
       <Routes>
