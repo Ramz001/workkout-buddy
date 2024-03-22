@@ -21,6 +21,10 @@
     -webkit-appearance: none;
     margin: 0;
   }
+  input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
 
   @media (prefers-color-scheme: dark) {
     input:-webkit-autofill,
