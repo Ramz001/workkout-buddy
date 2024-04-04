@@ -74,7 +74,7 @@ const WorkoutEditPopup = ({ workout }) => {
     popup && (
       <Backdrop onClick={handleCloseBtn}>
         <form
-          className="mx-4 flex min-w-[18rem] flex-col items-start justify-start 
+          className="mx-4 flex min-w-[18rem] w-full md:w-auto flex-col items-start justify-start 
           gap-2 rounded-2xl bg-slate-100 p-4 text-base text-slate-900 
           sm:min-w-96 sm:p-8 dark:bg-slate-900 dark:text-slate-300"
           onClick={(e) => e.stopPropagation()}

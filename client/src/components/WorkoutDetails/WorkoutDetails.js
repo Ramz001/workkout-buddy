@@ -37,8 +37,8 @@ const WorkoutDetails = ({ workout }) => {
   const handleEditBtn = () => {
     dispatch(togglePopup())
   }
-  let hours = new Date(createdAt).toISOString().split('T')[1].slice(0, 5)
-  let date = new Date(createdAt).toISOString().split('T')[0]
+  let hours = new Date(createdAt).toString().slice(15, 24)
+  let date = new Date(createdAt).toString().slice(0, 15)
 
   return (
     <div
@@ -75,10 +75,10 @@ const WorkoutDetails = ({ workout }) => {
       </div>
       <div className="flex flex-col gap-4 self-center font-bold sm:self-start">
         <button
-          className="rounded-lg border border-red-600 px-3 py-1 hover:bg-red-600 
-          fill-red-600 hover:fill-slate-100"
+          className="rounded-lg border border-red-600 fill-red-600 px-3 py-1 
+          hover:bg-red-600 hover:fill-slate-100"
           onClick={handleDeleteBtn}
-          aria-label='delete'
+          aria-label="delete"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -86,15 +86,13 @@ const WorkoutDetails = ({ workout }) => {
             viewBox="0 -960 960 960"
             width="24"
           >
-            <path
-              d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"
-            />
+            <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
           </svg>
         </button>
         <button
           className="group rounded-lg border border-green-600 fill-green-600 
           px-3 py-1 hover:bg-green-600 hover:fill-slate-100"
-          aria-label='edit'
+          aria-label="edit"
           onClick={handleEditBtn}
         >
           <svg
