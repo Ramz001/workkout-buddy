@@ -45,7 +45,7 @@ const WorkoutEditPopup = ({ workout }) => {
     const response = await fetch(
       'https://workout-buddy-self.vercel.app/api/workouts/' + workout._id,
       {
-        method: 'PATCH',
+        method: 'PUT',
         body: JSON.stringify(editedWorkout),
         headers: {
           'Content-Type': 'application/json',
