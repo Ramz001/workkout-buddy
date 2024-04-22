@@ -42,31 +42,35 @@ const WorkoutEditPopup = ({ workout }) => {
       createdAt: workout.createdAt,
     }
 
-    const response = await fetch(
-      'https://workout-buddy-self.vercel.app/api/workouts/' + workout._id,
-      {
-        method: 'PUT',
-        body: JSON.stringify(editedWorkout),
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${user.token}`,
-        },
+    try {
+      const response = await fetch(
+        'https://workout-buddy-self.vercel.app/api/workouts/' + workout._id,
+        {
+          method: 'PUT',
+          body: JSON.stringify(editedWorkout),
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      )
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        setError(data.error)
       }
-    )
-
-    const data = await response.json()
-
-    if (!response.ok) {
-      setError(data.error)
-    }
-    if (response.ok) {
-      dispatch(updateWorkout({ prev: data, current: editedWorkout }))
-      dispatch(togglePopup())
-      setError(null)
-      setTitle(null)
-      setLoad(null)
-      setRepetitions(null)
-      setSets(null)
+      if (response.ok) {
+        dispatch(updateWorkout({ prev: data, current: editedWorkout }))
+        dispatch(togglePopup())
+        setError(null)
+        setTitle(null)
+        setLoad(null)
+        setRepetitions(null)
+        setSets(null)
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -74,16 +78,16 @@ const WorkoutEditPopup = ({ workout }) => {
     popup && (
       <Backdrop onClick={handleCloseBtn}>
         <form
-          className="mx-4 flex min-w-[18rem] w-full md:w-auto flex-col items-start justify-start 
-          gap-2 rounded-2xl bg-slate-100 p-4 text-base text-slate-900 
-          sm:min-w-96 sm:p-8 dark:bg-slate-900 dark:text-slate-300"
+          className="mx-4 flex w-full min-w-[18rem] flex-col items-start justify-start gap-2 
+          rounded-2xl bg-slate-100 p-4 text-base text-slate-900 sm:min-w-96 
+          sm:p-8 md:w-auto dark:bg-slate-900 dark:text-slate-300"
           onClick={(e) => e.stopPropagation()}
         >
           <button
             onClick={handleCloseBtn}
             type="button"
             className="self-end fill-slate-900 dark:fill-slate-100"
-            aria-label='close popup'
+            aria-label="close popup"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

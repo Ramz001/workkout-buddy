@@ -9,23 +9,28 @@ const useRecoverPassword = () => {
     setIsLoading(true)
     setError(null)
 
-    const response = await fetch('https://workout-buddy-self.vercel.app/api/user/recover-password', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email }),
-    })
-    const data = await response.json()
-
-    if (!response.ok) {
+    try {
+      const response = await fetch('https://workout-buddy-self.vercel.app/api/user/recover-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      })
+      const data = await response.json()
+  
+      if (!response.ok) {
+        setIsLoading(false)
+        setError(data.error)
+        setData(null)
+      }
+      if (response.ok) {
+        setIsLoading(false)
+        setData(data)
+      }
+    } catch (error) {
       setIsLoading(false)
-      setError(data.error)
-      setData(null)
-    }
-    if (response.ok) {
-      setIsLoading(false)
-      setData(data)
+      setError(error)
     }
   }
   return { generateOTP, error, isLoading, data }

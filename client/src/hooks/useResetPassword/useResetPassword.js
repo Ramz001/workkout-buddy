@@ -9,23 +9,28 @@ const useResetPassword = () => {
     setIsLoading(true)
     setError(null)
 
-    const response = await fetch(`https://workout-buddy-self.vercel.app/api/user/reset-password`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ password, _id, token }),
-    })
-    const data = await response.json()
-
-    if (!response.ok) {
-      setIsPasswordChanged(false)
+    try {
+      const response = await fetch(`https://workout-buddy-self.vercel.app/api/user/reset-password`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password, _id, token }),
+      })
+      const data = await response.json()
+  
+      if (!response.ok) {
+        setIsPasswordChanged(false)
+        setIsLoading(false)
+        setError(data.error)
+      }
+      if (response.ok) {
+        setIsLoading(false)
+        setIsPasswordChanged(true)
+      }
+    } catch (error) {
       setIsLoading(false)
-      setError(data.error)
-    }
-    if (response.ok) {
-      setIsLoading(false)
-      setIsPasswordChanged(true)
+      setError(error)      
     }
   }
   return { updatePassword, error, isLoading, isPasswordChanged }

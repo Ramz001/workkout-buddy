@@ -11,22 +11,27 @@ export const useSignUp = () => {
     setIsLoading(true)
     setError(null)
 
-    const response = await fetch('https://workout-buddy-self.vercel.app/api/user/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name, email, password }),
-    })
-    const data = await response.json()
-
-    if (!response.ok) {
-      setError(data.error)
+    try {
+      const response = await fetch('https://workout-buddy-self.vercel.app/api/user/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, password }),
+      })
+      const data = await response.json()
+  
+      if (!response.ok) {
+        setError(data.error)
+        setIsLoading(false)
+      }
+      if (response.ok) {
+        dispatch(login(data))
+        setIsLoading(false)
+      }
+    } catch (error) {
       setIsLoading(false)
-    }
-    if (response.ok) {
-      dispatch(login(data))
-      setIsLoading(false)
+      setError(error)
     }
   }
   return { signUp, isLoading, error }
