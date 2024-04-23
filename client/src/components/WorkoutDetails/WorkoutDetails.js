@@ -26,11 +26,11 @@ const WorkoutDetails = ({ workout }) => {
     )
     const data = await response.json()
 
-    if (!response.ok) {
-      throw Error('Cannot delete a workout')
-    }
     if (response.ok) {
       dispatch(deleteWorkout(data))
+    } else{
+      throw Error('Cannot delete a workout')
+
     }
   }
 
@@ -79,6 +79,7 @@ const WorkoutDetails = ({ workout }) => {
           hover:bg-red-600 hover:fill-slate-100"
           onClick={handleDeleteBtn}
           aria-label="delete"
+          title="Delete a workout"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -93,6 +94,7 @@ const WorkoutDetails = ({ workout }) => {
           className="group rounded-lg border border-green-600 fill-green-600 
           px-3 py-1 hover:bg-green-600 hover:fill-slate-100"
           aria-label="edit"
+          title="Edit a workout"
           onClick={handleEditBtn}
         >
           <svg

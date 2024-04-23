@@ -57,9 +57,6 @@ const WorkoutEditPopup = ({ workout }) => {
 
       const data = await response.json()
 
-      if (!response.ok) {
-        setError(data.error)
-      }
       if (response.ok) {
         dispatch(updateWorkout({ prev: data, current: editedWorkout }))
         dispatch(togglePopup())
@@ -68,6 +65,8 @@ const WorkoutEditPopup = ({ workout }) => {
         setLoad(null)
         setRepetitions(null)
         setSets(null)
+      } else{
+        setError(data.error)
       }
     } catch (error) {
       console.log(error)

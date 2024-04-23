@@ -21,12 +21,11 @@ export const useSignUp = () => {
       })
       const data = await response.json()
   
-      if (!response.ok) {
-        setError(data.error)
-        setIsLoading(false)
-      }
       if (response.ok) {
         dispatch(login(data))
+        setIsLoading(false)
+      } else {
+        setError(data.error)
         setIsLoading(false)
       }
     } catch (error) {

@@ -40,10 +40,6 @@ const WorkoutForm = () => {
     )
     const data = await response.json()
 
-    if (!response.ok) {
-      setError(data.error)
-      setEmptyFields(data.emptyFields)
-    }
     if (response.ok) {
       dispatch(createWorkout(data))
       setError('')
@@ -52,6 +48,9 @@ const WorkoutForm = () => {
       setRepetitions('')
       setSets('')
       setEmptyFields([])
+    } else{
+      setError(data.error)
+      setEmptyFields(data.emptyFields)
     }
   }
 
@@ -148,6 +147,7 @@ const WorkoutForm = () => {
         bg-green-500 fill-slate-100 px-4 py-2 text-base font-semibold
         text-slate-100 shadow-inner hover:bg-green-600 md:text-lg dark:bg-green-700"
         onClick={(e) => handleSubmit(e)}
+        title='Add a workout'
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

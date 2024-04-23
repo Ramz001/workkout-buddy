@@ -19,14 +19,13 @@ const useRecoverPassword = () => {
       })
       const data = await response.json()
   
-      if (!response.ok) {
-        setIsLoading(false)
-        setError(data.error)
-        setData(null)
-      }
       if (response.ok) {
         setIsLoading(false)
         setData(data)
+      } else {
+        setIsLoading(false)
+        setError(data.error)
+        setData(null)
       }
     } catch (error) {
       setIsLoading(false)

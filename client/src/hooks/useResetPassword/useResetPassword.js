@@ -19,14 +19,13 @@ const useResetPassword = () => {
       })
       const data = await response.json()
   
-      if (!response.ok) {
-        setIsPasswordChanged(false)
-        setIsLoading(false)
-        setError(data.error)
-      }
       if (response.ok) {
         setIsLoading(false)
         setIsPasswordChanged(true)
+      } else {
+        setIsPasswordChanged(false)
+        setIsLoading(false)
+        setError(data.error)
       }
     } catch (error) {
       setIsLoading(false)

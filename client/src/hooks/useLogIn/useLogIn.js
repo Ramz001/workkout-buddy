@@ -24,13 +24,12 @@ export const useLogIn = () => {
       )
       const data = await response.json()
 
-      if (!response.ok) {
-        setIsLoading(false)
-        setError(data.error)
-      }
       if (response.ok) {
         dispatch(login(data))
         setIsLoading(false)
+      } else {
+        setIsLoading(false)
+        setError(data.error)
       }
     } catch (error) {
       setIsLoading(false)
