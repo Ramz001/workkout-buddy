@@ -1,10 +1,10 @@
 const express = require("express");
-const workoutRoutes = require("./src/routes/workouts");
-const userRoutes = require("./src/routes/user");
+const workoutRoutes = require("./routes/workouts/workouts.route");
+const userRoutes = require("./routes/user/user.route");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const localVariables = require('./src/middleware/localVariables')
-require("dotenv").config({ path: "./src/configs/.env" });
+const localVariables = require('./middleware/localVariables')
+require("dotenv").config({ path: "./src/configs/.env" })
 
 const corsOptions = {
   origin: [`http://localhost:${process.env.PORT}` ,"https://mr-workout-buddy.vercel.app/**"], // frontend URI (ReactJS)

@@ -1,9 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   workouts: null,
+  isLoading: false,
+  error: null,
   popup: false,
 }
+
+export const fetchWorkouts = createAsyncThunk(
+  'workouts/fetchWorkouts',
+  async (userToken) => {
+    return await fetch('https://workout-buddy-self.vercel.app/api/workouts', {
+      headers: { Authorization: `Bearer ${userToken}` },
+    })
+      .then((res) => res.json())
+      .then((data) => data)
+  }
+)
 
 const workoutsSlice = createSlice({
   name: 'workouts',
@@ -34,6 +47,20 @@ const workoutsSlice = createSlice({
         state.workouts[currentWorkoutIndex] = current
       }
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchWorkouts.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(fetchWorkouts.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.workouts = action.payload
+      })
+      .addCase(fetchWorkouts.rejected, (state, action) => {
+        state.isLoading = false
+        state.error = action.error || null
+      })
   },
 })
 

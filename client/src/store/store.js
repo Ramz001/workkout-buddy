@@ -1,4 +1,4 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit'
+import { configureStore, combineReducers} from '@reduxjs/toolkit'
 import WorkoutsReducer from '../features/workouts/workoutsSlice'
 import UserReducer from '../features/user/userSlice'
 

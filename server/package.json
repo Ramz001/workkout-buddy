@@ -1,23 +1,18 @@
 {
   "name": "server",
-  "version": "1.0.1",
-  "description": "backend of a mern workout app",
-  "main": "index.js",
+  "version": "1.0.2",
+  "description": "Workout Buddy Api",
+  "main": "./src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js",
-    "install-server": "cd backend && npm install",
-    "start-server": "cd backend && node app.js",
-    "install-client": "cd client && npm install",
-    "build-client": "cd client && npm run build",
-    "start-client": "cd client && npm run start"
+    "start": "nodemon ./src/server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Ramz001/workout-buddy.git"
   },
   "keywords": [
-    "workout"
+    "workout",
+    "API"
   ],
   "author": "Ramz001",
   "license": "MIT",

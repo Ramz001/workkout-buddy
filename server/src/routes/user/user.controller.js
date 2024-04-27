@@ -1,8 +1,8 @@
-const User = require("../models/userModel");
+const User = require("../../models/userModel");
 const jwt = require("jsonwebtoken");
 const otpGenerator = require("otp-generator");
 const nodemailer = require("nodemailer");
-const mailOptions = require("./mailOptions");
+const mailOptions = require("../../utils/mailOptions");
 
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.JWT_SECRET_KEY, { expiresIn: "3d" });
@@ -41,15 +41,15 @@ const resetPassword = (req, res) => {
     process.env.JWT_SECRET_KEY,
     async function (error, decoded) {
       if (error) {
-        res.status(403).json({ error: error.message });
+        return res.status(403).json({ error: error.message });
       }
       try {
         const user = await User.updatePassword(_id, password);
-        res
+        return res
           .status(200)
           .json({ status: "Password updated successfully", ...user });
       } catch (error) {
-        res.status(403).json({ error: error.message });
+        return res.status(403).json({ error: error.message });
       }
     }
   );
@@ -103,7 +103,7 @@ const recoverPassword = async (req, res) => {
       function (error, info) {
         if (error) {
           reject(error);
-          res.status(400).json({ error: error.message });
+          return res.status(400).json({ error: error.message });
         } else {
           resolve(info);
         }

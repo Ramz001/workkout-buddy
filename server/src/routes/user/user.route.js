@@ -5,7 +5,7 @@ const {
   resetPassword,
   recoverPassword,
   verifyOTP,
-} = require("../controllers/userController");
+} = require("./user.controller");
 
 const router = express.Router();
 

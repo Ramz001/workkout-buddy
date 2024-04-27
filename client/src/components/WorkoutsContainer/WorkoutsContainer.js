@@ -3,34 +3,28 @@ import WorkoutDetails from '../WorkoutDetails/WorkoutDetails'
 import WorkoutForm from '../../components/WorkoutForm/WorkoutForm'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { setWorkouts } from '../../features/workouts/workoutsSlice'
+import { fetchWorkouts } from '../../features/workouts/workoutsSlice'
+import Spinner from '../Spinner/Spinner'
 
 const WorkoutsContainer = () => {
-  const dispatch = useDispatch()
   const { isSignedIn, user } = useSelector((store) => store.user)
-  const { workouts } = useSelector((store) => store.workouts)
+
+  const { workouts, isLoading, error } = useSelector((store) => store.workouts)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    const fetchWorkouts = async () => {
-      const response = await fetch('https://workout-buddy-self.vercel.app/api/workouts', {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      })
-      const data = await response.json()
-      if (response.ok) {
-        dispatch(setWorkouts(data))
-      }
-    }
     if (isSignedIn) {
-      fetchWorkouts()
+      dispatch(fetchWorkouts(user.token))
     }
   }, [dispatch, isSignedIn, user])
 
   return (
     <section className="flex flex-col-reverse gap-y-6 md:flex-row md:gap-8">
       <div className="flex w-full flex-col gap-4">
-        {workouts &&
+        {
+          isLoading && <Spinner />
+        }
+        {!isLoading && workouts &&
           workouts.map((workout) => (
             <WorkoutDetails
               key={workout._id + Math.random()}
@@ -60,7 +54,15 @@ const WorkoutsContainer = () => {
           </p>
         )}
       </div>
-      {workouts && <WorkoutForm />}
+      {!isLoading && workouts && <WorkoutForm />}
+      {error && (
+          <div
+            className="mt-2 rounded-md border border-red-600 bg-slate-100 p-2 
+          text-sm font-bold capitalize text-red-600 dark:bg-slate-800"
+          >
+            {error}!
+          </div>
+        )}
     </section>
   )
 }
