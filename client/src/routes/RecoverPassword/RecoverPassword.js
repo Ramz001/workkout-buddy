@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import useRecoverPassword from '../../hooks/useRecoverPassword/useRecoverPassword'
+import Loading from '../../assets/Loading.svg'
 
 const RecoverPassword = ({ setTemp }) => {
   const [email, setEmail] = useState('')
@@ -14,23 +15,23 @@ const RecoverPassword = ({ setTemp }) => {
 
   useEffect(() => {
     const handleBeforeUnload = (event) => {
-      event.preventDefault();
-      event.returnValue = '';
+      event.preventDefault()
+      event.returnValue = ''
     }
     if (data) {
       setTemp((prevState) => ({ ...prevState, email, _id: data._id }))
       navigate('/verify-email')
     }
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('beforeunload', handleBeforeUnload)
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
+      window.removeEventListener('beforeunload', handleBeforeUnload)
+    }
   }, [data, navigate, setTemp, email])
 
   return (
     <div
-      className="flex min-h-svh md:min-h-screen items-center justify-center bg-slate-100 
-      text-slate-900 dark:bg-slate-900 dark:text-slate-300"
+      className="flex min-h-svh items-center justify-center bg-slate-100 text-slate-900 
+      md:min-h-screen dark:bg-slate-900 dark:text-slate-300"
     >
       <form
         className="win-w-80 flex flex-col gap-2 rounded-xl bg-slate-200 px-6 
@@ -61,7 +62,15 @@ const RecoverPassword = ({ setTemp }) => {
           className="auth-submit-button mt-4 "
           onClick={(e) => handleRecoverBtn(e)}
         >
-          Reset Password
+          {isLoading ? (
+            <img
+              src={Loading}
+              alt="Loading"
+              className="dark:white-svg black-svg h-6 w-6 animate-spin"
+            />
+          ) : (
+            'Reset Password'
+          )}
         </button>
         <Link
           to="/login"

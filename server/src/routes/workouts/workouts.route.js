@@ -7,20 +7,16 @@ const {
   updateWorkout,
 } = require("./workouts.controller");
 
-const requireAuth = require('../../middleware/requireAuth')
+const requireAuth = require("../../middleware/requireAuth");
 
 const router = express.Router();
 
-router.use(requireAuth)
+router.use(requireAuth);
 
 router.get("/", getWorkouts);
-
-router.get("/:id", getOneWorkout);
-
 router.post("/", createWorkout);
-
+router.get("/:id", getOneWorkout);
 router.delete("/:id", deleteWorkout);
-
-router.put("/:id", updateWorkout);
+router.patch("/:id", updateWorkout);
 
 module.exports = router;

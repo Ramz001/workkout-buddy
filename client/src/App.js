@@ -1,8 +1,8 @@
 import { Suspense, lazy, useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import Spinner from './components/Spinner/Spinner'
 import Navbar from './components/Navbar/Navbar'
-import { useSelector } from 'react-redux'
 
 const Home = lazy(() => import('./routes/Home/Home'))
 const Login = lazy(() => import('./routes/Login/Login'))
@@ -22,11 +22,12 @@ function App() {
   return (
     <Suspense
       fallback={<Spinner />}
-      className="mx-auto min-h-svh max-w-[1920px] bg-slate-50 md:min-h-screen dark:bg-slate-700"
+      className="mx-auto min-h-svh max-w-[1920px] bg-slate-50 md:min-h-screen 
+      dark:bg-slate-700"
     >
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />}/>
+        <Route path="/" element={<Home />} />
         <Route
           path="/login"
           element={isSignedIn ? <Navigate to="/" /> : <Login />}

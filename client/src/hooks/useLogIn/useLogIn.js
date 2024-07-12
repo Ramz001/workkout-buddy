@@ -13,7 +13,7 @@ export const useLogIn = () => {
 
     try {
       const response = await fetch(
-        'https://workout-buddy-self.vercel.app/api/user/login',
+        process.env.REACT_APP_API_URL + '/api/user/login',
         {
           method: 'POST',
           headers: {

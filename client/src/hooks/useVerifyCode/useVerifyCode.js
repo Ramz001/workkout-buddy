@@ -11,15 +11,17 @@ const useVerifyCode = () => {
     setData(null)
 
     try {
-      
-      const response = await fetch('https://workout-buddy-self.vercel.app/api/user/verifyOTP', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ code, _id }),
-      })
-  
+      const response = await fetch(
+        process.env.REACT_APP_API_URL + '/api/user/verifyOTP',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ code, _id }),
+        }
+      )
+
       const data = await response.json()
       if (response.ok) {
         setData(data)

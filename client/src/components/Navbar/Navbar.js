@@ -10,12 +10,13 @@ const Navbar = () => {
   return (
     location.pathname === '/' && (
       <nav
-        className="mx-auto flex max-w-[1920px] items-center justify-between bg-slate-100 
-        px-[6.5%] py-6 text-slate-900 shadow-md md:px-16 dark:bg-slate-900 dark:text-slate-300"
+        className="mx-auto flex max-w-[1920px] items-center justify-between 
+        bg-slate-100 px-[5%] py-6 text-slate-900 shadow-md md:px-10 
+        dark:bg-slate-900 dark:text-slate-300"
       >
         <h3
           className="cursor-default text-base font-bold tracking-wider 
-        hover:text-green-600 sm:text-2xl md:text-3xl 2xl:text-4xl"
+          hover:text-green-600 sm:text-lg md:text-2xl 2xl:text-3xl"
         >
           Mr Workout Buddy
         </h3>

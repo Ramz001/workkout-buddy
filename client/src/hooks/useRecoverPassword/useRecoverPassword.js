@@ -10,15 +10,18 @@ const useRecoverPassword = () => {
     setError(null)
 
     try {
-      const response = await fetch('https://workout-buddy-self.vercel.app/api/user/recover-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      })
+      const response = await fetch(
+        process.env.REACT_APP_API_URL + '/api/user/recover-password',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email }),
+        }
+      )
       const data = await response.json()
-  
+
       if (response.ok) {
         setIsLoading(false)
         setData(data)

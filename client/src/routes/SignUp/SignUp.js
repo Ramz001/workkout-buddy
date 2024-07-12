@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useSignUp } from '../../hooks/useSignUp/useSignUp'
 import { useSelector } from 'react-redux'
+import Loading from '../../assets/Loading.svg'
 
 const SignUp = () => {
   const [name, setName] = useState('')
@@ -164,12 +165,20 @@ const SignUp = () => {
           </Link>
         </div>
         <button
-          disabled={isLoading}
           type="submit"
+          disabled={isLoading}
           className="auth-submit-button"
           onClick={handleSubmit}
         >
-          Sign Up
+          {isLoading ? (
+            <img
+              src={Loading}
+              alt="Loading"
+              className="dark:white-svg black-svg h-6 w-6 animate-spin"
+            />
+          ) : (
+            'Sign Up'
+          )}
         </button>
         {error && (
           <div

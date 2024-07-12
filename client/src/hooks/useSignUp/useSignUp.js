@@ -12,15 +12,18 @@ export const useSignUp = () => {
     setError(null)
 
     try {
-      const response = await fetch('https://workout-buddy-self.vercel.app/api/user/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, email, password }),
-      })
+      const response = await fetch(
+        process.env.REACT_APP_API_URL + '/api/user/signup',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name, email, password }),
+        }
+      )
       const data = await response.json()
-  
+
       if (response.ok) {
         dispatch(login(data))
         setIsLoading(false)

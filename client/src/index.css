@@ -44,20 +44,30 @@
     md:w-full dark:bg-slate-700 dark:text-slate-300 dark:active:bg-slate-600;
   }
   .auth-bottom-link {
-    @apply text-xs tracking-tighter underline hover:text-green-600 md:text-sm md:tracking-tight;
+    @apply text-xs tracking-tighter underline hover:text-green-600 md:text-sm 
+    md:tracking-tight;
   }
   .auth-submit-button {
-    @apply mt-2 h-10 rounded-lg border bg-green-600 
-    text-slate-100 hover:border-green-600 hover:bg-slate-200 hover:text-slate-900 disabled:cursor-not-allowed 
-    disabled:bg-slate-600 dark:bg-green-800 dark:hover:border-green-800 dark:hover:bg-slate-400;
+    @apply mt-2 flex h-10 items-center justify-center rounded-lg border bg-green-600
+    text-slate-100 hover:border-green-600 hover:bg-slate-200 hover:text-slate-900 
+    disabled:cursor-wait dark:bg-green-800 dark:hover:border-green-800 
+    dark:hover:bg-slate-400 disabled:dark:bg-slate-700;
   }
   .loader {
-    border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
     border-radius: 50%;
     width: 120px;
     height: 120px;
     animation: spin 2s linear infinite;
+  }
+  .black-svg {
+    filter: brightness(0) saturate(100%) invert(13%) sepia(14%) saturate(2390%)
+      hue-rotate(47deg) brightness(96%) contrast(88%);
+  }
+  .white-svg {
+    filter: brightness(0) saturate(100%) invert(85%) sepia(18%) saturate(315%)
+      hue-rotate(183deg) brightness(103%) contrast(103%);
   }
 
   @keyframes spin {

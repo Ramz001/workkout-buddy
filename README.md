@@ -1,4 +1,3 @@
-
 # Welcome to my workout buddy project
 
 This is a simple workout tracking.

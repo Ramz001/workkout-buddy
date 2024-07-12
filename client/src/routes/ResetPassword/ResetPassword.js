@@ -1,6 +1,7 @@
 import useResetPassword from '../../hooks/useResetPassword/useResetPassword'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import Loading from '../../assets/Loading.svg'
 
 const ResetPassword = ({ temp, setTemp }) => {
   const [password, setPassword] = useState('')
@@ -101,7 +102,15 @@ const ResetPassword = ({ temp, setTemp }) => {
           className="auth-submit-button mt-4"
           onClick={(e) => handleResetBtn(e)}
         >
-          Update Password
+          {isLoading ? (
+            <img
+              src={Loading}
+              alt="Loading"
+              className="dark:white-svg black-svg h-6 w-6 animate-spin"
+            />
+          ) : (
+            'Update Password'
+          )}
         </button>
         <Link
           to="/login"

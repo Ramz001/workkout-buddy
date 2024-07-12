@@ -1,41 +1,18 @@
 import WorkoutEditPopup from '../WorkoutEditPopup/WorkoutEditPopup'
-import { useDispatch, useSelector } from 'react-redux'
-import {
-  deleteWorkout,
-  togglePopup,
-} from '../../features/workouts/workoutsSlice'
+import { useState } from 'react'
+import { useDeleteWorkout } from '../../hooks/useDeleteWorkout/useDeleteWorkout'
 
 const WorkoutDetails = ({ workout }) => {
   const { title, repetitions, load, sets, duration, createdAt, _id } = workout
-  const dispatch = useDispatch()
-  const { user, isSignedIn } = useSelector((store) => store.user)
+  const [popUp, setPopUp] = useState(false)
+  const { deleteWorkout, error } = useDeleteWorkout()
 
   const handleDeleteBtn = async () => {
-    if (!isSignedIn) {
-      return alert('Please sign in to delete a workout')
-    }
-
-    const response = await fetch(
-      'https://workout-buddy-self.vercel.app/api/workouts/' + _id,
-      {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    )
-    const data = await response.json()
-
-    if (response.ok) {
-      dispatch(deleteWorkout(data))
-    } else{
-      throw Error('Cannot delete a workout')
-
-    }
+    await deleteWorkout(_id)
   }
 
   const handleEditBtn = () => {
-    dispatch(togglePopup())
+    setPopUp(true)
   }
   let hours = new Date(createdAt).toString().slice(15, 24)
   let date = new Date(createdAt).toString().slice(0, 15)
@@ -52,7 +29,7 @@ const WorkoutDetails = ({ workout }) => {
         </h4>
         {load !== 0 && load && (
           <p className="text-sm sm:text-base">
-            <span className="bold">Load: </span>
+            <span className="font-bold">Load: </span>
             {load} kgs
           </p>
         )}
@@ -62,7 +39,6 @@ const WorkoutDetails = ({ workout }) => {
         <p className="text-sm sm:text-base">
           <span className="font-bold">Reps: </span> {repetitions}
         </p>
-
         {duration !== 0 && duration && (
           <p className="text-sm sm:text-base">
             <span className="font-bold">Duration: </span> {duration} seconds
@@ -72,6 +48,7 @@ const WorkoutDetails = ({ workout }) => {
           <span className="font-bold">Date: </span>
           {hours}, {date}
         </p>
+        {error && <p>{error.message}</p>}
       </div>
       <div className="flex flex-col gap-4 self-center font-bold sm:self-start">
         <button
@@ -107,7 +84,9 @@ const WorkoutDetails = ({ workout }) => {
           </svg>
         </button>
       </div>
-      <WorkoutEditPopup workout={workout} />
+      {popUp && (
+        <WorkoutEditPopup popUp={popUp} setPopUP={setPopUp} workout={workout} />
+      )}
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import useVerifyCode from '../../hooks/useVerifyCode/useVerifyCode'
 import { useNavigate } from 'react-router-dom'
+import useVerifyCode from '../../hooks/useVerifyCode/useVerifyCode'
 import useRecoverPassword from '../../hooks/useRecoverPassword/useRecoverPassword'
 
 const VerifyEmail = ({ temp, setTemp }) => {
@@ -19,17 +19,17 @@ const VerifyEmail = ({ temp, setTemp }) => {
 
   useEffect(() => {
     const handleBeforeUnload = (event) => {
-      event.preventDefault();
-      event.returnValue = '';
+      event.preventDefault()
+      event.returnValue = ''
     }
     if (data) {
       setTemp((prevState) => ({ ...prevState, token: data.token }))
       return navigate('/reset-password')
     }
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('beforeunload', handleBeforeUnload)
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
+      window.removeEventListener('beforeunload', handleBeforeUnload)
+    }
   }, [data, navigate, setTemp])
 
   const handleResend = async () => {
@@ -38,8 +38,8 @@ const VerifyEmail = ({ temp, setTemp }) => {
 
   return (
     <section
-      className="flex min-h-svh md:min-h-screen items-center justify-center bg-slate-100 px-4 
-    text-slate-900 dark:bg-slate-900 dark:text-slate-200"
+      className="flex min-h-svh items-center justify-center bg-slate-100 px-4 text-slate-900 
+    md:min-h-screen dark:bg-slate-900 dark:text-slate-200"
     >
       <form
         className="flex max-w-80 flex-col gap-2 rounded-xl bg-slate-200 px-4 

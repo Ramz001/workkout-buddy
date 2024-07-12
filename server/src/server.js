@@ -3,37 +3,37 @@ const workoutRoutes = require("./routes/workouts/workouts.route");
 const userRoutes = require("./routes/user/user.route");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const localVariables = require('./middleware/localVariables')
-require("dotenv").config({ path: "./src/configs/.env" })
-const cluster = require("cluster") 
+const localVariables = require("./middleware/localVariables");
+require("dotenv").config();
 
 const corsOptions = {
-  origin: [`http://localhost:${process.env.PORT}` ,"https://mr-workout-buddy.vercel.app/**"], // frontend URI (ReactJS)
-}
+  origin: [
+    `http://localhost:${process.env.PORT}`,
+    "https://mr-workout-buddy.vercel.app/*",
+    "*",
+  ],
+};
 
 const app = express();
+const MONGODB_URI = process.env.MONGODB_URI ?? "";
 
 app.use(express.json(corsOptions));
 app.use(cors());
-app.locals.OTP = null
+app.locals.OTP = null;
 
 app.use("/api/workouts", workoutRoutes);
 app.use("/api/user", userRoutes);
-app.use(localVariables)
+app.use(localVariables);
 
-if(cluster.isMaster){
-  cluster.fork()
-  cluster.fork()
-} else{
-  mongoose
-    .connect(process.env.MONGODB_URI)
-    .then(() => {
-      app.listen(process.env.PORT, (req, res) => {
-        console.log(`App is listening on port ${process.env.PORT} ${process.pid}`);
-      });
-    })
-    .catch((error) => console.log(error));
-}
+mongoose
+  .connect(MONGODB_URI)
+  .then(() => {
+    app.listen(process.env.PORT, (req, res) => {
+      console.log(
+        `App is listening on port ${process.env.PORT} ${process.pid}`
+      );
+    });
+  })
+  .catch((error) => console.log(error));
 
-
-module.exports = app
+module.exports = app;

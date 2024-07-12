@@ -1,10 +1,8 @@
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { createWorkout } from '../../features/workouts/workoutsSlice'
+import { useCreateWorkout } from '../../hooks/useCreateWorkout/useCreateWorkout'
 
 const WorkoutForm = () => {
-  const dispatch = useDispatch()
-  const { user, isSignedIn } = useSelector((store) => store.user)
+  const { createWorkout, isLoading, error: resError } = useCreateWorkout()
 
   const [title, setTitle] = useState('')
   const [repetitions, setRepetitions] = useState('')
@@ -16,10 +14,6 @@ const WorkoutForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!isSignedIn) {
-      setError('The user must be authorized')
-      return
-    }
     if (!title || !sets || !repetitions) {
       return setError('Fields are required!')
     }
@@ -27,30 +21,15 @@ const WorkoutForm = () => {
 
     const workout = { title, load, repetitions, sets, duration, createdAt }
 
-    const response = await fetch(
-      'https://workout-buddy-self.vercel.app/api/workouts',
-      {
-        method: 'POST',
-        body: JSON.stringify(workout),
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    )
-    const data = await response.json()
+    await createWorkout(workout)
 
-    if (response.ok) {
-      dispatch(createWorkout(data))
+    if (!isLoading && !resError) {
       setError('')
       setTitle('')
       setLoad('')
       setRepetitions('')
       setSets('')
       setEmptyFields([])
-    } else{
-      setError(data.error)
-      setEmptyFields(data.emptyFields)
     }
   }
 
@@ -76,7 +55,7 @@ const WorkoutForm = () => {
           className={`${
             emptyFields && emptyFields.includes('title')
               ? 'border-2 border-red-500'
-              : ' '
+              : ''
           } h-8 rounded-lg bg-slate-50 px-2 shadow dark:bg-slate-700`}
         />
       </div>
@@ -99,7 +78,7 @@ const WorkoutForm = () => {
       </div>
       <div className="flex w-full flex-col gap-1">
         <label htmlFor="workout-sets" className="text-sm sm:text-base">
-          Sets:{' '}
+          Sets:
         </label>
         <input
           type="number"
@@ -147,7 +126,7 @@ const WorkoutForm = () => {
         bg-green-500 fill-slate-100 px-4 py-2 text-base font-semibold
         text-slate-100 shadow-inner hover:bg-green-600 md:text-lg dark:bg-green-700"
         onClick={(e) => handleSubmit(e)}
-        title='Add a workout'
+        title="Add a workout"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -160,7 +139,10 @@ const WorkoutForm = () => {
         Workout
       </button>
       {error && (
-        <div className="mt-2 rounded-md border border-red-600 bg-slate-100 p-2 text-sm font-bold text-red-600 dark:bg-slate-800">
+        <div
+          className="mt-2 rounded-md border border-red-600 bg-slate-100 
+        p-2 text-sm font-bold text-red-600 dark:bg-slate-800"
+        >
           {error}
         </div>
       )}
