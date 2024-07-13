@@ -14,8 +14,6 @@ const login = async (req, res) => {
     const user = await User.login(email, password);
     const token = createToken(user._id);
 
-    const expiryDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 3); // 3 days
-
     return res
       .status(200)
       .json({ name: user.name, email, token, expiresAt: expiryDate });
@@ -29,7 +27,6 @@ const signUp = async (req, res) => {
 
   try {
     const user = await User.signup(name, email, password);
-    const expiryDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 3); // 3 days
     const token = createToken(user._id);
 
     return res.status(200).json({ name, email, token, expiresAt: expiryDate });

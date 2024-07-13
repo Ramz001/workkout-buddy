@@ -2,26 +2,26 @@ import WorkoutDetails from '../WorkoutDetails/WorkoutDetails'
 import WorkoutForm from '../../components/WorkoutForm/WorkoutForm'
 import Spinner from '../Spinner/Spinner'
 import { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchWorkouts } from '../../features/workouts/workoutsSlice'
-import { logout } from '../../features/user/userSlice'
+// import { logout } from '../../features/user/userSlice'
 
 const WorkoutsContainer = () => {
   const { isSignedIn, user } = useSelector((store) => store.user)
   const { workouts, isLoading, error } = useSelector((store) => store.workouts)
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (isSignedIn && new Date(user.expiresAt) > new Date(Date.now())) {
+    if (isSignedIn) {
       dispatch(fetchWorkouts(user.token))
     }
-    if (isSignedIn && new Date(Date.now()) >= new Date(user.expiresAt)) {
-      dispatch(logout())
-      navigate('/login')
-    }
-  }, [dispatch, navigate, isSignedIn, user])
+    // if (isSignedIn && new Date(Date.now()) >= new Date(user.expiresAt)) {
+    //   dispatch(logout())
+    //   navigate('/login')
+    // }
+  }, [dispatch, isSignedIn, user])
 
   return (
     <section className="flex flex-col-reverse gap-y-6 md:flex-row md:gap-8">
