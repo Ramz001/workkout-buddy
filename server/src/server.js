@@ -5,7 +5,6 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const localVariables = require("./middleware/localVariables");
 require("dotenv").config();
-const cookieParser = require("cookie-parser");
 
 const app = express();
 const MONGODB_URI = process.env.MONGODB_URI ?? "";
