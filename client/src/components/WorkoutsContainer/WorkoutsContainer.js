@@ -5,22 +5,16 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchWorkouts } from '../../features/workouts/workoutsSlice'
-// import { logout } from '../../features/user/userSlice'
 
 const WorkoutsContainer = () => {
   const { isSignedIn, user } = useSelector((store) => store.user)
   const { workouts, isLoading, error } = useSelector((store) => store.workouts)
-  // const navigate = useNavigate()
   const dispatch = useDispatch()
 
   useEffect(() => {
     if (isSignedIn) {
       dispatch(fetchWorkouts(user.token))
     }
-    // if (isSignedIn && new Date(Date.now()) >= new Date(user.expiresAt)) {
-    //   dispatch(logout())
-    //   navigate('/login')
-    // }
   }, [dispatch, isSignedIn, user])
 
   return (
