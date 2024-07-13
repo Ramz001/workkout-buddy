@@ -4,8 +4,9 @@
   "description": "Workout Buddy Api",
   "main": "./src/server.js",
   "scripts": {
-    "start": "nodemon ./src/server.js",
-    "pm2": "pm2 start ecosystem.config.js"
+    "build": "npm install",
+    "dev": "nodemon ./src/server.js",
+    "start": "pm2 start ./src/server.ts"
   },
   "repository": {
     "type": "git",

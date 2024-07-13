@@ -11,11 +11,13 @@ const app = express();
 const MONGODB_URI = process.env.MONGODB_URI ?? "";
 
 app.use(express.json());
+
 app.use(
   cors({
     origin: [process.env.CLIENT_URL, "http://localhost:3000", "*"],
   })
 );
+
 app.use(cookieParser());
 app.locals.OTP = null;
 
