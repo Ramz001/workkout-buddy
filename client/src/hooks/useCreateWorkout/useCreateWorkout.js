@@ -40,7 +40,7 @@ export const useCreateWorkout = () => {
 
       if (response.ok) {
         setIsLoading(false)
-        dispatch(fetchWorkouts(user.token))
+        dispatch(fetchWorkouts(user.token, user.expiresAt))
       } else {
         setIsLoading(false)
         setError(data.error)

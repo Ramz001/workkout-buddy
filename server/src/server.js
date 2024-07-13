@@ -5,20 +5,20 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const localVariables = require("./middleware/localVariables");
 require("dotenv").config();
-
-const corsOptions = {
-  origin: [
-    `http://localhost:${process.env.PORT}`,
-    "https://mr-workout-buddy.vercel.app/*",
-    "*",
-  ],
-};
+const cookieParser = require("cookie-parser");
 
 const app = express();
 const MONGODB_URI = process.env.MONGODB_URI ?? "";
 
-app.use(express.json(corsOptions));
-app.use(cors());
+app.use(express.json());
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+    withCredentials: true,
+  })
+);
+app.use(cookieParser());
 app.locals.OTP = null;
 
 app.use("/api/workouts", workoutRoutes);

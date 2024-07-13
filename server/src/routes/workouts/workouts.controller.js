@@ -5,6 +5,8 @@ const getWorkouts = async (req, res) => {
   const user_id = req.user._id;
   try {
     const workouts = await Workout.find({ user_id }).sort({ createdAt: -1 });
+    res.cookie("somethasdfsding", "sdasdf");
+    
     return res.status(200).json(workouts);
   } catch (error) {
     return res.status(400).json({ error });

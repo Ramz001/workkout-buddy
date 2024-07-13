@@ -16,7 +16,7 @@ const ResetPassword = lazy(() => import('./routes/ResetPassword/ResetPassword'))
 
 function App() {
   const { isSignedIn } = useSelector((store) => store.user)
-
+  
   const [temp, setTemp] = useState({ email: '', _id: '', token: '' })
 
   return (
