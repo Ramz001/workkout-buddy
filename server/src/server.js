@@ -17,8 +17,6 @@ app.use(
     origin: [process.env.CLIENT_URL, "http://localhost:3000", "*"],
   })
 );
-
-app.use(cookieParser());
 app.locals.OTP = null;
 
 app.use("/api/workouts", workoutRoutes);
