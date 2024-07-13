@@ -9,13 +9,9 @@ require("dotenv").config();
 const app = express();
 const MONGODB_URI = process.env.MONGODB_URI ?? "";
 
+app.use(cors());
 app.use(express.json());
 
-app.use(
-  cors({
-    origin: [process.env.CLIENT_URL, "http://localhost:3000", "*"],
-  })
-);
 app.locals.OTP = null;
 
 app.use("/api/workouts", workoutRoutes);
